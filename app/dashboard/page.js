@@ -1,4 +1,4 @@
-import "./listagem_prestadores.css";
+import "./dashboard.css";
 
 export default function Dashboard() {
     return (
