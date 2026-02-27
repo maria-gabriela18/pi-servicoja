@@ -22,7 +22,9 @@ export default function Login() {
 
             <br /><br />
 
-            <button class="btn btn-primary">Entrar</button>
+            <div className="botaoEntrarLogin">
+            <Link href="dashboard"> <button class="btn btn-primary">Entrar</button> </Link>
+            </div>
 
             <br />
 
