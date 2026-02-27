@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+}
+
+.card {
+    background-color: #fff;
+    width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.botaoCadastrar{
+    margin: 5px;
+}
+
+.demo {
+    margin-top: 20px;
+    background: #f3f4f6;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #4b5563;
+    }
