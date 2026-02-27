@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+body {
+    font-family: "League Spartan", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8fafc;
+
+}
+
+.header {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    text-align: end;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.header div button {
+    background-color: #6366f1;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 10px;
+    margin-right: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.header div button:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+}
+
+section .titulo {
+    display: flex;
+    justify-content: center;
+
+}
+
+.titulo h1 {
+    color: rgb(228, 159, 32);
+}
+
+.titulo h1 span {
+    color: #2563eb;
+}
+
+.carrossel {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carrossel ul {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+}
+
+
+.carrossel ul::-webkit-scrollbar {
+    display: none;
+}
+
+.carrossel li {
+    list-style: none;
+    min-width: 180px;
+    height: 100px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.carrossel li:hover {
+    transform: translateY(-5px);
+    background: #2563eb;
+    color: #fff;
+}
+
+
+.informacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+}
+
+.informacao p {
+    color: #0f172a;
+    font-size: 18px;
+}
+
+.informacao h2 {
+    color: #475569;
+}
+
+
+.cardsFuncionamento {
+
+    display: flex;
+    justify-content: center;
+
+}
+
+.cardsFuncionamento div {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #fff;
+    color: #475569;
+    margin-right: 10px;
+    width: 400px;
+    padding: 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+.sobreNos {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.sobreNos div {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 500px;
+    height: 400px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sobreNos div h2 {
+    color: #0f172a;
+}
+
+.sobreNos div p {
+    color: #475569;
+}
+
+footer {
+    margin-top: 30px;
+    background-color: black;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
