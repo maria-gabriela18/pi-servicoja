@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function AdiminiPrest(){
     return(
         <div class="container-fluid">
@@ -11,9 +13,9 @@ export default function AdiminiPrest(){
 
 
                 <div class="list-group list-group-flush fs-5">
-                    <a href="#" class="list-group-item list-group-item-action">Perfil</a>
-                    <a href="#" class="list-group-item list-group-item-action">Descrição</a>
-                    <a href="#" class="list-group-item list-group-item-action">Demandas finalizadas</a>
+                    <Link href="perfil_usuarios" class="list-group-item list-group-item-action">Perfil</Link>
+                    <Link href="#" class="list-group-item list-group-item-action">Descrição</Link>
+                    <Link href="#" class="list-group-item list-group-item-action">Demandas finalizadas</Link>
                 </div>
 
                 <div class="text-center menuLateralPerfil">
