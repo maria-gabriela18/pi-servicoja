@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import "../home.css";
 export default function Page() {
 
@@ -7,8 +8,8 @@ export default function Page() {
 
             <header className="header">
                 <div>
-                    <button>Login</button>
-                    <button>Cadastrar</button>
+                    <Link href="login_usuarios"> <button>Login</button> </Link>
+                    <Link href="cadastro_usuarios"> <button>Cadastro</button> </Link>
                 </div>
             </header>
 

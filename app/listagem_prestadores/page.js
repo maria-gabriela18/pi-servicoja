@@ -28,6 +28,28 @@ export default function ListagemPrestadores() {
                     <textarea placeholder="eu sou um programador"></textarea>
                     <button>Ver contato</button>
                 </div>
+
+                <div>
+                    <img src="https://placehold.co/50x50"></img>
+                    <h3>Rafael</h3>
+                    <p>FUNÇÃO:</p>
+                    <span>Programador</span>
+                    <p>Descrição:</p>
+                    <textarea placeholder="eu sou um programador"></textarea>
+                    <button>Ver contato</button>
+                </div>
+
+                <div>
+                    <img src="https://placehold.co/50x50"></img>
+                    <h3>Rafael</h3>
+                    <p>FUNÇÃO:</p>
+                    <span>Programador</span>
+                    <p>Descrição:</p>
+                    <textarea placeholder="eu sou um programador"></textarea>
+                    <button>Ver contato</button>
+                </div>
+
+
             </section>
 
         </div>

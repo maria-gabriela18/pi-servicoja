@@ -30,3 +30,7 @@
     height: 500px;
     flex-direction: column;
 }
+
+.cards{
+    display: flex;
+}
