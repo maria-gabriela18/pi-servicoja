@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./cadastro_usuarios.css";
 
 export default function Cadastro() {
@@ -79,7 +80,7 @@ export default function Cadastro() {
                 </div>
 
                 <div class="col-6">
-                <button class="btn btn-danger">Cancelar</button>
+                <Link k href="login_usuarios"> <button class="btn btn-danger">Cancelar</button> </Link>
                 </div>
 
             </div>
