@@ -19,36 +19,127 @@ export default function ListagemPrestadores() {
 
 
             <section className="cards">
-                <div>
-                    <img src="https://placehold.co/50x50"></img>
-                    <h3>Rafael</h3>
-                    <p>FUNÇÃO:</p>
-                    <span>Programador</span>
-                    <p>Descrição:</p>
-                    <textarea placeholder="eu sou um programador"></textarea>
-                    <button>Ver contato</button>
+
+                <div className="card">
+                    <div className="card-top">
+                        <img src="https://placehold.co/50x50" />
+                        <h3>Rafael</h3>
+                    </div>
+
+                    <div className="card-info">
+                        <p className="label">Função</p>
+                        <span>Programador</span>
+                    </div>
+
+                    <div className="card-desc">
+                        <p className="label">Descrição</p>
+                        <p className="descricao">
+                            Eu sou um programador especializado em sistemas web.
+                        </p>
+                    </div>
+
+                    <div className="card-action">
+                        <button>Ver contato</button>
+                    </div>
+
                 </div>
 
-                <div>
-                    <img src="https://placehold.co/50x50"></img>
-                    <h3>Rafael</h3>
-                    <p>FUNÇÃO:</p>
-                    <span>Programador</span>
-                    <p>Descrição:</p>
-                    <textarea placeholder="eu sou um programador"></textarea>
-                    <button>Ver contato</button>
+                <div className="card">
+                    <div className="card-top">
+                        <img src="https://placehold.co/50x50" />
+                        <h3>Rafael</h3>
+                    </div>
+
+                    <div className="card-info">
+                        <p className="label">Função</p>
+                        <span>Programador</span>
+                    </div>
+
+                    <div className="card-desc">
+                        <p className="label">Descrição</p>
+                        <p className="descricao">
+                            Eu sou um programador especializado em sistemas web.
+                        </p>
+                    </div>
+
+                    <div className="card-action">
+                        <button>Ver contato</button>
+                    </div>
+
                 </div>
 
-                <div>
-                    <img src="https://placehold.co/50x50"></img>
-                    <h3>Rafael</h3>
-                    <p>FUNÇÃO:</p>
-                    <span>Programador</span>
-                    <p>Descrição:</p>
-                    <textarea placeholder="eu sou um programador"></textarea>
-                    <button>Ver contato</button>
+                <div className="card">
+                    <div className="card-top">
+                        <img src="https://placehold.co/50x50" />
+                        <h3>Rafael</h3>
+                    </div>
+
+                    <div className="card-info">
+                        <p className="label">Função</p>
+                        <span>Programador</span>
+                    </div>
+
+                    <div className="card-desc">
+                        <p className="label">Descrição</p>
+                        <p className="descricao">
+                            Eu sou um programador especializado em sistemas web.
+                        </p>
+                    </div>
+
+                    <div className="card-action">
+                        <button>Ver contato</button>
+                    </div>
+
                 </div>
 
+                <div className="card">
+                    <div className="card-top">
+                        <img src="https://placehold.co/50x50" />
+                        <h3>Rafael</h3>
+                    </div>
+
+                    <div className="card-info">
+                        <p className="label">Função</p>
+                        <span>Programador</span>
+                    </div>
+
+                    <div className="card-desc">
+                        <p className="label">Descrição</p>
+                        <p className="descricao">
+                            Eu sou um programador especializado em sistemas web.
+                        </p>
+                    </div>
+
+                    <div className="card-action">
+                        <button>Ver contato</button>
+                    </div>
+
+                </div>
+
+
+                <div className="card">
+                    <div className="card-top">
+                        <img src="https://placehold.co/50x50" />
+                        <h3>Rafael</h3>
+                    </div>
+
+                    <div className="card-info">
+                        <p className="label">Função</p>
+                        <span>Programador</span>
+                    </div>
+
+                    <div className="card-desc">
+                        <p className="label">Descrição</p>
+                        <p className="descricao">
+                            Eu sou um programador especializado em sistemas web.
+                        </p>
+                    </div>
+
+                    <div className="card-action">
+                        <button>Ver contato</button>
+                    </div>
+
+                </div>
 
             </section>
 
