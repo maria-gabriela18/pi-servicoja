@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./login_usuario.css";
 
 export default function Login() {
@@ -26,7 +27,7 @@ export default function Login() {
             <br />
 
             <div className="semconta">
-                <a href="./cadastro_usuarios">Não tem conta? Criar</a>
+                <Link href="cadastro_usuarios" > Não tem conta? Criar </Link>
             </div>
 
         
