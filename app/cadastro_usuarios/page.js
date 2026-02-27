@@ -76,7 +76,7 @@ export default function Cadastro() {
             <div class="text-center row">
 
                 <div class="col-6">
-                <button class="btn btn-primary">Cadastrar</button>
+                <Link href="dashboard"> <button class="btn btn-primary">Cadastrar</button> </Link>
                 </div>
 
                 <div class="col-6">
