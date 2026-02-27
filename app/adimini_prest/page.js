@@ -51,7 +51,7 @@ export default function AdiminiPrest(){
                     <div class="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
 
                     <div class="col-4">
-                        <select class="form-select">
+                        <select class="form-select ">
                             <option selected disabled> Filtro </option>
                             <option value="1"> Ativo </option>
                             <option value="2"> Finalizado </option>
@@ -62,16 +62,16 @@ export default function AdiminiPrest(){
                 {/* <!-- Cadastro --> */}
                 <div class="text-end my-5">
                     
-                    <button class="btn btn-secondary me-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Todas demandas</button>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Criar novo portfólio</button>
+                    <button class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Todas demandas</button>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" >Criar novo portfólio</button>
 
                 </div>
 
                 {/* Tabela */}
                 <div>
-                    <table class="table table-striped">
+                    <table class="table table-success table-striped">
                         <thead> 
-                            <tr class="table-dark "> 
+                            <tr> 
                                 <th scope="col">Nome</th>
                                 <th scope="col">Descrição</th>
                                 <th scope="col">Categoria</th>
