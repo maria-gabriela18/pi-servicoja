@@ -10,7 +10,7 @@ export default function Login() {
 
             <h1> Login </h1>
 
-            <br />
+            <hr/> <br />
 
             <p> Insira seu e-mail: </p>
             <input class="form-control" type="email" placeholder="seu@email.com" />

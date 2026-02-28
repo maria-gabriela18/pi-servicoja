@@ -7,19 +7,21 @@ export default function Login() {
 
             <h1> Editar perfil </h1>
 
-            <br />
+            <hr/> <br />
 
             <div class="row">
 
                 <div class="col-2">
-                    <img class="rounded-circle" width="90" src="https:placehold.co/150" />
+                    <img class="rounded-circle" width="40" src="https:placehold.co/150" />
                 </div>
 
-                <div className="nomeCompleto" class="col-10">
+                <div class="col-10">
                 <h3> Nome completo </h3>
                 </div>
 
             </div>
+
+            <br/>
 
             <div class="text-center row">
 
