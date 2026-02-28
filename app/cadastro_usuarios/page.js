@@ -8,7 +8,7 @@ export default function Cadastro() {
 
             <h1> Criar conta </h1>
 
-            <br />
+            <hr/> <br />
 
             <div class="row">
 
