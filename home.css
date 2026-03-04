@@ -4,7 +4,7 @@ body {
     font-family: "League Spartan", sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8fafc;
+    background: linear-gradient(to bottom, #dbeafe, #ffffff);
 
 }
 
@@ -14,6 +14,7 @@ body {
     padding: 20px;
     text-align: end;
     border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 50px;
 }
 
 .header div button {
@@ -40,7 +41,8 @@ section .titulo {
 }
 
 .titulo h1 {
-    color: rgb(228, 159, 32);
+    color: #f97316;
+    font-weight: bold;
 }
 
 .titulo h1 span {
@@ -49,14 +51,15 @@ section .titulo {
 
 .carrossel {
     display: flex;
-    justify-content: center;
     width: 100%;
     overflow: hidden;
     position: relative;
 }
 
 .carrossel ul {
+    width: 100%;
     display: flex;
+    justify-content: center;
     gap: 14px;
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -94,13 +97,15 @@ section .titulo {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 50px;
+    margin-top: 50px;
 
 
 }
 
 .informacao p {
     color: #0f172a;
-    font-size: 18px;
+    font-size: 13px;
 }
 
 .informacao h2 {
@@ -121,18 +126,18 @@ section .titulo {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: #fff;
+    background: #ffffff;
     color: #475569;
     margin-right: 10px;
     width: 400px;
     padding: 80px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 
 .sobreNos {
-    margin-top: 20px;
+    margin-top: 50px;
     text-align: center;
     display: flex;
     justify-content: center;

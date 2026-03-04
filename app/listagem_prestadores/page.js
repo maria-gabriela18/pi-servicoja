@@ -1,5 +1,5 @@
 import "./listagem_prestadores.css";
-
+import Link from "next/link";
 export default function ListagemPrestadores() {
     return (
         <div>
@@ -14,6 +14,10 @@ export default function ListagemPrestadores() {
                     <li>Saúde</li>
                     <li>Assistencia técnica </li>
                 </ul>
+
+                <div className="botaoPerfil">
+                     <Link href="perfil_usuarios" class="list-group-item list-group-item-action">Perfil</Link>
+                </div>
             </header>
 
             {/* CATEGORIA 1 */}
