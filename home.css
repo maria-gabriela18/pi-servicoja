@@ -49,6 +49,27 @@ section .titulo {
     color: #2563eb;
 }
 
+.caixa-input{
+    display: flex;
+    justify-content: center;
+    margin: 40px 40px;
+   
+}
+
+.caixa-input input{
+    width: 800px;
+    padding: 7px;
+    border-radius: 20px;
+    border: none;
+}
+.caixa-input button{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+}
+
 .carrossel {
     display: flex;
     width: 100%;
@@ -116,7 +137,7 @@ section .titulo {
 .cardsFuncionamento {
 
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 
 }
 
