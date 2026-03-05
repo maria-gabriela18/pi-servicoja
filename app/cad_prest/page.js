@@ -1,6 +1,11 @@
 import Link from "next/link";
 
 export default function CadPrest() {
+
+
+
+
+
   return (
     <div class="col-8 mx-auto mt-5 border border-secondary">
       <div class="text-center mx-auto mt-3" >
@@ -75,9 +80,32 @@ export default function CadPrest() {
 
       </form>
 
+      <div class="modal fade" id="exampleModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Cadastro realizado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        Prestador cadastrado com sucesso!
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Fechar
+        </button>
+      </div>
 
     </div>
+  </div>
+</div>
 
+    </div>
   )
+
+    
 }
 

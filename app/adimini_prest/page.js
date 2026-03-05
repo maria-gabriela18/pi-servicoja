@@ -1,6 +1,60 @@
 import Link from "next/link";
 
 export default function AdiminiPrest() {
+
+    const listaPrestadores = [
+        {
+            nome: "Luiz",
+            descricao: "Problema na porta do quarto",
+            categoria: "Marceneiro"
+        },
+        {
+            nome: "Ana",
+            descricao: "Vazamento na pia da cozinha",
+            categoria: "Encanador"
+        },
+        {
+            nome: "Carlos",
+            descricao: "Instalação de ventilador de teto",
+            categoria: "Eletricista"
+        },
+        {
+            nome: "Mariana",
+            descricao: "Pintura da sala e corredor",
+            categoria: "Pintor"
+        },
+        {
+            nome: "Roberto",
+            descricao: "Manutenção no ar-condicionado",
+            categoria: "Técnico em Ar-Condicionado"
+        },
+        {
+            nome: "Juliana",
+            descricao: "Instalação de piso laminado",
+            categoria: "Pedreiro"
+        },
+        {
+            nome: "Fernando",
+            descricao: "Conserto de notebook",
+            categoria: "Técnico em Informática"
+        },
+        {
+            nome: "Patricia",
+            descricao: "Montagem de guarda-roupa",
+            categoria: "Montador de Móveis"
+        },
+        {
+            nome: "Ricardo",
+            descricao: "Limpeza pós-obra",
+            categoria: "Diarista"
+        },
+        {
+            nome: "Camila",
+            descricao: "Troca de fechadura",
+            categoria: "Chaveiro"
+        }
+    ];
+
     return (
         <div class="container-fluid">
             <div class="row">
@@ -18,7 +72,7 @@ export default function AdiminiPrest() {
                         <Link href="#" class="list-group-item list-group-item-action">Demandas finalizadas</Link>
                     </div>
 
-        
+
                     <div class="text-center menuLateralPerfil ">
                         <img class="me-2" src="https://placehold.co/40" />
                         <div class="btn-group dropend ">
@@ -28,7 +82,7 @@ export default function AdiminiPrest() {
                                 <li><a class="dropdown-item" href="#">Sair</a></li>
                             </ul>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -68,7 +122,6 @@ export default function AdiminiPrest() {
                         <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" >Criar novo portfólio</button>
 
                     </div>
-
                     {/* Tabela */}
                     <div>
                         <table class="table table-success table-striped">
@@ -82,41 +135,24 @@ export default function AdiminiPrest() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">Luiz</th>
-                                    <td>Problema na porta</td> {/* td: coluna*/}
-                                    <td> Marceneiro </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Rafa</th>
-                                    <td>Pia quebrada</td>
-                                    <td> Encanador </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">Conrado</th>
-                                    <td>Buraco na parede</td>
-                                    <td> Pedreiro </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
-
-                                </tr>
-                                <tr>
-
-                                </tr>
+                                {
+                                    listaPrestadores.map(
+                                        item => <tr>
+                                            <th scope="row">{item.nome}</th>
+                                            <td>{item.descricao}</td> {/* td: coluna*/}
+                                            <td>{item.categoria}</td>
+                                            <td><button>❌</button> <button>👁‍🗨</button></td>
+                                        </tr>
+                                    )
+                                }
                             </tbody>
                         </table>
 
 
                     </div>
                 </div>
-            </div>
-
-
-
-
-        </div>
+            </div>            
+        </div >
     )
 
 }
