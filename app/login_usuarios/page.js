@@ -10,7 +10,7 @@ export default function Login() {
 
             <h1> Login </h1>
 
-            <br />
+            <hr/> <br />
 
             <p> Insira seu e-mail: </p>
             <input class="form-control" type="email" placeholder="seu@email.com" />
@@ -22,7 +22,9 @@ export default function Login() {
 
             <br /><br />
 
-            <button class="btn btn-primary">Entrar</button>
+            <div className="botaoEntrarLogin">
+            <Link href="dashboard"> <button class="btn btn-primary">Entrar</button> </Link>
+            </div>
 
             <br />
 

@@ -1,28 +1,59 @@
+"use client";
 import Link from "next/link";
 import "./cadastro_usuarios.css";
+import { useState } from "react";
 
 export default function Cadastro() {
+
+    const [nome, alteraNome] = useState()
+    const [email, alteraEmail] = useState()
+    const [cpf, alteraCpf] = useState()
+    const [dataNascimento, alteraDataNascimento] = useState()
+    const [telefone, alteraTelefone] = useState()
+    const [endereco, alteraEndereco] = useState()
+    const [senha, alteraSenha] = useState()
+
+    function salvar(e) {
+        e.preventDefault()
+
+        const objeto = {
+            nome: nome,
+            email: email,
+            cpf: cpf,
+            dataNascimento: dataNascimento,
+            telefone: telefone,
+            endereco: endereco,
+            senha: senha,
+        }
+
+        console.log(objeto)
+
+    }
+
+
     return (
 
         <div className="card">
 
             <h1> Criar conta </h1>
 
-            <br />
+            <hr/> <br />
+
+            <form onSubmit={salvar} >
 
             <div class="row">
 
                 <div class="col-6">
 
                     <p> Nome: </p>
-                    <input class="form-control" placeholder="Seu nome completo" />
+                    <input onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
 
                 </div>
 
                 <div class="col-6">
 
                     <p> E-mail: </p>
-                    <input  class="form-control" placeholder="seu@email.com" />
+                    <input onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
 
                 </div>
 
@@ -34,17 +65,17 @@ export default function Cadastro() {
 
             <div class="col-4">
             <p> CPF: </p>
-            <input class="form-control" placeholder="00011122233" />
+            <input onChange={e => alteraCpf(e.target.value)} class="form-control" placeholder="00011122233" />
             </div>
 
             <div class="col-4">
             <p> Data de Nascimento: </p>
-            <input class="form-control" type="date" />
+            <input onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
             </div>
 
             <div class="col-4">
             <p> Telefone: </p>
-            <input class="form-control" placeholder="11999998888" type="tel" />
+            <input onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
             </div>
 
             </div>
@@ -52,12 +83,12 @@ export default function Cadastro() {
             <br />
 
             <p> Endereço: </p>
-            <input class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+            <input onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
 
             <br />
 
             <p> Insira sua senha: </p>
-            <input class="form-control" type="password" placeholder="•••••••" />
+            <input onChange={e => alteraSenha(e.target.value)} class="form-control" type="password" placeholder="•••••••" />
 
             <br/>
 
@@ -84,6 +115,8 @@ export default function Cadastro() {
                 </div>
 
             </div>
+
+            </form>
 
         </div>
     )

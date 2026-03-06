@@ -3,7 +3,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f3f4f6;
+    background: linear-gradient(to bottom, #dbeafe, #ffffff);
+    background-repeat: no-repeat;
 }
 
 .card {
@@ -14,7 +15,7 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.botaoCadastrar{
+.botaoCadastrar {
     margin: 5px;
 }
 
@@ -25,4 +26,4 @@ body {
     border-radius: 12px;
     font-size: 13px;
     color: #4b5563;
-    }
+}
