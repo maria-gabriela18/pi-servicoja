@@ -61,6 +61,7 @@ section .titulo {
     padding: 7px;
     border-radius: 20px;
     border: none;
+    outline: none;
 }
 .caixa-input button{
     background-color: white;

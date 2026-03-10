@@ -1,6 +1,27 @@
+'use client'
+
 import Link from "next/link";
+import { useState } from 'react';
 
 export default function AdiminiPrest() {
+
+    const [funcao, setFuncao] = useState("");
+    const [descricao, setDescricao] = useState("");
+
+    function salvar(e) {
+        e.preventDefault()
+
+        const objeto = {
+            funcao: funcao,
+            descricao: descricao
+
+        }
+
+        console.log(objeto)
+    }
+
+
+
     return (
         <div class="container-fluid">
             <div class="row">
@@ -18,7 +39,7 @@ export default function AdiminiPrest() {
                         <Link href="#" class="list-group-item list-group-item-action">Demandas finalizadas</Link>
                     </div>
 
-        
+
                     <div class="text-center menuLateralPerfil ">
                         <img class="me-2" src="https://placehold.co/40" />
                         <div class="btn-group dropend ">
@@ -28,7 +49,7 @@ export default function AdiminiPrest() {
                                 <li><a class="dropdown-item" href="#">Sair</a></li>
                             </ul>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -109,6 +130,38 @@ export default function AdiminiPrest() {
                         </table>
 
 
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Cadastro</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <label>Função:</label><br />
+
+
+                        <input type="text" className="inputCliente" onChange={e => setFuncao(e.target.value)} /><br /><br />
+
+
+
+                        <label>Descrição:</label><br />
+
+                        <input type="text" className="inputCliente" onChange={e => setDescricao(e.target.value)} /><br /><br />
+
+
+
+
+
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" className="btn btn-primary" onClick={salvar}>Salvar</button>
+                        </div>
                     </div>
                 </div>
             </div>
