@@ -3,6 +3,8 @@ import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient("https://ynxzquxbnbdesqknhbte.supabase.co", 'sb_publishable_NFhvutPRUhEg0xdbFhkflA_UV_NXWFu')
 
+// postgresql://postgres:[OBok2BcuYLAUGKj3]@db.ynxzquxbnbdesqknhbte.supabase.co:5432/postgres
+
 import Link from "next/link";
 import { useState } from 'react';
 
