@@ -66,7 +66,7 @@ export default function AdiminiPrest() {
                     </div>
 
 
-                    <div class="list-group list-group-flush fs-5 ">
+                    <div class="list-group list-group-flush fs-5">
                         <Link href="perfil_usuarios" class="list-group-item list-group-item-action">Perfil</Link>
                         <Link href="#" class="list-group-item list-group-item-action">Descrição</Link>
                         <Link href="#" class="list-group-item list-group-item-action">Demandas finalizadas</Link>
@@ -151,8 +151,53 @@ export default function AdiminiPrest() {
 
                     </div>
                 </div>
-            </div>            
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Todas Demandas</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" ></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><table class="table table-success table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Categoria</th>
+                                        <th scope="col">Visualização</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        listaPrestadores.map(
+                                            item => <tr>
+                                                <th scope="row">{item.nome}</th>
+                                                <td>{item.descricao}</td> {/* td: coluna*/}
+                                                <td>{item.categoria}</td>
+                                                <td><button>❌</button> <button>👁‍🗨</button></td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div >
+
+
+
     )
 
 }
