@@ -1,59 +1,26 @@
+'use client'
+
 import Link from "next/link";
+import { useState } from 'react';
 
 export default function AdiminiPrest() {
 
-    const listaPrestadores = [
-        {
-            nome: "Luiz",
-            descricao: "Problema na porta do quarto",
-            categoria: "Marceneiro"
-        },
-        {
-            nome: "Ana",
-            descricao: "Vazamento na pia da cozinha",
-            categoria: "Encanador"
-        },
-        {
-            nome: "Carlos",
-            descricao: "Instalação de ventilador de teto",
-            categoria: "Eletricista"
-        },
-        {
-            nome: "Mariana",
-            descricao: "Pintura da sala e corredor",
-            categoria: "Pintor"
-        },
-        {
-            nome: "Roberto",
-            descricao: "Manutenção no ar-condicionado",
-            categoria: "Técnico em Ar-Condicionado"
-        },
-        {
-            nome: "Juliana",
-            descricao: "Instalação de piso laminado",
-            categoria: "Pedreiro"
-        },
-        {
-            nome: "Fernando",
-            descricao: "Conserto de notebook",
-            categoria: "Técnico em Informática"
-        },
-        {
-            nome: "Patricia",
-            descricao: "Montagem de guarda-roupa",
-            categoria: "Montador de Móveis"
-        },
-        {
-            nome: "Ricardo",
-            descricao: "Limpeza pós-obra",
-            categoria: "Diarista"
-        },
-        {
-            nome: "Camila",
-            descricao: "Troca de fechadura",
-            categoria: "Chaveiro"
+    const [funcao, setFuncao] = useState("");
+    const [descricao, setDescricao] = useState("");
+
+    function salvar(e) {
+        e.preventDefault()
+
+        const objeto = {
+            funcao: funcao,
+            descricao: descricao
+
         }
-    ];
+
+        console.log(objeto)
+    }
+
+
 
     return (
         <div class="container-fluid">
@@ -122,6 +89,7 @@ export default function AdiminiPrest() {
                         <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" >Criar novo portfólio</button>
 
                     </div>
+
                     {/* Tabela */}
                     <div>
                         <table class="table table-success table-striped">
@@ -135,69 +103,37 @@ export default function AdiminiPrest() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    listaPrestadores.map(
-                                        item => <tr>
-                                            <th scope="row">{item.nome}</th>
-                                            <td>{item.descricao}</td> {/* td: coluna*/}
-                                            <td>{item.categoria}</td>
-                                            <td><button>❌</button> <button>👁‍🗨</button></td>
-                                        </tr>
-                                    )
-                                }
+                                <tr>
+                                    <th scope="row">Luiz</th>
+                                    <td>Problema na porta</td> {/* td: coluna*/}
+                                    <td> Marceneiro </td>
+                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Rafa</th>
+                                    <td>Pia quebrada</td>
+                                    <td> Encanador </td>
+                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Conrado</th>
+                                    <td>Buraco na parede</td>
+                                    <td> Pedreiro </td>
+                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+
+                                </tr>
+                                <tr>
+
+                                </tr>
                             </tbody>
                         </table>
 
 
                     </div>
                 </div>
-            </div>
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Todas Demandas</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" ></button>
-                        </div>
-                        <div class="modal-body">
-                            <p><table class="table table-success table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Descrição</th>
-                                        <th scope="col">Categoria</th>
-                                        <th scope="col">Visualização</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        listaPrestadores.map(
-                                            item => <tr>
-                                                <th scope="row">{item.nome}</th>
-                                                <td>{item.descricao}</td> {/* td: coluna*/}
-                                                <td>{item.categoria}</td>
-                                                <td><button>❌</button> <button>👁‍🗨</button></td>
-                                            </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </table>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-success">Salvar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </div>            
         </div >
-
-
-
     )
 
 }
