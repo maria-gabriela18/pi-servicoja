@@ -38,7 +38,7 @@ function Listagem() {
                     <tr>
                         <th scope="col">Nome</th>
                         <th scope="col">E-mail</th>
-                        <th scope="col">CPF</th>
+                        <th scope="col">CPF ou CNPJ</th>
                         <th scope="col">Data de Nascimento</th>
                         <th scope="col">Localizacao</th>
                         <th scope="col">Telefone</th>
