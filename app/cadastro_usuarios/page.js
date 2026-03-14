@@ -1,35 +1,69 @@
 "use client";
 import Link from "next/link";
 import "./cadastro_usuarios.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient('https://ynxzquxbnbdesqknhbte.supabase.co', 'sb_publishable_NFhvutPRUhEg0xdbFhkflA_UV_NXWFu')
 
 export default function Cadastro() {
 
-    const [nome, alteraNome] = useState()
-    const [email, alteraEmail] = useState()
-    const [cpf, alteraCpf] = useState()
-    const [dataNascimento, alteraDataNascimento] = useState()
-    const [telefone, alteraTelefone] = useState()
-    const [endereco, alteraEndereco] = useState()
-    const [senha, alteraSenha] = useState()
+    const [nome, alteraNome] = useState("")
+    const [email, alteraEmail] = useState("")
+    const [cpf, alteraCpfCnpj] = useState("")
+    const [nascimento, alteraDataNascimento] = useState("")
+    const [telefone, alteraTelefone] = useState("")
+    const [endereco, alteraEndereco] = useState("")
+    const [senha, alteraSenha] = useState("")
 
-    function salvar(e) {
+    const [usuarios, alteraUsuarios] = useState([])
+
+    async function buscar() {
+
+        const { data, error } = await supabase.from('usuarios').select()
+        console.log(data)
+        alteraUsuarios(data)
+    }
+
+    async function salvar(e) {
         e.preventDefault()
 
         const objeto = {
             nome: nome,
             email: email,
-            cpf: cpf,
-            dataNascimento: dataNascimento,
+            cpf_cnpj: cpf,
+            nascimento: nascimento,
             telefone: telefone,
             endereco: endereco,
-            senha: senha,
+            senha: senha
         }
 
         console.log(objeto)
 
+        //Validações
+
+        const { error } = await supabase.from('usuarios').insert(objeto)
+
+        console.log(error)
+
+        if (error == null) {
+            alert("Usuário cadastrado com sucesso!")
+            alteraNome("")
+            alteraEmail("")
+            alteraCpfCnpj("")
+            alteraDataNascimento("")
+            alteraTelefone("")
+            alteraEndereco("")
+            alteraSenha("")
+            //location.reload()
+        } else {
+            alert("Dados inválidos. Verifique os campos e tente novamente.")
+        }
+
     }
 
+    useEffect(() => {
+        buscar()
+    }, [])
 
     return (
 
@@ -61,11 +95,11 @@ export default function Cadastro() {
 
             <br />
 
-            <div class="row">
+            <div className="row">
 
             <div class="col-4">
-            <p> CPF: </p>
-            <input onChange={e => alteraCpf(e.target.value)} class="form-control" placeholder="00011122233" />
+            <p> CPF ou CNPJ: </p>
+            <input onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
             </div>
 
             <div class="col-4">
@@ -107,7 +141,7 @@ export default function Cadastro() {
             <div class="text-center row">
 
                 <div class="col-6">
-                <button class="btn btn-primary">Cadastrar</button>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </div>
 
                 <div class="col-6">

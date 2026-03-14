@@ -1,12 +1,31 @@
 'use client'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient("https://ynxzquxbnbdesqknhbte.supabase.co", 'sb_publishable_NFhvutPRUhEg0xdbFhkflA_UV_NXWFu')
+
+// postgresql://postgres:[OBok2BcuYLAUGKj3]@db.ynxzquxbnbdesqknhbte.supabase.co:5432/postgres
 
 import Link from "next/link";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function AdiminiPrest() {
 
-    const [funcao, setFuncao] = useState("");
-    const [descricao, setDescricao] = useState("");
+    const [demandas, setDemandas] = useState([])
+
+    async function buscarDemanda() {
+
+        const { data, error } = await supabase
+            .from('demandas')
+            .select("*")
+
+        if (error) {
+            console.log("Error", error)
+
+        } else {
+            setDemandas(data)
+        }
+
+    };
 
     function salvar(e) {
         e.preventDefault()
@@ -20,7 +39,9 @@ export default function AdiminiPrest() {
         console.log(objeto)
     }
 
-
+    useEffect(() => {
+        buscarDemanda()
+    }, [])
 
     return (
         <div class="container-fluid">
@@ -86,7 +107,7 @@ export default function AdiminiPrest() {
                     <div class="text-end my-5">
 
                         <button class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Todas demandas</button>
-                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" >Criar novo portfólio</button>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" id='myModal' >Criar novo portfólio</button>
 
                     </div>
 
@@ -102,37 +123,142 @@ export default function AdiminiPrest() {
 
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Luiz</th>
-                                    <td>Problema na porta</td> {/* td: coluna*/}
-                                    <td> Marceneiro </td>
+                            
+                                {
+                                    demandas.map((demanda) => (
+                                   <tbody>
+                                   <tr>
+                                    <th scope="row">{demanda.id_usuarios}</th>
+                                    <td>{demanda.descricao}</td> {/* td: coluna*/}
+                                    <td> {demanda.categoria}</td>
                                     <td><button>❌</button> <button>👁‍🗨</button></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Rafa</th>
-                                    <td>Pia quebrada</td>
-                                    <td> Encanador </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">Conrado</th>
-                                    <td>Buraco na parede</td>
-                                    <td> Pedreiro </td>
+                                    <th scope="row">{demanda.id_usuarios}</th>
+                                    <td>{demanda.descricao}</td>
+                                    <td> {demanda.categoria} </td>
                                     <td><button>❌</button> <button>👁‍🗨</button></td>
 
                                 </tr>
                                 <tr>
+                                    <th scope="row">{demanda.id_usuarios}</th>
+                                    <td>{demanda.descricao}</td>
+                                    <td> {demanda.categoria} </td>
+                                    <td><button>❌</button> <button>👁‍🗨</button></td>
 
                                 </tr>
-                            </tbody>
+                                <tr>
+
+                                </tr>
+                                </tbody>
+                                    ))
+                                }
+
+                            
                         </table>
 
 
                     </div>
                 </div>
-            </div>            
+            </div>
+
+            {/* MODAL TODAS AS DEMANDAS */}
+            <div className="modal fade" id="exampleModal" tabIndex="-1">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+
+                        <div className="modal-header">
+                            <h2 className="modal-title">Todas as demandas</h2>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div className="modal-body">
+                            <div>
+                                <table class="table table-success table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Descrição</th>
+                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Visualização</th>
+
+                                        </tr>
+                                    </thead>
+                                    {
+                                    demandas.map((demanda) => (
+                                   <tbody>
+                                   <tr>
+                                    <th scope="row">{demanda.id_usuarios}</th>
+                                    <td>{demanda.descricao}</td> {/* td: coluna*/}
+                                    <td> {demanda.categoria}</td>
+                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{demanda.id_usuarios}</th>
+                                    <td>{demanda.descricao}</td>
+                                    <td> {demanda.categoria} </td>
+                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">{demanda.id_usuarios}</th>
+                                    <td>{demanda.descricao}</td>
+                                    <td> {demanda.categoria} </td>
+                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+
+                                </tr>
+                                <tr>
+
+                                </tr>
+                                </tbody>
+                                    ))
+                                }
+                                </table>
+
+
+                            </div>
+                        </div>
+
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#exampleModal">
+                                Fechar
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {/* MODAL CRIAR PORTIFÓLIO ainda não funciona*/}
+
+            <div className="modal fade" id="myModal" tabIndex="-1">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+
+                        <div className="modal-header">
+                            <h2 className="modal-title">Portifólio</h2>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal"> Salvar </button>
+                        </div>
+
+                        <div className="modal-body">
+                            <p>Descrição do serviço</p>
+                            <input />
+
+                            <p></p>
+
+                        </div>
+                    </div>
+
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#exampleModal">
+                            Fechar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+
         </div >
     )
 
