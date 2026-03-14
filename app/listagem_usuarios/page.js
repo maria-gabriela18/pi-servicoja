@@ -36,6 +36,7 @@ function Listagem() {
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Nome</th>
                         <th scope="col">E-mail</th>
                         <th scope="col">CPF ou CNPJ</th>
@@ -51,6 +52,7 @@ function Listagem() {
                     {
                         usuarios.map(
                             item => <tr>
+                                <th scope="row">{item.id}</th>
                                 <th scope="row">{item.nome}</th>
                                 <td>{item.email}</td>
                                 <td>{item.cpf_cnpj}</td>
