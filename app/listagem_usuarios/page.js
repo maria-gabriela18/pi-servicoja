@@ -55,7 +55,7 @@ function Listagem() {
                                 <td>{item.email}</td>
                                 <td>{item.cpf_cnpj}</td>
                                 <td>{item.nascimento}</td>
-                                <td>{item.localizacao}</td>
+                                <td>{item.endereco}</td>
                                 <td>{item.telefone}</td>
                                 <td>{item.senha}</td>
                             </tr>
