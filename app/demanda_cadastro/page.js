@@ -1,6 +1,8 @@
 'use client';
 import Link from "next/link";
 import { useState } from "react";
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient('https://xyzcompany.supabase.co', 'publishable-or-anon-key')
 
 function DemandaCadastro() {
 
@@ -11,8 +13,19 @@ function DemandaCadastro() {
   const [localizacao, setLocalizacao] = useState("")
   const [status, setStatus] = useState("")
 
-      function salvar(e){
+
+
+   async function salvar(e){           // async saber esperar o banco 
         e.preventDefault ();
+
+
+        if (!cliente || !descricao || !status ) {
+
+            alert("Ei ! Preencha os campos obrigatórios primeiro.") ;
+
+            return; 
+
+        }
       
       const demanda = {
 
@@ -21,10 +34,33 @@ function DemandaCadastro() {
           localizacao: localizacao,
           status: status,
 
-
-
-
       };
+
+
+        const { data, error} = 
+        await supabase                                // await faz o codigo parar aqui ate o banco responder 'ok'
+        .from ('demandas')
+        .insert ([demanda]);
+
+        if ( error )  {
+            console.error("Erro: erro.mensagem");
+            alert("Vish, deu erro ao salvar!");
+        } else {
+          alert("Boa! Salvo com sucesso no banco.");
+            
+            setCliente("");
+            setDescricao("");
+            setLocalizacao("");
+            setStatus("");
+
+        
+
+
+
+
+
+        }
+
       
       console.log(demanda);
       
