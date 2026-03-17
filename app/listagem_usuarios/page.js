@@ -18,6 +18,10 @@ function Listagem() {
         return horas_formatadas // o return é usado para entregar algo. Quando é usado sozinho, ele "para" o código porque está entregando nulo
     }
 
+    function formataDataNascimento(data_nascimento){
+        return data_nascimento.split("-").reverse().join("/")
+    }
+
     useEffect(() => {
         async function buscarUsuarios() {
 
@@ -68,7 +72,7 @@ function Listagem() {
                                 <th scope="row">{item.nome}</th>
                                 <td>{item.email}</td>
                                 <td>{item.cpf_cnpj}</td>
-                                <td>{item.nascimento}</td>
+                                <td>{formataDataNascimento(item.nascimento)}</td>
                                 <td>{item.endereco}</td>
                                 <td>{item.telefone}</td>
                                 <td>{item.senha}</td>
