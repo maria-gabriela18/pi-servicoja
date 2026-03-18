@@ -4,7 +4,6 @@ import "./cadastro_usuarios.css";
 import { useEffect, useState } from "react";
 import { createClient } from '@supabase/supabase-js'
 const supabase = createClient('https://ynxzquxbnbdesqknhbte.supabase.co', 'sb_publishable_NFhvutPRUhEg0xdbFhkflA_UV_NXWFu')
-import supabase from "../conexao/supabase";
 
 export default function Cadastro() {
 
