@@ -19,15 +19,21 @@ export default function ListagemPrestadores() {
 
       const { data, error } = await supabase
         .from("servicos")
-        .select("*")
+        .select(`*,
+          id_usuarios(*)`)
 
       if (error) {
         console.log("Erro:", error)
       } else {
         setPrestadores(data)
       }
-
+      
+      console.log(data)
     }
+
+    
+   
+
 
     buscarPrestadores()
   }, [])
@@ -65,7 +71,7 @@ export default function ListagemPrestadores() {
 
               <div className="card-top">
                 <img src="https://placehold.co/50x50" />
-                <h3>{prestador.nome}</h3>
+                <h3>{prestador.id_usuarios.nome}</h3>
               </div>
 
               <div className="card-info">

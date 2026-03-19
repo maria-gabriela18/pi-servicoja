@@ -16,7 +16,11 @@ export default function AdiminiPrest() {
 
         const { data, error } = await supabase
             .from('demandas')
-            .select("*")
+            .select(`*, 
+                    id_usuarios(
+                    *) 
+                `)
+            console.log(data)
 
         if (error) {
             console.log("Error", error)
@@ -39,35 +43,44 @@ export default function AdiminiPrest() {
         console.log(objeto)
     }
 
+    function formataCategoria(categoria){
+        if(categoria == "pintor"){
+            return <span className='basge text-bg-primary'>PINTOR</span>
+        }
+        if(categoria == "mecânico"){
+            return <span className='basge text-bg-danger'>MECÂNICO</span>
+        }
+    }
+
     useEffect(() => {
         buscarDemanda()
     }, [])
 
     return (
-        <div class="container-fluid">
-            <div class="row">
+        <div className="container-fluid">
+            <div className="row">
 
                 <div className="col-2 menuLateral vh-100 d-flex flex-column justify-content-between">
-                    <div class="text-center mt-5">
+                    <div className="text-center mt-5">
                         <img src="https://placehold.co/40" />
-                        <h1 class="fs-5"> Service Hub </h1>
+                        <h1 className="fs-5"> Service Hub </h1>
                     </div>
 
 
-                    <div class="list-group list-group-flush fs-5">
-                        <Link href="perfil_usuarios" class="list-group-item list-group-item-action">Perfil</Link>
-                        <Link href="#" class="list-group-item list-group-item-action">Descrição</Link>
-                        <Link href="#" class="list-group-item list-group-item-action">Demandas finalizadas</Link>
+                    <div className="list-group list-group-flush fs-5">
+                        <Link href="perfil_usuarios" className="list-group-item list-group-item-action">Perfil</Link>
+                        <Link href="#" className="list-group-item list-group-item-action">Descrição</Link>
+                        <Link href="#" className="list-group-item list-group-item-action">Demandas finalizadas</Link>
                     </div>
 
 
-                    <div class="text-center menuLateralPerfil ">
-                        <img class="me-2" src="https://placehold.co/40" />
-                        <div class="btn-group dropend ">
-                            <button type="button" class="btn dropdown-toggle  p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 " data-bs-toggle="dropdown">Perfil</button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Editar</a></li>
-                                <li><a class="dropdown-item" href="#">Sair</a></li>
+                    <div className="text-center menuLateralPerfil ">
+                        <img className="me-2" src="https://placehold.co/40" />
+                        <div className="btn-group dropend ">
+                            <button type="button" className="btn dropdown-toggle  p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 " data-bs-toggle="dropdown">Perfil</button>
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#">Editar</a></li>
+                                <li><a className="dropdown-item" href="#">Sair</a></li>
                             </ul>
                         </div>
 
@@ -75,28 +88,28 @@ export default function AdiminiPrest() {
                 </div>
 
                 {/* <!-- Conteúdo principal --> */}
-                <div class="col-9">
+                <div className="col-9">
                     {/* <!-- Introdução --> */}
-                    <div class="mt-5">
-                        <h2 class=" p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 ">Painel administrativo</h2>
+                    <div className="mt-5">
+                        <h2 className=" p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 ">Painel administrativo</h2>
                         <hr />
                     </div>
                     {/* <!-- Pesquisa e filtro --> */}
-                    <div class="row">
-                        <div class="col-4">
+                    <div className="row">
+                        <div className="col-4">
 
-                            <div class="input-group mb-3">
-                                <input class="form-control" placeholder="Pesquisar.." />
-                                <button class="btn btn-outline-secondary">🔎</button>
+                            <div className="input-group mb-3">
+                                <input className="form-control" placeholder="Pesquisar.." />
+                                <button className="btn btn-outline-secondary">🔎</button>
                             </div>
 
                         </div>
 
-                        <div class="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
+                        <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
 
-                        <div class="col-4">
-                            <select class="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
-                                <option selected disabled> Filtro </option>
+                        <div className="col-4">
+                            <select className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+                                <option defaultValue={null}> Filtro </option>
                                 <option value="1"> Ativo </option>
                                 <option value="2"> Finalizado </option>
                             </select>
@@ -104,18 +117,19 @@ export default function AdiminiPrest() {
 
                     </div>
                     {/* <!-- Cadastro --> */}
-                    <div class="text-end my-5">
+                    <div className="text-end my-5">
 
-                        <button class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Todas demandas</button>
-                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" id='myModal' >Criar novo portfólio</button>
+                        <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Todas demandas</button>
+                        <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" id='myModal' >Criar novo portfólio</button>
 
                     </div>
 
                     {/* Tabela */}
                     <div>
-                        <table class="table table-success table-striped">
+                        <table className="table table-success table-striped">
                             <thead>
                                 <tr>
+                                    <th scope="col">#</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Descrição</th>
                                     <th scope="col">Categoria</th>
@@ -125,33 +139,38 @@ export default function AdiminiPrest() {
                             </thead>
                             
                                 {
-                                    demandas.map((demanda) => (
-                                   <tbody>
-                                   <tr>
-                                    <th scope="row">{demanda.id_usuarios}</th>
-                                    <td>{demanda.descricao}</td> {/* td: coluna*/}
-                                    <td> {demanda.categoria}</td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">{demanda.id_usuarios}</th>
-                                    <td>{demanda.descricao}</td>
-                                    <td> {demanda.categoria} </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                                    demandas.map(
+                                        (item, index) => (
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">{index + 1}</th>
+                                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                                    <td>{item.descricao}</td> {/* td: coluna*/}
+                                                    <td> {formataCategoria(item.categoria)}</td>
+                                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{index + 1} </th>
+                                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                                    <td>{item.descricao}</td>
+                                                    <td> {formataCategoria(item.categoria)} </td>
+                                                    <td><button>❌</button> <button>👁‍🗨</button></td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">{demanda.id_usuarios}</th>
-                                    <td>{demanda.descricao}</td>
-                                    <td> {demanda.categoria} </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                                                </tr>
+                                                <tr>
+                                                    
+                                                    <th scope="row">{index + 1}</th>
+                                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                                    <td>{item.descricao}</td>
+                                                    <td> {formataCategoria(item.categoria)} </td>
+                                                    <td><button>❌</button> <button>👁‍🗨</button></td>
 
-                                </tr>
-                                <tr>
+                                                </tr>
+                                                <tr>
 
-                                </tr>
-                                </tbody>
-                                    ))
+                                                </tr>
+                                                </tbody>
+                                                    ))
                                 }
 
                             
@@ -174,9 +193,10 @@ export default function AdiminiPrest() {
 
                         <div className="modal-body">
                             <div>
-                                <table class="table table-success table-striped">
+                                <table className="table table-success table-striped">
                                     <thead>
                                         <tr>
+                                            <th scope="col">#</th>
                                             <th scope="col">Nome</th>
                                             <th scope="col">Descrição</th>
                                             <th scope="col">Categoria</th>
@@ -185,25 +205,28 @@ export default function AdiminiPrest() {
                                         </tr>
                                     </thead>
                                     {
-                                    demandas.map((demanda) => (
+                                    demandas.map((item, index) => (
                                    <tbody>
                                    <tr>
-                                    <th scope="row">{demanda.id_usuarios}</th>
-                                    <td>{demanda.descricao}</td> {/* td: coluna*/}
-                                    <td> {demanda.categoria}</td>
+                                    <th scope="row">{index + 1}</th>
+                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                    <td>{item.descricao}</td> {/* td: coluna*/}
+                                    <td> {formataCategoria(item.categoria)}</td>
                                     <td><button>❌</button> <button>👁‍🗨</button></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">{demanda.id_usuarios}</th>
-                                    <td>{demanda.descricao}</td>
-                                    <td> {demanda.categoria} </td>
+                                    <th scope="row">{index + 1}</th>
+                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                    <td>{item.descricao}</td>
+                                    <td> {formataCategoria(item.categoria)} </td>
                                     <td><button>❌</button> <button>👁‍🗨</button></td>
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">{demanda.id_usuarios}</th>
-                                    <td>{demanda.descricao}</td>
-                                    <td> {demanda.categoria} </td>
+                                    <th scope="row">{index + 1}</th>
+                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                    <td>{item.descricao}</td>
+                                    <td> {formataCategoria(item.categoria)} </td>
                                     <td><button>❌</button> <button>👁‍🗨</button></td>
 
                                 </tr>
