@@ -1,108 +1,68 @@
 'use client';
-import Link from "next/link";
 import { useState } from "react";
-import { createClient } from '@supabase/supabase-js'
-const supabase = createClient('https://xyzcompany.supabase.co', 'publishable-or-anon-key')
+import supabase from "../conexao/supabase";
 
-function DemandaCadastro() {
+export default function DemandaCadastro() {
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [status, setStatus] = useState("");
+  const [categoria, setCategoria] = useState("");
 
-  //aqui fica o usestates, antes do return 
+  async function salvar(e) {
+    if (e) e.preventDefault();
 
-  const [cliente, setCliente] = useState("")
-  const [descricao, setDescricao] = useState("")
-  const [localizacao, setLocalizacao] = useState("")
-  const [status, setStatus] = useState("")
+    // Verificação de segurança para você não esquecer nada
+    if (!titulo || !descricao || !status || !categoria) {
+      alert("Preencha todos os campos!");
+      return;
+    }
 
+    const demanda = {
+      titulo: titulo,
+      descricao: descricao,
+      status: status,
+      categoria: categoria,
+      id_usuarios: 5, // ID fixo para teste, igual fizemos antes
+      aberta: true    // RESOLVE O ERRO 8: diz que a demanda está ativa
+    };
 
+    const { error } = await supabase
+      .from('demandas')
+      .insert([demanda]);
 
-   async function salvar(e){           // async saber esperar o banco 
-        e.preventDefault ();
-
-
-        if (!cliente || !descricao || !status ) {
-
-            alert("Ei ! Preencha os campos obrigatórios primeiro.") ;
-
-            return; 
-
-        }
-      
-      const demanda = {
-
-          cliente: cliente,
-          descricao: descricao,
-          localizacao: localizacao,
-          status: status,
-
-      };
-
-
-        const { data, error} = 
-        await supabase                                // await faz o codigo parar aqui ate o banco responder 'ok'
-        .from ('demandas')
-        .insert ([demanda]);
-
-        if ( error )  {
-            console.error("Erro: erro.mensagem");
-            alert("Vish, deu erro ao salvar!");
-        } else {
-          alert("Boa! Salvo com sucesso no banco.");
-            
-            setCliente("");
-            setDescricao("");
-            setLocalizacao("");
-            setStatus("");
-
-        
-
-
-
-
-
-        }
-
-      
-      console.log(demanda);
-      
-      
-      }
-
-
-
+    if (error) {
+      console.log(error);
+      alert("Erro ao salvar: " + error.message);
+    } else {
+      alert("FINALMENTE! Salvo com sucesso no banco.");
+      // Limpa os campos para a próxima
+      setTitulo("");
+      setDescricao("");
+      setStatus("");
+      setCategoria("");
+    }
+  }
 
   return (
     <div className="container-fluid">
       <div className="row min-vh-100">
-
-        {/* Sidebar */}
-        <div className="col-md-3 bg-light d-flex justify-content-center p-4">
-          <div className="card text-center shadow-sm w-100 h-100">
+        {/* Sidebar que você pediu pra não tirar */}
+        <div className="col-md-3 bg-light d-flex justify-content-center p-4 border-end">
+          <div className="card text-center shadow-sm w-100">
             <div className="card-body">
-
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Foto de Perfil"
-                className="rounded-circle img-fluid border border-3 border-light shadow-sm"
-                style={{ width: "150px", height: "150px", objectFit: "cover" }}
-              />
-
-              <h5 className="card-title mt-3">Nome</h5>
-              <p className="card-text text-muted small">
-                Descrição
-              </p>
-              <a href="#" className="btn btn-primary btn-sm">
-                Editar
-              </a>
-
+              <div className="rounded-circle bg-secondary mx-auto mb-3" style={{ width: "120px", height: "120px" }}></div>
+              <h5 className="card-title">Seu Perfil</h5>
+              <p className="card-text text-muted small">Gerencie suas demandas</p>
+              <button className="btn btn-outline-primary btn-sm">Editar</button>
             </div>
           </div>
         </div>
 
-        {/* Conteúdo da direita */}
+        {/* Conteúdo Principal */}
         <div className="col-md-9 p-4">
-          <h1>Precisa de uma solução para seus problemas?</h1>
+          <h1 className="mb-4">Gerenciador de Demandas</h1>
 
-          <div className="d-flex gap-3 mb-4">
+          <div className="d-flex gap-3 mb-5">
             <button
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
@@ -120,124 +80,81 @@ function DemandaCadastro() {
             </button>
           </div>
 
-          {/* Seção de Propostas */}
-          <div className="border border-dark p-3">
-            <h6 className="fw-bold mb-3">Suas propostas</h6>
-
-            <div className="d-flex flex-column gap-2">
-              <div className="border border-dark p-2 d-flex align-items-center justify-content-between">
-                <div className="d-flex align-items-center gap-2">
-                  <div className="rounded-circle bg-secondary" style={{ width: "30px", height: "30px" }}></div>
+          {/* Seção Suas Propostas */}
+          <div className="card shadow-sm">
+            <div className="card-header bg-white fw-bold">Suas propostas</div>
+            <div className="card-body">
+              <div className="list-group list-group-flush">
+                <div className="list-group-item d-flex justify-content-between align-items-center">
                   <span>João fez uma proposta para você</span>
+                  <button className="btn btn-sm text-white" style={{ backgroundColor: "#2c5d7d" }}>ver</button>
                 </div>
-                <button className="btn btn-sm text-white" style={{ backgroundColor: "#2c5d7d" }}>
-                  ver
-                </button>
-              </div>
-
-              <div className="border border-dark p-2 d-flex align-items-center justify-content-between">
-                <div className="d-flex align-items-center gap-2">
-                  <div className="rounded-circle bg-secondary" style={{ width: "30px", height: "30px" }}></div>
+                <div className="list-group-item d-flex justify-content-between align-items-center">
                   <span>Hugo Souza fez uma proposta para você</span>
+                  <button className="btn btn-sm text-white" style={{ backgroundColor: "#2c5d7d" }}>ver</button>
                 </div>
-                <button className="btn btn-sm text-white" style={{ backgroundColor: "#2c5d7d" }}>
-                  ver
-                </button>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal Corrigido */}
       <div className="modal fade" id="exampleModal" tabIndex="-1">
         <div className="modal-dialog">
           <div className="modal-content">
-
             <div className="modal-header">
-              <h1 className="modal-title fs-5">Cadastro</h1>
+              <h5 className="modal-title">Nova Demanda</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
             <div className="modal-body">
-
-              <form onSubmit={salvar}>
-                <label>Cliente:</label><br />
-                <input type="text"
-                  className="inputCliente"
-                  value={cliente}
-                  onChange={(e) => setCliente(e.target.value)}
-
-                /><br /><br />
-
-
-
-                <label>Descrição:</label><br />
-                <textarea className="inputDescricao"
-                  rows="4"
-                  cols="30"
-                  value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
-
-                ></textarea><br /><br />
-
-
-
-                <label>Localização:</label><br />
-                <input type="text"
-                  className="inputLocalizacao"
-                  value={localizacao}
-                  onChange={(e) => setLocalizacao(e.target.value)}
-
-
-                /><br /><br />
-
-
-
-
-
-                <label>Status:</label><br />
-                <select className="inputStatus"
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-
-                >
-
-
-                  <option value="">Selecione</option>
-                  <option value="Aberto">Aberto</option>
-                  <option value="Em andamento">Em andamento</option>
-                  <option value="Finalizado">Finalizado</option>
-                </select><br /><br />
-
-                <button type="submit">Salvar</button>
+              <form id="formCadastro" onSubmit={salvar}>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Título</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={titulo}
+                    onChange={(e) => setTitulo(e.target.value)}
+                    placeholder="Ex: Consertar torneira"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Categoria</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={categoria}
+                    onChange={(e) => setCategoria(e.target.value)}
+                    placeholder="Ex: Hidráulica"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Descrição</label>
+                  <textarea
+                    className="form-control"
+                    rows="3"
+                    value={descricao}
+                    onChange={(e) => setDescricao(e.target.value)}
+                  ></textarea>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Status Inicial</label>
+                  <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
+                    <option value="">Selecione...</option>
+                    <option value="Aberto">Aberto</option>
+                    <option value="Em andamento">Em andamento</option>
+                  </select>
+                </div>
               </form>
-
-
-
-
             </div>
-
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="submit" form="formCadastro" className="btn btn-primary">Salvar Mudanças</button>
             </div>
-
           </div>
         </div>
       </div>
-
     </div>
   );
 }
-
-
-
-
-
-export default DemandaCadastro;
