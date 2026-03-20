@@ -1,0 +1,96 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    background: linear-gradient(to bottom, #dbeafe, #ffffff);
+    background-repeat: no-repeat;
+}
+
+.card {
+    background-color: #fff;
+    width: 1200px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardPrestador {
+  width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.foto {
+    width: 65px;
+    height: 65px;
+    border-radius: 50px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.avaliacao {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.detalhes {
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+.mensagem {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.acoes {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.perfil {
+  background: #2f6fed;
+  color: white;
+}
+
+.aceitar {
+  background: #28a745;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
