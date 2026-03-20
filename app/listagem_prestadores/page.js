@@ -13,6 +13,8 @@ const supabase = createClient(
 export default function ListagemPrestadores() {
 
   const [prestadores, setPrestadores] = useState([])
+  const [userSelecionado, setUserSelecionado] = useState()
+
 
   useEffect(() => {
     async function buscarPrestadores() {
@@ -27,12 +29,12 @@ export default function ListagemPrestadores() {
       } else {
         setPrestadores(data)
       }
-      
+
       console.log(data)
     }
 
-    
-   
+
+
 
 
     buscarPrestadores()
@@ -87,16 +89,76 @@ export default function ListagemPrestadores() {
               </div>
 
               <div className="card-action">
-                <button>Ver contato</button>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(prestador)}>
+                  contatos
+                </button>
               </div>
 
             </div>
 
           ))}
 
+
+
+
         </div>
       </section>
 
+
+
+      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content modal-css">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">informações</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body ">
+              {userSelecionado ? (
+                <div className='modalInfo'>
+                  <div>
+                    <p><span>NOME:</span></p>
+                    <p>{userSelecionado.id_usuarios.nome}</p>
+                  </div>
+
+                  <div>
+                    <p><span>FUNÇÃO:</span></p>
+                    <p>{userSelecionado.funcao}</p>
+                  </div>
+
+
+                  <div>
+                    <p><span>TELEFONE:</span></p>
+                    <p>{userSelecionado.id_usuarios.telefone}</p>
+                  </div>
+                  <div>
+                    <p><span>E-MAIL:</span> </p>
+                    <p>{userSelecionado.id_usuarios.email}</p>
+                  </div>
+
+
+                  <div className='modalDescricao'>
+                    <p><span>DESCRIÇÃO:</span> </p>
+                    <p>{userSelecionado.descricao}</p>
+                  </div>
+                </div>
+              ) : (
+                <p>Nenhum prestador selecionado</p>
+              )}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary  button-css" data-bs-dismiss="modal">Fechar</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
+
+
   )
 }
+
