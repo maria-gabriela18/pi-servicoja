@@ -4,6 +4,7 @@ import "../home.css";
 export default function Page() {
 
     return (
+        
         <div>
 
             <header className="header">
