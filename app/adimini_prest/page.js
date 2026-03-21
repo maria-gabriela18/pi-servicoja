@@ -1,14 +1,16 @@
 'use client'
 import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient("https://ynxzquxbnbdesqknhbte.supabase.co", 'sb_publishable_NFhvutPRUhEg0xdbFhkflA_UV_NXWFu')
-
 // postgresql://postgres:[OBok2BcuYLAUGKj3]@db.ynxzquxbnbdesqknhbte.supabase.co:5432/postgres
-
 import Link from "next/link";
 import { useEffect, useState } from 'react';
+import supabase from '../conexao/supabase';
 
 export default function AdiminiPrest() {
+
+    const [portfolio, setPortfolio] = useState([])
+    const [descricao, setDescricao] = useState([])
+    const [experiencia, setExperiencia] = useState([])
+    const [funcao, setFuncao] = useState([])
 
     const [demandas, setDemandas] = useState([])
 
@@ -20,7 +22,7 @@ export default function AdiminiPrest() {
                     id_usuarios(
                     *) 
                 `)
-            console.log(data)
+        console.log(data)
 
         if (error) {
             console.log("Error", error)
@@ -31,23 +33,45 @@ export default function AdiminiPrest() {
 
     };
 
-    function salvar(e) {
+    async function salvar(e) {
         e.preventDefault()
 
-        const objeto = {
-            funcao: funcao,
-            descricao: descricao
+        const { data, error } = await supabase
+        .from('servicos')
+        .insert(objeto)
+        console.log(data)
+        setPortfolio(data)
 
+        console.log(error)
+
+
+        const objeto = {
+            descricao: descricao,
+            funcao: funcao,
+            historico: experiencia
         }
 
         console.log(objeto)
+
+
+        if (error == null) {
+            alert("Usuario cadastrado com sucesso")
+            setDescricao("")
+            setExperiencia("")
+            setFuncao("")
+
+        }else {
+            alert("Dados inválidos. Verifique os campos e tente novamente.")
+
+         }
+
     }
 
-    function formataCategoria(categoria){
-        if(categoria == "pintor"){
+    function formataCategoria(categoria) {
+        if (categoria == "pintor") {
             return <span className='basge text-bg-primary'>PINTOR</span>
         }
-        if(categoria == "mecânico"){
+        if (categoria == "mecânico") {
             return <span className='basge text-bg-danger'>MECÂNICO</span>
         }
     }
@@ -70,7 +94,7 @@ export default function AdiminiPrest() {
                     <div className="list-group list-group-flush fs-5">
                         <Link href="perfil_usuarios" className="list-group-item list-group-item-action">Perfil</Link>
                         <Link href="#" className="list-group-item list-group-item-action">Descrição</Link>
-                        <Link href="#" className="list-group-item list-group-item-action">Demandas finalizadas</Link>
+                        <Link href="listagem_demandas" className="list-group-item list-group-item-action">Demandas em aberto</Link>
                     </div>
 
 
@@ -119,10 +143,13 @@ export default function AdiminiPrest() {
                     {/* <!-- Cadastro --> */}
                     <div className="text-end my-5">
 
-                        <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Todas demandas</button>
-                        <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" id='myModal' >Criar novo portfólio</button>
+                        <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                            Criar portfólio
+                        </button>
 
                     </div>
+                    {/* LISTA DE DEMANDAS EM ABERTO */}
 
                     {/* Tabela */}
                     <div>
@@ -137,43 +164,42 @@ export default function AdiminiPrest() {
 
                                 </tr>
                             </thead>
-                            
-                                {
-                                    demandas.map(
-                                        (item, index) => (
-                                                <tbody>
-                                                <tr>
-                                                    <th scope="row">{index + 1}</th>
-                                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                                    <td>{item.descricao}</td> {/* td: coluna*/}
-                                                    <td> {formataCategoria(item.categoria)}</td>
-                                                    <td><button>❌</button> <button>👁‍🗨</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{index + 1} </th>
-                                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                                    <td>{item.descricao}</td>
-                                                    <td> {formataCategoria(item.categoria)} </td>
-                                                    <td><button>❌</button> <button>👁‍🗨</button></td>
 
-                                                </tr>
-                                                <tr>
-                                                    
-                                                    <th scope="row">{index + 1}</th>
-                                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                                    <td>{item.descricao}</td>
-                                                    <td> {formataCategoria(item.categoria)} </td>
-                                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                            {
+                                demandas.map(
+                                    (item, index) => (
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">{index + 1}</th>
+                                                <th scope="row">{item.id_usuarios.nome}</th>
+                                                <td>{item.descricao}</td> {/* td: coluna*/}
+                                                <td> {formataCategoria(item.categoria)}</td>
+                                                <td><button>Cancelar</button> <button>Aceitar</button></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">{index + 1} </th>
+                                                <th scope="row">{item.id_usuarios.nome}</th>
+                                                <td>{item.descricao}</td>
+                                                <td> {formataCategoria(item.categoria)} </td>
+                                                <td><button>Cancelar</button> <button>Aceitar</button></td>
 
-                                                </tr>
-                                                <tr>
+                                            </tr>
+                                            <tr>
 
-                                                </tr>
-                                                </tbody>
-                                                    ))
-                                }
+                                                <th scope="row">{index + 1}</th>
+                                                <th scope="row">{item.id_usuarios.nome}</th>
+                                                <td>{item.descricao}</td>
+                                                <td> {formataCategoria(item.categoria)} </td>
+                                                <td><button>Cancelar</button> <button>Aceitar</button></td>
 
-                            
+                                            </tr>
+                                            <tr>
+
+                                            </tr>
+                                        </tbody>
+                                    ))
+                            }
+
                         </table>
 
 
@@ -182,12 +208,12 @@ export default function AdiminiPrest() {
             </div>
 
             {/* MODAL TODAS AS DEMANDAS */}
-            <div className="modal fade" id="exampleModal" tabIndex="-1">
+            <div class="modal fade" id="exampleModal" tabindex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
 
                         <div className="modal-header">
-                            <h2 className="modal-title">Todas as demandas</h2>
+                            <h2 className="modal-title">Histórico</h2>
                             <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
@@ -205,37 +231,37 @@ export default function AdiminiPrest() {
                                         </tr>
                                     </thead>
                                     {
-                                    demandas.map((item, index) => (
-                                   <tbody>
-                                   <tr>
-                                    <th scope="row">{index + 1}</th>
-                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                    <td>{item.descricao}</td> {/* td: coluna*/}
-                                    <td> {formataCategoria(item.categoria)}</td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">{index + 1}</th>
-                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                    <td>{item.descricao}</td>
-                                    <td> {formataCategoria(item.categoria)} </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                                        demandas.map((item, index) => (
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">{index + 1}</th>
+                                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                                    <td>{item.descricao}</td> {/* td: coluna*/}
+                                                    <td> {formataCategoria(item.categoria)}</td>
+                                                    <td><button>Cancelar</button> <button>Aceitar</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{index + 1}</th>
+                                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                                    <td>{item.descricao}</td>
+                                                    <td> {formataCategoria(item.categoria)} </td>
+                                                    <td><button>Cancelar</button> <button>Aceitar</button></td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">{index + 1}</th>
-                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                    <td>{item.descricao}</td>
-                                    <td> {formataCategoria(item.categoria)} </td>
-                                    <td><button>❌</button> <button>👁‍🗨</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{index + 1}</th>
+                                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                                    <td>{item.descricao}</td>
+                                                    <td> {formataCategoria(item.categoria)} </td>
+                                                    <td><button>Cancelar</button> <button>Aceitar</button></td>
 
-                                </tr>
-                                <tr>
+                                                </tr>
+                                                <tr>
 
-                                </tr>
-                                </tbody>
-                                    ))
-                                }
+                                                </tr>
+                                            </tbody>
+                                        ))
+                                    }
                                 </table>
 
 
@@ -243,7 +269,7 @@ export default function AdiminiPrest() {
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#exampleModal">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="exampleModal">
                                 Fechar
                             </button>
                         </div>
@@ -252,35 +278,42 @@ export default function AdiminiPrest() {
                 </div>
             </div>
 
-            {/* MODAL CRIAR PORTIFÓLIO ainda não funciona*/}
+            {/* MODAL CRIAR  PORTIFÓLIO funciona*/}
 
-            <div className="modal fade" id="myModal" tabIndex="-1">
-                <div className="modal-dialog">
-                    <div className="modal-content">
+            <div class="modal fade" id="exampleModal1" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel1">Novo portfólio</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={salvar}>
 
-                        <div className="modal-header">
-                            <h2 className="modal-title">Portifólio</h2>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal"> Salvar </button>
+                                Descrição:
+                                <br />
+                                <input onChange={e => setDescricao(e.target.value)} />
+                                <br />
+                                Experiência:
+                                <br />
+                                <input onChange={e => setExperiencia(e.target.value)} />
+                                <br />
+                                Função:
+                                <br />
+                                <input onChange={e => setFuncao(e.target.value)} />
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </form>
+
+
                         </div>
 
-                        <div className="modal-body">
-                            <p>Descrição do serviço</p>
-                            <input />
-
-                            <p></p>
-
-                        </div>
                     </div>
-
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#exampleModal">
-                            Fechar
-                        </button>
-                    </div>
-
                 </div>
             </div>
-
 
         </div >
     )
