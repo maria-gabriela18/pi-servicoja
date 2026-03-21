@@ -9,12 +9,14 @@ body {
 }
 
 .header {
+    color: white;
+    display: flex;
     background: #0f172a;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 20px;
-    text-align: end;
     border-bottom: 1px solid #e2e8f0;
     margin-bottom: 50px;
+    border: 1px solid red;
 }
 
 .header div button {

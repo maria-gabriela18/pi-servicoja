@@ -4,10 +4,28 @@ import "../home.css";
 export default function Page() {
 
     return (
-        
+
         <div>
 
             <header className="header">
+                <div className="menuNav">
+                    <ul>
+                        <li>
+                            <Link href="listagem_prestadores">Listagem prestadores</Link>
+                        </li>
+                        <li>
+                            <Link href="listagem_prestadores">Listagem prestadores</Link>
+                        </li>
+                        <li>
+                            <Link href="listagem_prestadores">Listagem prestadores</Link>
+                        </li>
+                        <li>
+                            <Link href="listagem_prestadores">Listagem prestadores</Link>
+                        </li>
+                    </ul>
+                </div>
+
+
                 <div>
                     <Link href="login_usuarios"> <button>Login</button> </Link>
                     <Link href="cadastro_usuarios"> <button>Cadastro</button> </Link>
