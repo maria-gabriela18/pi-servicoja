@@ -7,10 +7,10 @@ import supabase from '../conexao/supabase';
 
 export default function AdiminiPrest() {
 
-    const [portfolio, setPortfolio] = useState([])
-    const [descricao, setDescricao] = useState([])
-    const [experiencia, setExperiencia] = useState([])
-    const [funcao, setFuncao] = useState([])
+    
+    const [descricao, setDescricao] = useState("")
+    const [experiencia, setExperiencia] = useState()
+    const [funcao, setFuncao] = useState("")
 
     const [demandas, setDemandas] = useState([])
 
@@ -36,21 +36,19 @@ export default function AdiminiPrest() {
     async function salvar(e) {
         e.preventDefault()
 
-        const { data, error } = await supabase
-        .from('servicos')
-        .insert(objeto)
-        console.log(data)
-        setPortfolio(data)
-
-        console.log(error)
-
-
-        const objeto = {
+          const objeto = {
             descricao: descricao,
             funcao: funcao,
             historico: experiencia
         }
+        
+        const { data, error } = await supabase
+        .from('servicos')
+        .insert(objeto)
+        console.log(data)
+       
 
+        console.log(error)
         console.log(objeto)
 
 
@@ -66,6 +64,7 @@ export default function AdiminiPrest() {
          }
 
     }
+
 
     function formataCategoria(categoria) {
         if (categoria == "pintor") {
