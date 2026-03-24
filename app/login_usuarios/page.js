@@ -38,48 +38,50 @@ export default function Login() {
     }, [])
 
     return (
+        <div className="container_login">
 
-        <div className="card">
+            <div className="card pagina_login">
 
-            {
-                autenticado == false ?
-                    <div>
+                {
+                    autenticado == false ?
+                        <div>
 
-                        <h1> Login </h1>
+                            <h1> Login </h1>
 
-                        <hr /> <br />
+                            <hr /> <br />
 
-                        <p> Insira seu e-mail: </p>
-                        <input onChange={e => alteraUsuario(e.target.value)} className="form-control" type="email" placeholder="seu@email.com" />
+                            <p> Insira seu e-mail: </p>
+                            <input onChange={e => alteraUsuario(e.target.value)} className="form-control" type="email" placeholder="seu@email.com" />
 
-                        <br />
+                            <br />
 
-                        <p> Insira sua senha: </p>
-                        <input onChange={e => alteraSenha(e.target.value)} className="form-control" type="password" placeholder="•••••••" />
+                            <p> Insira sua senha: </p>
+                            <input onChange={e => alteraSenha(e.target.value)} className="form-control" type="password" placeholder="•••••••" />
 
-                        <br /><br />
+                            <br /><br />
 
-                        <div className="botaoEntrarLogin">
-                            <button onClick={autenticar} className="btn btn-primary">Entrar</button>
+                            <div className="botaoEntrarLogin">
+                                <button onClick={autenticar} className="btn btn-primary">Entrar</button>
+                            </div>
+
+                            <br />
+
+                            <div className="semconta">
+                                <Link href="cadastro_usuarios" > Não tem conta? Criar </Link>
+                            </div>
+
                         </div>
+                        :
+                        <div>
 
-                        <br />
+                            <p> Você já está logado. </p>
+                            <button onClick={desconectar} > Sair da conta </button>
 
-                        <div className="semconta">
-                            <Link href="cadastro_usuarios" > Não tem conta? Criar </Link>
                         </div>
+                }
 
-                    </div>
-                :
-                    <div>
-
-                        <p> Você já está logado. </p>
-                        <button onClick={desconectar} > Sair da conta </button>
-
-                    </div>
-            }
+            </div>
 
         </div>
-
     )
 }

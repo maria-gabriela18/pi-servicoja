@@ -1,4 +1,4 @@
-body {
+.container_login {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -7,7 +7,7 @@ body {
     background-repeat: no-repeat;
 }
 
-.card {
+.pagina_login.card{
     background-color: #fff;
     width: 375px;
     padding: 20px;
@@ -15,10 +15,10 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.semconta {
+.pagina_login .semconta {
     text-align: center;
 }
 
-.botaoEntrarLogin {
+.pagina_login .botaoEntrarLogin {
     text-align: center;
 }
