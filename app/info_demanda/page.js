@@ -49,7 +49,7 @@ function Demanda() {
             </div>
 
             <br />
-            <h1> Propostas Recebidas </h1>
+            <h3> Propostas Recebidas </h3>
             <hr />
 
             <div class="cardPrestador">
