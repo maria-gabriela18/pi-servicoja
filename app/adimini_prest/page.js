@@ -13,12 +13,11 @@ export default function AdiminiPrest() {
     const [nascimento, alteraDataNascimento] = useState("")
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
+    const [senha, alteraSenha] = useState("")
     
     const [descricao, setDescricao] = useState("")
-    const [experiencia, setExperiencia] = useState()
+    const [historico, setHistorico] = useState("")
     const [funcao, setFuncao] = useState("")
-
-    const [editando, setEditando] = useState(null)
 
     const [demandas, setDemandas] = useState([])
 
@@ -44,16 +43,14 @@ export default function AdiminiPrest() {
             nascimento: nascimento,
             telefone: telefone,
             endereco: endereco,
-            descricao: descricao,
-            funcao: funcao,
-            historico: experiencia
+            senha: senha
         }
-        const { data, error } = await supabase
-        .from('usuarios', 'servicos')
+        const { error } = await supabase
+        .from('usuarios')
         .insert(objeto)
-        console.log(data)
 
         console.log(error)
+
         if (error == null) {
             alert("Usuario cadastrado com sucesso")
         }else {
@@ -63,46 +60,24 @@ export default function AdiminiPrest() {
 
     }
 
-    function editar(objeto) {
-        
-        setEditando(objeto.id)
-
-        setDescricao(objeto.descricao)
-        setExperiencia(objeto.experiencia)
-        setFuncao(objeto.funcao)
-    }
-
-    function cancelarEdicao(){
-        setEditando(null)
-
-
-        setDescricao("")
-        setExperiencia("")
-        setFuncao("")
-    }
-
-    async function atualizar(){
-
-        const objeto ={
+   async function salvarPortfolio(){
+        const objeto = {
             descricao: descricao,
             funcao: funcao,
-            historico: experiencia
-
+            historico: historico
         }
-
-        const { error } = await supabase
+        const {data, error} = await supabase
         .from('servicos')
-        .update(objeto)
-        .eq('id', editando)
+        .insert(objeto)
+        console.log(data)
 
-        if(error == null){
-            alert("Atualização realizada com sucesso!!")
-            cancelarEdicao()
+        console.log(error)
+        if (error == null) {
+            alert("Usuário cadastrado com sucesso")
         }else{
-            alert("Dados inválidos. Verifique os campos e tente novamente")
+            alert("Dados inválidos")
         }
     }
-
 
     function formataCategoria(categoria) {
         if (categoria == "pintor") {
@@ -285,28 +260,19 @@ export default function AdiminiPrest() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form >
+                            <form onSubmit={salvarPortfolio} >
                                 Descrição:
                                 <br />
                                 <input value={descricao} onChange={e => setDescricao(e.target.value)}  className='form-control' />
                                 <br />
                                 Experiência:
                                 <br />
-                                <input value={experiencia} onChange={e => setExperiencia(e.target.value)}  className='form-control' />
+                                <input value={historico} onChange={e => setHistorico(e.target.value)}  className='form-control' />
                                 <br />
                                 Função:
                                 <br />
                                 <input value={funcao}  onChange={e => setFuncao(e.target.value)} className='form-control' />
 
-                                    {
-                                        editando != null ?
-                                        <div>
-                                            <button onClick={() => atualizar()} >Atualizar</button>
-                                            <button onClick={ () => cancelarEdicao()} >Cancelar</button>
-                                        </div>
-                                        :
-                                        <button>Salvar</button>
-                                    }
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -333,7 +299,7 @@ export default function AdiminiPrest() {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form onSubmit={salvar}>
                                 
                                 <p> Nome: </p>
                                 <input value={nome} onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
@@ -352,21 +318,15 @@ export default function AdiminiPrest() {
                                 
                                 <p> Endereço: </p>
                                 <input value={endereco} onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+                                
+                                <p>Senha:</p>
+                                <input value={senha} onChange={e => alteraSenha(e.target.value)} class="form-control" placeholder="Digite sua nova senha"/>
 
-                                
-                                {
-                                    editando != null ? 
-                                        <div>
-                                            <button onClick={() => atualizar()} >Atualizar</button>
-                                            <button onClick={ () => cancelarEdicao()} >Cancelar</button>
-                                        </div>
-                                    :
-                                
                                     <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary">Salvar</button>
                                     </div>
-                                }
+                            
 
                             </form>
 

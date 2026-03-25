@@ -66,6 +66,9 @@ export default function Cadastro() {
 
     return (
 
+        <div className="centralizar">
+
+
         <div className="card">
 
             <h1> Criar conta </h1>
@@ -151,6 +154,7 @@ export default function Cadastro() {
 
             </form>
 
+        </div>
         </div>
     )
 }

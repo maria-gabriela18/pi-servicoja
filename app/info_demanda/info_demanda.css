@@ -45,7 +45,7 @@ body {
   object-fit: cover;
 }
 
-.info h3 {
+.info {
   margin: 0;
   font-size: 18px;
 }
@@ -73,7 +73,7 @@ body {
 
 button {
   border: none;
-  padding: 10px 14px;
+  padding: 3px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
@@ -86,6 +86,12 @@ button {
 
 .aceitar {
   background: #28a745;
+  color: white;
+  margin-right: 15px;
+}
+
+.recusar {
+  background: firebrick;
   color: white;
 }
 
