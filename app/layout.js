@@ -1,7 +1,10 @@
+
+import "../globais.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Script from "next/script";
 import Link from "next/link";
+
 
 
 const geistSans = Geist({
