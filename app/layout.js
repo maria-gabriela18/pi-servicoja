@@ -37,19 +37,19 @@ export default function RootLayout({ children }) {
                         </li>
 
                         <li>
-                            <Link href="listagem_prestadores">Listagem prestadores</Link>
+                            <Link href="/listagem_prestadores">Listagem prestadores</Link>
                         </li>
                         
                         <li>
-                            <Link href="listagem_demandas">Listagem demandas</Link>
+                            <Link href="/listagem_demandas">Listagem demandas</Link>
                         </li>
 
                         <li>
-                            <Link href="adimini_prest">Dashboard</Link>
+                            <Link href="/adimini_prest">Dashboard</Link>
                         </li>
 
                         <li>
-                            <Link href="demanda_cadastro">Cadastrar demanda</Link>
+                            <Link href="/demanda_cadastro">Cadastrar demanda</Link>
                         </li>
 
                     </ul>

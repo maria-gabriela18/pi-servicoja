@@ -15,45 +15,45 @@ export default function ListagemDemandas() {
   const [demandas, setDemandas] = useState([])
   const [userSelecionado, setUserSelecionado] = useState()
 
-   async function buscarDemanda() {
+  async function buscarDemanda() {
 
-        const { data, error } = await supabase
-            .from('demandas')
-            .select(`*, 
+    const { data, error } = await supabase
+      .from('demandas')
+      .select(`*, 
                     id_usuarios(*) 
                    `)
-        console.log(data)
+    console.log(data)
 
-        if (error) {
-            console.log("Error", error)
+    if (error) {
+      console.log("Error", error)
 
-        } else {
-            setDemandas(data)
-        }
-
-    };
-
-    
-    function formataData(data) {
-        let data_formatada = new Date(data)
-        data_formatada = data_formatada.toLocaleDateString()
-        return data_formatada
+    } else {
+      setDemandas(data)
     }
 
-    function formataHoras(horas) {
-        let horas_formatadas = new Date(horas)
-        horas_formatadas = horas_formatadas.toLocaleTimeString()
-        return horas_formatadas
-    }
+  };
+
+
+  function formataData(data) {
+    let data_formatada = new Date(data)
+    data_formatada = data_formatada.toLocaleDateString()
+    return data_formatada
+  }
+
+  function formataHoras(horas) {
+    let horas_formatadas = new Date(horas)
+    horas_formatadas = horas_formatadas.toLocaleTimeString()
+    return horas_formatadas
+  }
 
 
 
   useEffect(() => {
     buscarDemanda()
-    }
+  }
 
 
-  , [])
+    , [])
 
   return (
     <div>
@@ -81,26 +81,25 @@ export default function ListagemDemandas() {
                 <span>{demanda.titulo}</span>
               </div>
 
-              <div className="card-desc">
+              { <div className="card-desc">
                 <p className="label">Descrição</p>
                 <p className="descricao">
                   {demanda.descricao}
                 </p>
-              </div>
+              </div>}
 
-              <div>
-                  <p>{demanda.status} </p>
-              </div>
+              {/* <div>
+                <p>{demanda.status} </p>
+              </div> */}
 
-              <div>
-                  <p>criado em: {formataData(demanda.created_at)}</p>
-                  <p>as {formataHoras(demanda.created_at)}</p>
-                  
-              </div>
+              {/* <div>
+                <p>criado em: {formataData(demanda.created_at)}</p>
+                <p>as {formataHoras(demanda.created_at)}</p>
+              </div> */}
 
               <div className="card-action">
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(prestador)}>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(demanda)}>
                   ver demanda
                 </button>
               </div>
@@ -133,19 +132,25 @@ export default function ListagemDemandas() {
                   </div>
 
                   <div>
-                    <p><span>FUNÇÃO:</span></p>
-                    <p>{userSelecionado.funcao}</p>
+                    <p><span>TITULO:</span></p>
+                    <p>{userSelecionado.titulo}</p>
                   </div>
 
+                  <div>
+                    <p><span>ENDEREÇO:</span> </p>
+                    <p>{userSelecionado.id_usuarios.endereco}</p>
+                  </div>
 
                   <div>
                     <p><span>TELEFONE:</span></p>
                     <p>{userSelecionado.id_usuarios.telefone}</p>
                   </div>
+
                   <div>
                     <p><span>E-MAIL:</span> </p>
                     <p>{userSelecionado.id_usuarios.email}</p>
                   </div>
+
 
 
                   <div className='modalDescricao'>

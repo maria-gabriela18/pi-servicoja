@@ -1,10 +1,13 @@
 body {
     height: 100vh;
+    background: linear-gradient(to bottom, #dbeafe, #ffffff);
+    background-repeat: no-repeat;
+}
+
+.centralizar {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #dbeafe, #ffffff);
-    background-repeat: no-repeat;
 }
 
 .card {
