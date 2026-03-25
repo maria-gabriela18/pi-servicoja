@@ -79,8 +79,8 @@ function Demanda() {
                 <hr/>
 
                 <div class="acoes">
-                    <button class="perfil">Ver Perfil</button>
                     <button class="aceitar">Aceitar Proposta</button>
+                    <button class="recusar">Recusar Proposta</button>
                 </div>
             </div>
 
