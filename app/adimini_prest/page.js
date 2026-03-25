@@ -49,7 +49,7 @@ export default function AdiminiPrest() {
             historico: experiencia
         }
         const { data, error } = await supabase
-        .from('usuarios')
+        .from('usuarios', 'servicos')
         .insert(objeto)
         console.log(data)
 
@@ -59,19 +59,17 @@ export default function AdiminiPrest() {
         }else {
             alert("Dados inválidos. Verifique os campos e tente novamente.")
 
-         }
+        }
 
     }
 
-        function editar(objeto) {
+    function editar(objeto) {
         
         setEditando(objeto.id)
 
         setDescricao(objeto.descricao)
         setExperiencia(objeto.experiencia)
         setFuncao(objeto.funcao)
-
-        console.log(error)
     }
 
     function cancelarEdicao(){
@@ -99,8 +97,7 @@ export default function AdiminiPrest() {
 
         if(error == null){
             alert("Atualização realizada com sucesso!!")
-            // cancelarEdicao()
-            buscarDemanda()
+            cancelarEdicao()
         }else{
             alert("Dados inválidos. Verifique os campos e tente novamente")
         }
@@ -186,7 +183,7 @@ export default function AdiminiPrest() {
                         <button type="button" class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                             Criar portfólio
                         </button>
-                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editar(item)} >Editar dados</button>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(item)}>Editar dados</button>
                     </div>
                     {/* LISTA DE DEMANDAS EM ABERTO */}
 
@@ -288,42 +285,35 @@ export default function AdiminiPrest() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form onSubmit={editar}>
-
-                                {/* <p> Nome: </p>
-                                <input readOnly value={nome} onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
-
-                                <p> E-mail: </p>
-                                <input readOnly value={email} onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
-                                
-                                <p> CPF ou CNPJ: </p>
-                                <input readOnly value={cpf} onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
-                                
-                                <p> Data de Nascimento: </p>
-                                <input readOnly value={nascimento} onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
-                                
-                                <p> Telefone: </p>
-                                <input readOnly value={telefone} onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
-                                
-                                <p> Endereço: </p>
-                                <input readOnly value={endereco} onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" /> */}
-                                
+                            <form >
                                 Descrição:
                                 <br />
-                                <input  onChange={e => setDescricao(e.target.value)}  className='form-control' />
+                                <input value={descricao} onChange={e => setDescricao(e.target.value)}  className='form-control' />
                                 <br />
                                 Experiência:
                                 <br />
-                                <input onChange={e => setExperiencia(e.target.value)}  className='form-control' />
+                                <input value={experiencia} onChange={e => setExperiencia(e.target.value)}  className='form-control' />
                                 <br />
                                 Função:
                                 <br />
-                                <input onChange={e => setFuncao(e.target.value)} className='form-control' />
+                                <input value={funcao}  onChange={e => setFuncao(e.target.value)} className='form-control' />
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
-                                </div>
+                                    {
+                                        editando != null ?
+                                        <div>
+                                            <button onClick={() => atualizar()} >Atualizar</button>
+                                            <button onClick={ () => cancelarEdicao()} >Cancelar</button>
+                                        </div>
+                                        :
+                                        <button>Salvar</button>
+                                    }
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Salvar</button>
+                                        </div>
+                                
+                    
+
                             </form>
 
 
@@ -333,7 +323,7 @@ export default function AdiminiPrest() {
                 </div>
             </div>
             
-            {/* MODAL EDIÇÃO PORTIFÓLIO */}
+            {/* MODAL EDIÇÃO DADOS */}
 
              <div class="modal fade" id="exampleModal2" tabindex="-1">
                 <div class="modal-dialog">
@@ -343,38 +333,26 @@ export default function AdiminiPrest() {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form onSubmit={salvar}>
+                            <form>
                                 
                                 <p> Nome: </p>
-                                <input onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
+                                <input value={nome} onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
 
                                 <p> E-mail: </p>
-                                <input onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
+                                <input value={email} onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
                                 
                                 <p> CPF ou CNPJ: </p>
-                                <input onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
+                                <input value={cpf} onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
                                 
                                 <p> Data de Nascimento: </p>
-                                <input onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
+                                <input value={nascimento} onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
                                 
                                 <p> Telefone: </p>
-                                <input onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
+                                <input value={telefone} onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
                                 
                                 <p> Endereço: </p>
-                                <input onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+                                <input value={endereco} onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
 
-                                
-                                <p>Descrição:</p>
-                            
-                                <input readOnly={editando != null} onChange={e => setDescricao(e.target.value)} className='form-control' />
-                    
-                                Experiência:
-                                
-                                <input readOnly={editando != null} onChange={e => setExperiencia(e.target.value)} className='form-control' />
-                                
-                                Função:
-                               
-                                <input readOnly={editando != null} onChange={e => setFuncao(e.target.value)} className='form-control' />
                                 
                                 {
                                     editando != null ? 
@@ -383,13 +361,13 @@ export default function AdiminiPrest() {
                                             <button onClick={ () => cancelarEdicao()} >Cancelar</button>
                                         </div>
                                     :
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Salvar</button>
-                                        </div>
+                                
+                                    <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
                                 }
 
-                                
                             </form>
 
 
