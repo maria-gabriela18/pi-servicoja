@@ -7,10 +7,18 @@ import supabase from '../conexao/supabase';
 
 export default function AdiminiPrest() {
 
+    const [nome, alteraNome] = useState("")
+    const [email, alteraEmail] = useState("")
+    const [cpf, alteraCpfCnpj] = useState("")
+    const [nascimento, alteraDataNascimento] = useState("")
+    const [telefone, alteraTelefone] = useState("")
+    const [endereco, alteraEndereco] = useState("")
     
     const [descricao, setDescricao] = useState("")
     const [experiencia, setExperiencia] = useState()
     const [funcao, setFuncao] = useState("")
+
+    const [editando, setEditando] = useState(null)
 
     const [demandas, setDemandas] = useState([])
 
@@ -23,46 +31,79 @@ export default function AdiminiPrest() {
                     *) 
                 `)
         console.log(data)
-
-        if (error) {
-            console.log("Error", error)
-
-        } else {
-            setDemandas(data)
-        }
-
+        setDemandas(data)
     };
 
     async function salvar(e) {
         e.preventDefault()
 
-          const objeto = {
+        const objeto = {
+            nome: nome,
+            email: email,
+            cpf_cnpj: cpf,
+            nascimento: nascimento,
+            telefone: telefone,
+            endereco: endereco,
             descricao: descricao,
             funcao: funcao,
             historico: experiencia
         }
-        
         const { data, error } = await supabase
-        .from('servicos')
+        .from('usuarios')
         .insert(objeto)
         console.log(data)
-       
 
         console.log(error)
-        console.log(objeto)
-
-
         if (error == null) {
             alert("Usuario cadastrado com sucesso")
-            setDescricao("")
-            setExperiencia("")
-            setFuncao("")
-
         }else {
             alert("Dados inválidos. Verifique os campos e tente novamente.")
 
          }
 
+    }
+
+        function editar(objeto) {
+        
+        setEditando(objeto.id)
+
+        setDescricao(objeto.descricao)
+        setExperiencia(objeto.experiencia)
+        setFuncao(objeto.funcao)
+
+        console.log(error)
+    }
+
+    function cancelarEdicao(){
+        setEditando(null)
+
+
+        setDescricao("")
+        setExperiencia("")
+        setFuncao("")
+    }
+
+    async function atualizar(){
+
+        const objeto ={
+            descricao: descricao,
+            funcao: funcao,
+            historico: experiencia
+
+        }
+
+        const { error } = await supabase
+        .from('servicos')
+        .update(objeto)
+        .eq('id', editando)
+
+        if(error == null){
+            alert("Atualização realizada com sucesso!!")
+            // cancelarEdicao()
+            buscarDemanda()
+        }else{
+            alert("Dados inválidos. Verifique os campos e tente novamente")
+        }
     }
 
 
@@ -74,6 +115,9 @@ export default function AdiminiPrest() {
             return <span className='basge text-bg-danger'>MECÂNICO</span>
         }
     }
+
+    
+
 
     useEffect(() => {
         buscarDemanda()
@@ -91,23 +135,19 @@ export default function AdiminiPrest() {
 
 
                     <div className="list-group list-group-flush fs-5">
-                        <Link href="perfil_usuarios" className="list-group-item list-group-item-action">Perfil</Link>
-                        <Link href="#" className="list-group-item list-group-item-action">Descrição</Link>
-                        <Link href="listagem_demandas" className="list-group-item list-group-item-action">Demandas em aberto</Link>
-                    </div>
+                        <Link href="/" className="list-group-item list-group-item-action">Página inicial</Link>
+                        <Link href="listagem_demandas" className="list-group-item list-group-item-action">Todas as demandas</Link>
+                        <Link href="propostas" className="list-group-item list-group-item-action">Porpostas</Link>
+                   </div>
 
 
-                    <div className="text-center menuLateralPerfil ">
+                    {/* <div className="text-center menuLateralPerfil ">
                         <img className="me-2" src="https://placehold.co/40" />
-                        <div className="btn-group dropend ">
-                            <button type="button" className="btn dropdown-toggle  p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 " data-bs-toggle="dropdown">Perfil</button>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Editar</a></li>
-                                <li><a className="dropdown-item" href="#">Sair</a></li>
-                            </ul>
+                        <div>
+                            <button type="button" >Editar</button>
                         </div>
 
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* <!-- Conteúdo principal --> */}
@@ -143,10 +183,10 @@ export default function AdiminiPrest() {
                     <div className="text-end my-5">
 
                         <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                        <button type="button" class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                             Criar portfólio
                         </button>
-
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editar(item)} >Editar dados</button>
                     </div>
                     {/* LISTA DE DEMANDAS EM ABERTO */}
 
@@ -174,26 +214,6 @@ export default function AdiminiPrest() {
                                                 <td>{item.descricao}</td> {/* td: coluna*/}
                                                 <td> {formataCategoria(item.categoria)}</td>
                                                 <td><button>Cancelar</button> <button>Aceitar</button></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">{index + 1} </th>
-                                                <th scope="row">{item.id_usuarios.nome}</th>
-                                                <td>{item.descricao}</td>
-                                                <td> {formataCategoria(item.categoria)} </td>
-                                                <td><button>Cancelar</button> <button>Aceitar</button></td>
-
-                                            </tr>
-                                            <tr>
-
-                                                <th scope="row">{index + 1}</th>
-                                                <th scope="row">{item.id_usuarios.nome}</th>
-                                                <td>{item.descricao}</td>
-                                                <td> {formataCategoria(item.categoria)} </td>
-                                                <td><button>Cancelar</button> <button>Aceitar</button></td>
-
-                                            </tr>
-                                            <tr>
-
                                             </tr>
                                         </tbody>
                                     ))
@@ -239,25 +259,6 @@ export default function AdiminiPrest() {
                                                     <td> {formataCategoria(item.categoria)}</td>
                                                     <td><button>Cancelar</button> <button>Aceitar</button></td>
                                                 </tr>
-                                                <tr>
-                                                    <th scope="row">{index + 1}</th>
-                                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                                    <td>{item.descricao}</td>
-                                                    <td> {formataCategoria(item.categoria)} </td>
-                                                    <td><button>Cancelar</button> <button>Aceitar</button></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">{index + 1}</th>
-                                                    <th scope="row">{item.id_usuarios.nome}</th>
-                                                    <td>{item.descricao}</td>
-                                                    <td> {formataCategoria(item.categoria)} </td>
-                                                    <td><button>Cancelar</button> <button>Aceitar</button></td>
-
-                                                </tr>
-                                                <tr>
-
-                                                </tr>
                                             </tbody>
                                         ))
                                     }
@@ -279,27 +280,45 @@ export default function AdiminiPrest() {
 
             {/* MODAL CRIAR  PORTIFÓLIO funciona*/}
 
-            <div class="modal fade" id="exampleModal1" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel1">Novo portfólio</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="exampleModal1" tabIndex="-1">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel1">Novo portfólio</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <form onSubmit={salvar}>
+                        <div className="modal-body">
+                            <form onSubmit={editar}>
 
+                                {/* <p> Nome: </p>
+                                <input readOnly value={nome} onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
+
+                                <p> E-mail: </p>
+                                <input readOnly value={email} onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
+                                
+                                <p> CPF ou CNPJ: </p>
+                                <input readOnly value={cpf} onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
+                                
+                                <p> Data de Nascimento: </p>
+                                <input readOnly value={nascimento} onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
+                                
+                                <p> Telefone: </p>
+                                <input readOnly value={telefone} onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
+                                
+                                <p> Endereço: </p>
+                                <input readOnly value={endereco} onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" /> */}
+                                
                                 Descrição:
                                 <br />
-                                <input onChange={e => setDescricao(e.target.value)} />
+                                <input  onChange={e => setDescricao(e.target.value)}  className='form-control' />
                                 <br />
                                 Experiência:
                                 <br />
-                                <input onChange={e => setExperiencia(e.target.value)} />
+                                <input onChange={e => setExperiencia(e.target.value)}  className='form-control' />
                                 <br />
                                 Função:
                                 <br />
-                                <input onChange={e => setFuncao(e.target.value)} />
+                                <input onChange={e => setFuncao(e.target.value)} className='form-control' />
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -313,6 +332,73 @@ export default function AdiminiPrest() {
                     </div>
                 </div>
             </div>
+            
+            {/* MODAL EDIÇÃO PORTIFÓLIO */}
+
+             <div class="modal fade" id="exampleModal2" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel2">Editar Dados</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={salvar}>
+                                
+                                <p> Nome: </p>
+                                <input onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
+
+                                <p> E-mail: </p>
+                                <input onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
+                                
+                                <p> CPF ou CNPJ: </p>
+                                <input onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
+                                
+                                <p> Data de Nascimento: </p>
+                                <input onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
+                                
+                                <p> Telefone: </p>
+                                <input onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
+                                
+                                <p> Endereço: </p>
+                                <input onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+
+                                
+                                <p>Descrição:</p>
+                            
+                                <input readOnly={editando != null} onChange={e => setDescricao(e.target.value)} className='form-control' />
+                    
+                                Experiência:
+                                
+                                <input readOnly={editando != null} onChange={e => setExperiencia(e.target.value)} className='form-control' />
+                                
+                                Função:
+                               
+                                <input readOnly={editando != null} onChange={e => setFuncao(e.target.value)} className='form-control' />
+                                
+                                {
+                                    editando != null ? 
+                                        <div>
+                                            <button onClick={() => atualizar()} >Atualizar</button>
+                                            <button onClick={ () => cancelarEdicao()} >Cancelar</button>
+                                        </div>
+                                    :
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Salvar</button>
+                                        </div>
+                                }
+
+                                
+                            </form>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
 
         </div >
     )
