@@ -9,15 +9,40 @@ body {
 }
 
 .header {
+
     color: white;
     display: flex;
+    justify-content: space-between;
     background: #0f172a;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 20px;
     border-bottom: 1px solid #e2e8f0;
     margin-bottom: 50px;
-    border: 1px solid red;
 }
+
+.header .menuNav ul {
+    display: flex;
+    list-style: none;
+}
+
+.header .menuNav ul li {
+    padding: 10px;
+    margin-right: 20px;
+
+}
+
+.header .menuNav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: all 500ms ease;
+}
+
+.header .menuNav ul li a:hover {
+    letter-spacing: 1px;
+}
+
+
 
 .header div button {
     background-color: #6366f1;
@@ -51,21 +76,22 @@ section .titulo {
     color: #2563eb;
 }
 
-.caixa-input{
+.caixa-input {
     display: flex;
     justify-content: center;
     margin: 40px 40px;
-   
+
 }
 
-.caixa-input input{
+.caixa-input input {
     width: 800px;
     padding: 7px;
     border-radius: 20px;
     border: none;
     outline: none;
 }
-.caixa-input button{
+
+.caixa-input button {
     background-color: white;
     display: flex;
     justify-content: center;

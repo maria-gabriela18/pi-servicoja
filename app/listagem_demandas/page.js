@@ -1,77 +1,174 @@
-function ListagemDemanda() {
+'use client'
 
-  const demandas = [
-    { cliente: "João Silva", descricao: "Instalação de ar-condicionado", localizacao: "São Paulo - SP", status: "Aberto" },
-    { cliente: "Maria Oliveira", descricao: "Manutenção elétrica", localizacao: "Rio de Janeiro - RJ", status: "Em andamento" },
-    { cliente: "Carlos Souza", descricao: "Reforma de cozinha", localizacao: "Belo Horizonte - MG", status: "Finalizado" },
-    { cliente: "Ana Lima", descricao: "Pintura externa", localizacao: "Curitiba - PR", status: "Aberto" },
-    { cliente: "Pedro Santos", descricao: "Instalação de câmeras", localizacao: "Salvador - BA", status: "Em andamento" },
-    { cliente: "Juliana Rocha", descricao: "Conserto hidráulico", localizacao: "Fortaleza - CE", status: "Finalizado" },
-    { cliente: "Lucas Almeida", descricao: "Desenvolvimento de site", localizacao: "Recife - PE", status: "Aberto" },
-    { cliente: "Fernanda Costa", descricao: "Manutenção de computador", localizacao: "Porto Alegre - RS", status: "Finalizado" },
-    { cliente: "Bruno Martins", descricao: "Limpeza pós-obra", localizacao: "Brasília - DF", status: "Em andamento" },
-    { cliente: "Camila Ferreira", descricao: "Instalação de piso", localizacao: "Manaus - AM", status: "Aberto" },
-    { cliente: "Rafael Gomes", descricao: "Troca de telhado", localizacao: "Natal - RN", status: "Finalizado" },
-    { cliente: "Patrícia Alves", descricao: "Instalação de portão eletrônico", localizacao: "Florianópolis - SC", status: "Em andamento" },
-    { cliente: "Diego Ribeiro", descricao: "Montagem de móveis", localizacao: "Goiânia - GO", status: "Aberto" },
-    { cliente: "Larissa Mendes", descricao: "Projeto arquitetônico", localizacao: "Vitória - ES", status: "Finalizado" },
-    { cliente: "Thiago Carvalho", descricao: "Consultoria financeira", localizacao: "Campo Grande - MS", status: "Em andamento" },
-    { cliente: "Aline Barbosa", descricao: "Instalação de energia solar", localizacao: "Maceió - AL", status: "Aberto" },
-    { cliente: "Gustavo Pinto", descricao: "Reparo em fachada", localizacao: "Teresina - PI", status: "Finalizado" },
-    { cliente: "Renata Dias", descricao: "Criação de logotipo", localizacao: "Aracaju - SE", status: "Em andamento" },
-    { cliente: "Marcelo Nunes", descricao: "Automação residencial", localizacao: "João Pessoa - PB", status: "Aberto" },
-    { cliente: "Beatriz Teixeira", descricao: "Instalação de drywall", localizacao: "Cuiabá - MT", status: "Finalizado" }
-  ];
+import { createClient } from '@supabase/supabase-js'
+import { useState, useEffect } from 'react'
+import Link from "next/link"
+import "./listagem_demandas.css"
 
-  console.log(demandas);
+const supabase = createClient(
+  "https://ynxzquxbnbdesqknhbte.supabase.co",
+  "sb_publishable_NFhvutPRUhEg0xdbFhkflA_UV_NXWFu"
+)
+
+export default function ListagemDemandas() {
+
+  const [demandas, setDemandas] = useState([])
+  const [userSelecionado, setUserSelecionado] = useState()
+
+   async function buscarDemanda() {
+
+        const { data, error } = await supabase
+            .from('demandas')
+            .select(`*, 
+                    id_usuarios(*) 
+                   `)
+        console.log(data)
+
+        if (error) {
+            console.log("Error", error)
+
+        } else {
+            setDemandas(data)
+        }
+
+    };
+
+    
+    function formataData(data) {
+        let data_formatada = new Date(data)
+        data_formatada = data_formatada.toLocaleDateString()
+        return data_formatada
+    }
+
+    function formataHoras(horas) {
+        let horas_formatadas = new Date(horas)
+        horas_formatadas = horas_formatadas.toLocaleTimeString()
+        return horas_formatadas
+    }
+
+
+
+  useEffect(() => {
+    buscarDemanda()
+    }
+
+
+  , [])
 
   return (
     <div>
-      <h1> Lista de demandas </h1>
-      <hr />
 
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>Descrição</th>
-            <th>Localização</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            demandas.map(
-              item => <tr>
-                <td>{item.cliente}</td>
-                <td>{item.descricao}</td>
-                <td>{item.localizacao}</td>
-                <td>{item.status}</td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      {/* HEADER */}
 
 
-      <h2>Listagem de Demandas</h2>
+      {/* CATEGORIA */}
+      <section className="categoria">
+        <h2 className="categoria-titulo">Demandas em aberto</h2>
 
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>Descrição</th>
-            <th>Localização</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+        <div className="cards">
 
-      </table>
+          {demandas.map((demanda) => (
 
-            
+            <div className="card" key={demanda.id}>
+
+              <div className="card-top">
+                <img src="https://placehold.co/50x50" />
+                <h3>{demanda.id_usuarios.nome}</h3>
+              </div>
+
+              <div className="card-info">
+                <p className="label">titulo</p>
+                <span>{demanda.titulo}</span>
+              </div>
+
+              <div className="card-desc">
+                <p className="label">Descrição</p>
+                <p className="descricao">
+                  {demanda.descricao}
+                </p>
+              </div>
+
+              <div>
+                  <p>{demanda.status} </p>
+              </div>
+
+              <div>
+                  <p>criado em: {formataData(demanda.created_at)}</p>
+                  <p>as {formataHoras(demanda.created_at)}</p>
+                  
+              </div>
+
+              <div className="card-action">
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(prestador)}>
+                  ver demanda
+                </button>
+              </div>
+
+            </div>
+
+          ))}
+
+
+
+
+        </div>
+      </section>
+
+
+
+      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content modal-css">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">informações</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body ">
+              {userSelecionado ? (
+                <div className='modalInfo'>
+                  <div>
+                    <p><span>NOME:</span></p>
+                    <p>{userSelecionado.id_usuarios.nome}</p>
+                  </div>
+
+                  <div>
+                    <p><span>FUNÇÃO:</span></p>
+                    <p>{userSelecionado.funcao}</p>
+                  </div>
+
+
+                  <div>
+                    <p><span>TELEFONE:</span></p>
+                    <p>{userSelecionado.id_usuarios.telefone}</p>
+                  </div>
+                  <div>
+                    <p><span>E-MAIL:</span> </p>
+                    <p>{userSelecionado.id_usuarios.email}</p>
+                  </div>
+
+
+                  <div className='modalDescricao'>
+                    <p><span>DESCRIÇÃO:</span> </p>
+                    <p>{userSelecionado.descricao}</p>
+                  </div>
+                </div>
+              ) : (
+                <p>Nenhum prestador selecionado</p>
+              )}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary  button-css" data-bs-dismiss="modal">Fechar</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
 
     </div>
-  );
+
+
+  )
 }
 
-export default ListagemDemanda;

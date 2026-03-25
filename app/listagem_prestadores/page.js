@@ -44,22 +44,7 @@ export default function ListagemPrestadores() {
     <div>
 
       {/* HEADER */}
-      <header className="headerListaPres">
-        <ul>
-          <li>Automóveis</li>
-          <li>Design e Tecnologia</li>
-          <li>Reforma e Reparos</li>
-          <li>Serviços domésticos</li>
-          <li>Saúde</li>
-          <li>Assistência técnica</li>
-        </ul>
-
-        <div className="botaoPerfil">
-          <Link href="/perfil_usuarios" className="list-group-item list-group-item-action">
-            Perfil
-          </Link>
-        </div>
-      </header>
+     
 
       {/* CATEGORIA */}
       <section className="categoria">

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Script from "next/script";
+import Link from "next/link";
 
 
 const geistSans = Geist({
@@ -22,7 +23,43 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+
+          <header className="header">
+                <div className="menuNav">
+                    <ul>
+                        <li>
+                            <Link href="listagem_prestadores">Listagem prestadores</Link>
+                        </li>
+                        
+                        <li>
+                            <Link href="listagem_demandas">Listagem demandas</Link>
+                        </li>
+
+                        <li>
+                            <Link href="adimini_prest">Dashboard</Link>
+                        </li>
+
+                        <li>
+                            <Link href="demanda_cadastro">Cadastrar demanda</Link>
+                        </li>
+
+                        <li>
+                          <Link href="/">home</Link>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div>
+                    <Link href="login_usuarios"> <button>Login</button> </Link>
+                    <Link href="cadastro_usuarios"> <button>Cadastro</button> </Link>
+                </div>
+            </header>
+        
+
+        
         {children}
+
 
         <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" />
 
