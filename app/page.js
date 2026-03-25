@@ -14,18 +14,18 @@ export default function Page() {
 
                 <div className="caixa-input">
                     <input placeholder="Que serviço você precisa? Ex: eletricista, encanador.." />
-                    <button>🔍</button>
+                    <button><i class="bi bi-search"></i></button>
                 </div>
 
 
                 <div className="carrossel">
                     <ul>
-                        <li>automoveis </li>
-                        <li>Design e Tecnologia</li>
-                        <li>Reforma e Reparos </li>
-                        <li>Serviços domesticos </li>
-                        <li>Saúde</li>
-                        <li>Assistencia técnica </li>
+                        <li><i class="bi bi-car-front-fill"></i>automoveis </li>
+                        <li><i class="bi bi-pc-display-horizontal"></i>Design e Tecnologia</li>
+                        <li><i class="bi bi-hammer"></i>Reforma e Reparos </li>
+                        <li><i class="bi bi-house-door"></i>Serviços domesticos </li>
+                        <li><i class="bi bi-heart-pulse"></i>Saúde</li>
+                        <li><i class="bi bi-wrench-adjustable"></i>Assistencia técnica </li>
                     </ul>
                 </div>
 
@@ -43,16 +43,19 @@ export default function Page() {
 
                     <div className="cardsFuncionamento">
                         <div>
+                            <i class="bi bi-truck"></i>
                             <h2>Faça seu pedido</h2>
                             <p>fale o que precisa</p>
                         </div>
 
                         <div>
+                            <i className="bi bi-cash"></i>
                             <h2>Receba até 5 orçamentos</h2>
                             <p>Profissionais avaliados entram em contato com você em instantes!</p>
                         </div>
 
                         <div>
+                            <i className="bi bi-star"></i>
                             <h2>Escolha o melhor negocio</h2>
                             <p>Negocie direto com eles. Fácil como nunca foi antes!</p>
                         </div>
