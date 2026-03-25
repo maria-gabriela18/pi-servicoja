@@ -13,6 +13,7 @@ export default function Cadastro() {
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
     const [senha, alteraSenha] = useState("")
+    const [tipo, alteraTipo] = useState("cliente")
 
     const [usuarios, alteraUsuarios] = useState([])
 
@@ -33,7 +34,8 @@ export default function Cadastro() {
             nascimento: nascimento,
             telefone: telefone,
             endereco: endereco,
-            senha: senha
+            senha: senha,
+            tipo: tipo
         }
 
         console.log(objeto)
@@ -69,92 +71,123 @@ export default function Cadastro() {
         <div className="centralizar">
 
 
-        <div className="card">
+            <div className="card">
 
-            <h1> Criar conta </h1>
+                <h1> Criar conta </h1>
 
-            <hr/> <br />
+                <hr /> <br />
 
-            <form onSubmit={salvar} >
+                <div className="btn-group" role="group">
+                    <input
+                        type="radio"
+                        className="btn-check"
+                        name="tipo"
+                        id="cliente"
+                        value="cliente"
+                        autoComplete="off"
+                        defaultChecked
+                        onChange={(e) => alteraTipo(e.target.value)}
+                    />
+                    <label className="btn btn-outline-primary" htmlFor="cliente">
+                        Cliente
+                    </label>
 
-            <div class="row">
-
-                <div class="col-6">
-
-                    <p> Nome: </p>
-                    <input onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
-
+                    <input
+                        type="radio"
+                        className="btn-check"
+                        name="tipo"
+                        id="prestador"
+                        value="prestador"
+                        autoComplete="off"
+                        onChange={(e) => alteraTipo(e.target.value)}
+                    />
+                    <label className="btn btn-outline-primary" htmlFor="prestador">
+                        Prestador
+                    </label>
                 </div>
 
-                <div class="col-6">
+                <br/>
 
-                    <p> E-mail: </p>
-                    <input onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
+                <form onSubmit={salvar} >
 
-                </div>
+                    <div class="row">
+
+                        <div class="col-6">
+
+                            <p> Nome: </p>
+                            <input onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <p> E-mail: </p>
+                            <input onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
+
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div className="row">
+
+                        <div class="col-4">
+                            <p> CPF ou CNPJ: </p>
+                            <input onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
+                        </div>
+
+                        <div class="col-4">
+                            <p> Data de Nascimento: </p>
+                            <input onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
+                        </div>
+
+                        <div class="col-4">
+                            <p> Telefone: </p>
+                            <input onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <p> Endereço: </p>
+                    <input onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+
+                    <br />
+
+                    <p> Insira sua senha: </p>
+                    <input onChange={e => alteraSenha(e.target.value)} class="form-control" type="password" placeholder="•••••••" />
+
+                    <br />
+
+                    <div className="demo">
+                        <strong>Sua senha deve conter:</strong><br /><br />
+                        <p>
+                            • 8 e 12 caracteres;<br />
+                            • Ao menos uma letra maiúscula;<br />
+                            • Ao menos 1 caratere especial (@; *; #);<br />
+                            • Ao menos 4 números.
+                        </p>
+                    </div>
+
+                    <br />
+
+                    <div class="text-center row">
+
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
+
+                        <div class="col-6">
+                            <Link k href="login_usuarios"> <button class="btn btn-danger">Cancelar</button> </Link>
+                        </div>
+
+                    </div>
+
+                </form>
 
             </div>
-
-            <br />
-
-            <div className="row">
-
-            <div class="col-4">
-            <p> CPF ou CNPJ: </p>
-            <input onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
-            </div>
-
-            <div class="col-4">
-            <p> Data de Nascimento: </p>
-            <input onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
-            </div>
-
-            <div class="col-4">
-            <p> Telefone: </p>
-            <input onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
-            </div>
-
-            </div>
-
-            <br />
-
-            <p> Endereço: </p>
-            <input onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
-
-            <br />
-
-            <p> Insira sua senha: </p>
-            <input onChange={e => alteraSenha(e.target.value)} class="form-control" type="password" placeholder="•••••••" />
-
-            <br/>
-
-            <div className="demo">
-                <strong>Sua senha deve conter:</strong><br /><br/>
-                <p>
-                    • 8 e 12 caracteres;<br />
-                    • Ao menos uma letra maiúscula;<br />
-                    • Ao menos 1 caratere especial (@; *; #);<br />
-                    • Ao menos 4 números.
-                </p>
-            </div>
-
-            <br />
-
-            <div class="text-center row">
-
-                <div class="col-6">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                </div>
-
-                <div class="col-6">
-                <Link k href="login_usuarios"> <button class="btn btn-danger">Cancelar</button> </Link>
-                </div>
-
-            </div>
-
-            </form>
-
-        </div>
         </div>
     )
 }
