@@ -3,6 +3,8 @@ import "./info_demanda.css"
 function Demanda() {
 
     return (
+        <div className="centralizar">
+
 
         <div>
 
@@ -86,6 +88,7 @@ function Demanda() {
 
         </div>
 
+        </div>
     );
 }
 

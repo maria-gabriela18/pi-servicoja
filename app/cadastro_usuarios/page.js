@@ -42,7 +42,7 @@ export default function Cadastro() {
 
         //Validações
 
-        const { error } = await supabase.from('usuarios').insert(objeto)
+        const { error } = await supabase.from('usuarios').insert([objeto])
 
         console.log(error)
 
@@ -84,8 +84,7 @@ export default function Cadastro() {
                         name="tipo"
                         id="cliente"
                         value="cliente"
-                        autoComplete="off"
-                        defaultChecked
+                        checked={tipo === "cliente"}
                         onChange={(e) => alteraTipo(e.target.value)}
                     />
                     <label className="btn btn-outline-primary" htmlFor="cliente">
@@ -98,7 +97,7 @@ export default function Cadastro() {
                         name="tipo"
                         id="prestador"
                         value="prestador"
-                        autoComplete="off"
+                        checked={tipo === "prestador"}
                         onChange={(e) => alteraTipo(e.target.value)}
                     />
                     <label className="btn btn-outline-primary" htmlFor="prestador">
@@ -106,7 +105,8 @@ export default function Cadastro() {
                     </label>
                 </div>
 
-                <br/>
+
+                <br />
 
                 <form onSubmit={salvar} >
 

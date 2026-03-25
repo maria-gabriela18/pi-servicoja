@@ -1,18 +1,21 @@
 body {
-    height: 100vh;
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    background: linear-gradient(to bottom, #dbeafe, #ffffff);
-    background-repeat: no-repeat;
+  height: 100vh;
+  background: linear-gradient(to bottom, #dbeafe, #ffffff);
+  background-repeat: no-repeat;
+}
+
+.centralizar {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
 .card {
-    background-color: #fff;
-    width: 1200px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  width: 1200px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .cardPrestador {
@@ -20,7 +23,7 @@ body {
   background: #fff;
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
   font-family: Arial, sans-serif;
 }
@@ -33,9 +36,9 @@ body {
 }
 
 .foto {
-    width: 65px;
-    height: 65px;
-    border-radius: 50px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50px;
 }
 
 .avatar {
@@ -98,4 +101,3 @@ button {
 button:hover {
   opacity: 0.9;
 }
-
