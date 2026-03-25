@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Script from "next/script";
 import Link from "next/link";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 
 
@@ -31,6 +33,10 @@ export default function RootLayout({ children }) {
                 <div className="menuNav">
                     <ul>
                         <li>
+                          <Link href="/">home</Link>
+                        </li>
+
+                        <li>
                             <Link href="listagem_prestadores">Listagem prestadores</Link>
                         </li>
                         
@@ -46,16 +52,13 @@ export default function RootLayout({ children }) {
                             <Link href="demanda_cadastro">Cadastrar demanda</Link>
                         </li>
 
-                        <li>
-                          <Link href="/">home</Link>
-                        </li>
                     </ul>
                 </div>
 
 
                 <div>
-                    <Link href="login_usuarios"> <button>Login</button> </Link>
-                    <Link href="cadastro_usuarios"> <button>Cadastro</button> </Link>
+                    <Link href="login_usuarios"> <button><i className="bi bi-box-arrow-in-right"></i>Login</button> </Link>
+                    <Link href="cadastro_usuarios"> <button><i className="bi bi-person-plus"></i>Cadastro</button> </Link>
                 </div>
             </header>
         

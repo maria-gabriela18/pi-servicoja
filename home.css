@@ -45,7 +45,8 @@ section .titulo {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50px;
+    border: none;
+    border-radius: 10px;
 }
 
 .carrossel {
