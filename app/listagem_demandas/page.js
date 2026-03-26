@@ -177,6 +177,7 @@ export default function ListagemDemandas() {
           </div>
         </div>
       </div>
+      
 
 
       <div className="modal fade" id="modalProposta" tabIndex="-1">
