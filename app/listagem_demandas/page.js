@@ -14,6 +14,7 @@ export default function ListagemDemandas() {
 
   const [demandas, setDemandas] = useState([])
   const [userSelecionado, setUserSelecionado] = useState()
+  const [proposta, setProposta] = useState()
 
   async function buscarDemanda() {
 
@@ -81,7 +82,7 @@ export default function ListagemDemandas() {
                 <span>{demanda.titulo}</span>
               </div>
 
-              { <div className="card-desc">
+              {<div className="card-desc">
                 <p className="label">Descrição</p>
                 <p className="descricao">
                   {demanda.descricao}
@@ -164,8 +165,58 @@ export default function ListagemDemandas() {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary  button-css" data-bs-dismiss="modal">Fechar</button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modalProposta">
+                enviar uma proposta
+              </button>
 
             </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="modal fade" id="modalProposta" tabIndex="-1">
+        <div className="modal-dialog">
+          <div className="modal-content">
+
+            <div className="modal-header">
+              <h5 className="modal-title">Enviar proposta</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div className="modal-body">
+              <p>Fazer proposta:</p>
+
+              <textarea className="form-control" placeholder="Digite sua proposta..." />
+            </div>
+
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onClick={() => {
+                  const modal = new window.bootstrap.Modal(
+                    document.getElementById('exampleModal')
+                  );
+                  modal.show();
+                }}
+              >
+                Voltar
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-primary"
+              >
+                Enviar
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
