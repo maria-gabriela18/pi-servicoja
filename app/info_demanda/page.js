@@ -56,7 +56,7 @@ function Demanda() {
 
             <div class="cardPrestador">
 
-                <div class="header">
+                <div class="cabecalho">
                     <img class="foto" src="https://placehold.co/50x50" />
 
                     <div class="info">

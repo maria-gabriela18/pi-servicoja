@@ -28,7 +28,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.header {
+.cabecalho {
   display: flex;
   align-items: center;
   gap: 12px;
