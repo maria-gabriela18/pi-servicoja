@@ -7,17 +7,20 @@ import supabase from '../conexao/supabase';
 
 export default function AdiminiPrest() {
 
-    const [nome, alteraNome] = useState("")
-    const [email, alteraEmail] = useState("")
-    const [cpf, alteraCpfCnpj] = useState("")
-    const [nascimento, alteraDataNascimento] = useState("")
-    const [telefone, alteraTelefone] = useState("")
-    const [endereco, alteraEndereco] = useState("")
-    const [senha, alteraSenha] = useState("")
-    
+    const [nome, setNome] = useState("")
+    const [email, setEmail] = useState("")
+    const [cpf, setCpfCnpj] = useState("")
+    const [nascimento, setDataNascimento] = useState("")
+    const [telefone, setTelefone] = useState("")
+    const [endereco, setEndereco] = useState("")
+    const [senha, setSenha] = useState("")
+
+    const [editando, setEditando] = useState(null)
+
     const [descricao, setDescricao] = useState("")
     const [historico, setHistorico] = useState("")
     const [funcao, setFuncao] = useState("")
+    const [id_usuarios, setIdUsuarios] = useState("")
 
     const [demandas, setDemandas] = useState([])
 
@@ -60,11 +63,14 @@ export default function AdiminiPrest() {
 
     }
 
-   async function salvarPortfolio(){
+   async function salvarPortfolio(e){
+        e.preventDefault()
         const objeto = {
+            
             descricao: descricao,
             funcao: funcao,
-            historico: historico
+            historico: historico,
+            id_usuarios: id_usuarios
         }
         const {data, error} = await supabase
         .from('servicos')
@@ -73,11 +79,63 @@ export default function AdiminiPrest() {
 
         console.log(error)
         if (error == null) {
-            alert("Usuário cadastrado com sucesso")
+            alert("Portfólio cadastrado com sucesso")
         }else{
             alert("Dados inválidos")
         }
     }
+
+    function editar(objeto) {
+        
+        setEditando(objeto.id)
+
+        setNome(objeto.nome)
+        setEmail(objeto.email)
+        setCpfCnpj(objeto.cpf_cnpj)
+        setDataNascimento(objeto.nascimento)
+        setTelefone(objeto.telefone)
+        setEndereco(objeto.endereco)
+        setSenha(objeto.senha)
+    }
+
+    function cancelarEdicao(){
+        setEditando(null)
+
+        setNome("")
+        setEmail("")
+        setCpfCnpj("")
+        setDataNascimento("")
+        setTelefone("")
+        setEndereco("")
+        setSenha("")
+    }
+
+    async function atualizar(){
+
+        const objeto ={
+            nome: nome,
+            email: email,
+            cpf_cnpj: cpf,
+            nascimento: nascimento,
+            telefone: telefone,
+            endereco: endereco,
+            senha: senha
+        }
+
+        const { error } = await supabase
+        .from('usuarios')
+        .update(objeto)
+        .eq('id', editando)
+
+        if(error == null){
+            alert("Atualização realizada com sucesso!!")
+            cancelarEdicao()
+        }else{
+            alert("Dados inválidos. Verifique os campos e tente novamente")
+        }
+    }
+
+
 
     function formataCategoria(categoria) {
         if (categoria == "pintor") {
@@ -158,7 +216,7 @@ export default function AdiminiPrest() {
                         <button type="button" class="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                             Criar portfólio
                         </button>
-                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(item)}>Editar dados</button>
+                        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(objeto)}>Editar dados</button>
                     </div>
                     {/* LISTA DE DEMANDAS EM ABERTO */}
 
@@ -185,7 +243,7 @@ export default function AdiminiPrest() {
                                                 <th scope="row">{item.id_usuarios.nome}</th>
                                                 <td>{item.descricao}</td> {/* td: coluna*/}
                                                 <td> {formataCategoria(item.categoria)}</td>
-                                                <td><button>Cancelar</button> <button>Aceitar</button></td>
+                                                <td><button>Cancelar</button> <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button></td>
                                             </tr>
                                         </tbody>
                                     ))
@@ -217,7 +275,7 @@ export default function AdiminiPrest() {
                                             <th scope="col">Nome</th>
                                             <th scope="col">Descrição</th>
                                             <th scope="col">Categoria</th>
-                                            <th scope="col">Visualização</th>
+                                            
 
                                         </tr>
                                     </thead>
@@ -229,7 +287,6 @@ export default function AdiminiPrest() {
                                                     <th scope="row">{item.id_usuarios.nome}</th>
                                                     <td>{item.descricao}</td> {/* td: coluna*/}
                                                     <td> {formataCategoria(item.categoria)}</td>
-                                                    <td><button>Cancelar</button> <button>Aceitar</button></td>
                                                 </tr>
                                             </tbody>
                                         ))
@@ -261,6 +318,11 @@ export default function AdiminiPrest() {
                         </div>
                         <div className="modal-body">
                             <form onSubmit={salvarPortfolio} >
+                                
+                                ID:
+                                <br />
+                                <input value={id_usuarios} onChange={e => setIdUsuarios(e.target.value)} className='form-control' />
+                                <br />
                                 Descrição:
                                 <br />
                                 <input value={descricao} onChange={e => setDescricao(e.target.value)}  className='form-control' />
@@ -273,15 +335,14 @@ export default function AdiminiPrest() {
                                 <br />
                                 <input value={funcao}  onChange={e => setFuncao(e.target.value)} className='form-control' />
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Salvar</button>
-                                        </div>
-                                
-                    
+                               
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
 
                             </form>
-
 
                         </div>
 
@@ -302,30 +363,39 @@ export default function AdiminiPrest() {
                             <form onSubmit={salvar}>
                                 
                                 <p> Nome: </p>
-                                <input value={nome} onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
+                                <input value={nome} onChange={e => setNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
 
                                 <p> E-mail: </p>
-                                <input value={email} onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
+                                <input value={email} onChange={e => setEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
                                 
                                 <p> CPF ou CNPJ: </p>
-                                <input value={cpf} onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
+                                <input value={cpf} onChange={e => setCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
                                 
                                 <p> Data de Nascimento: </p>
-                                <input value={nascimento} onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
+                                <input value={nascimento} onChange={e => setDataNascimento(e.target.value)} class="form-control" type="date" />
                                 
                                 <p> Telefone: </p>
-                                <input value={telefone} onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
+                                <input value={telefone} onChange={e => setTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
                                 
                                 <p> Endereço: </p>
-                                <input value={endereco} onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+                                <input value={endereco} onChange={e => setEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
                                 
                                 <p>Senha:</p>
-                                <input value={senha} onChange={e => alteraSenha(e.target.value)} class="form-control" placeholder="Digite sua nova senha"/>
+                                <input value={senha} onChange={e => setSenha(e.target.value)} class="form-control" placeholder="Digite sua nova senha"/>
 
-                                    <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-primary">Salvar</button>
-                                    </div>
+
+                                {
+                                    editando == null ?
+                                        <div>
+                                            <br/>
+                                            <button onClick={() => atualizar()} class="btn btn-secondary me-2" data-bs-dismiss="modal">Atualizar</button>
+                                            <button onClick={ () => cancelarEdicao()} class="btn btn-primary">Cancelar</button>
+                                        </div>
+                                    :
+                                        <button>Salvar</button>
+                                }
+
+            
                             
 
                             </form>
@@ -342,5 +412,3 @@ export default function AdiminiPrest() {
     )
 
 }
-
-
