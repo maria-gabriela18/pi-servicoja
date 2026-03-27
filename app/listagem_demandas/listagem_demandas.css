@@ -1,6 +1,5 @@
-
-body{
-    height: 100vh;
+body {
+    min-height: 100vh;
 }
 
 
@@ -48,20 +47,20 @@ body{
 
 /* CARD */
 .card {
-    background: rgba(255, 255, 255, 0.05);
+    background: #ffffff;
     width: 260px;
     padding: 20px;
     border-radius: 18px;
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(167, 139, 250, 0.2);
+    border: 1px solid #e5e5e5;
     transition: 0.3s;
-    color: #e2e8f0;
+    color: #111;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .card:hover {
     transform: translateY(-6px) scale(1.02);
     border-color: #a78bfa;
-    box-shadow: 0 10px 30px rgba(109, 40, 217, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 /* TOPO */
@@ -69,17 +68,21 @@ body{
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .card-top img {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 2px solid #a78bfa;
+    object-fit: cover;
 }
 
 .card-top h3 {
     margin: 0;
-    color: #f5f3ff;
+    color: #111;
+    /* texto escuro */
     font-size: 18px;
 }
 
@@ -89,8 +92,8 @@ body{
 }
 
 .card-info span {
-    font-weight: bold;
-    color: #c4b5fd;
+    font-weight: 600;
+    color: #333;
 }
 
 /* DESC */
@@ -99,25 +102,30 @@ body{
 }
 
 .label {
-    color: #a78bfa;
+    color: #6d28d9;
+    /* roxo mais forte */
     font-weight: 600;
     font-size: 13px;
     margin: 4px 0;
 }
 
 .descricao {
-    color: #cbd5f5;
+    color: #555;
     font-size: 14px;
     margin: 0;
 }
 
-/* ACTION */
+/* BOTÃO */
+.card-action {
+    margin-top: 10px;
+}
+
 .card-action button {
     width: 100%;
     padding: 10px;
-    border: none;
     border-radius: 10px;
-    background: linear-gradient(135deg, #6d28d9, #4c1d95);
+    border: none;
+    background: #22c55e;
     color: white;
     font-weight: 600;
     cursor: pointer;
@@ -125,9 +133,12 @@ body{
 }
 
 .card-action button:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    background: #16a34a;
 }
+
+
+
+
 
 .modal-css {
     background: linear-gradient(135deg, #1e1b3a, #0f0a1f);
@@ -216,7 +227,7 @@ body{
 
 /* BOTÃO PRINCIPAL */
 .modal-footer .btn-primary {
-    background: linear-gradient(135deg, #6d28d9, #4c1d95);
+    background: #22c55e;
     border: none;
     border-radius: 10px;
     padding: 10px 18px;
@@ -225,7 +236,7 @@ body{
 }
 
 .modal-footer .btn-primary:hover {
-    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    background: #16a34a;
     transform: translateY(-2px);
 }
 
@@ -380,7 +391,7 @@ body{
 
 /* BOTÃO ENVIAR */
 .btn-enviar {
-    background: linear-gradient(135deg, #6d28d9, #4c1d95);
+    background: #22c55e;
     color: white;
     border-radius: 10px;
     padding: 10px 18px;
@@ -391,11 +402,7 @@ body{
 }
 
 .btn-enviar:hover {
-    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    background: #16a34a;
     transform: translateY(-2px);
 }
 
-/* CLOSE */
-.modal-proposta .btn-close {
-    filter: invert(1);
-}

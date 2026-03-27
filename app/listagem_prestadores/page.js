@@ -75,7 +75,7 @@ export default function ListagemPrestadores() {
 
               <div className="card-action_prestador">
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(prestador)}>
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(prestador)}>
                   contatos
                 </button>
               </div>

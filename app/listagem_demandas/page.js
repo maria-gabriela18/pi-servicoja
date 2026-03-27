@@ -90,7 +90,7 @@ export default function ListagemDemandas() {
 
             <div className="card-action">
 
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(demanda)}>
+              <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(demanda)}>
                 ver demanda
               </button>
             </div>
@@ -129,7 +129,7 @@ export default function ListagemDemandas() {
 
               <div className="card-action">
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(demanda)}>
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(demanda)}>
                   ver demanda
                 </button>
               </div>
