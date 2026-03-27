@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 import supabase from "../conexao/supabase";
+import "./cadastro_demanda.css"
 
 export default function DemandaCadastro() {
   const [titulo, setTitulo] = useState("");

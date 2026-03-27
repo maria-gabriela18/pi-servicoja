@@ -11,7 +11,7 @@ function Demanda() {
             <h1> Detalhes da Demanda </h1>
             <hr />
 
-            <div className="card">
+            <div className="cardProposta">
 
                 <div className="row">
 

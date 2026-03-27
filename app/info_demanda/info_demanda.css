@@ -1,6 +1,5 @@
 body {
-  height: 100vh;
-  background: linear-gradient(to bottom, #dbeafe, #ffffff);
+ 
   background-repeat: no-repeat;
 }
 
@@ -10,7 +9,13 @@ body {
   justify-content: center;
 }
 
-.card {
+
+.centralizar div h1{
+  color: white;
+}
+
+.cardProposta{
+ 
   background-color: #fff;
   width: 1200px;
   padding: 20px;
