@@ -110,19 +110,19 @@ export default function Cadastro() {
 
                 <form onSubmit={salvar} >
 
-                    <div class="row">
+                    <div className="row">
 
-                        <div class="col-6">
+                        <div className="col-6">
 
                             <p> Nome: </p>
-                            <input onChange={e => alteraNome(e.target.value)} class="form-control" placeholder="Seu nome completo" />
+                            <input onChange={e => alteraNome(e.target.value)} className="form-control" placeholder="Seu nome completo" />
 
                         </div>
 
-                        <div class="col-6">
+                        <div className="col-6">
 
                             <p> E-mail: </p>
-                            <input onChange={e => alteraEmail(e.target.value)} class="form-control" placeholder="seu@email.com" />
+                            <input onChange={e => alteraEmail(e.target.value)} className="form-control" placeholder="seu@email.com" />
 
                         </div>
 
@@ -132,19 +132,19 @@ export default function Cadastro() {
 
                     <div className="row">
 
-                        <div class="col-4">
+                        <div className="col-4">
                             <p> CPF ou CNPJ: </p>
-                            <input onChange={e => alteraCpfCnpj(e.target.value)} class="form-control" placeholder="00011122233" />
+                            <input onChange={e => alteraCpfCnpj(e.target.value)} className="form-control" placeholder="00011122233" />
                         </div>
 
-                        <div class="col-4">
+                        <div className="col-4">
                             <p> Data de Nascimento: </p>
-                            <input onChange={e => alteraDataNascimento(e.target.value)} class="form-control" type="date" />
+                            <input onChange={e => alteraDataNascimento(e.target.value)} className="form-control" type="date" />
                         </div>
 
-                        <div class="col-4">
+                        <div className="col-4">
                             <p> Telefone: </p>
-                            <input onChange={e => alteraTelefone(e.target.value)} class="form-control" placeholder="11999998888" type="tel" />
+                            <input onChange={e => alteraTelefone(e.target.value)} className="form-control" placeholder="11999998888" type="tel" />
                         </div>
 
                     </div>
@@ -152,12 +152,12 @@ export default function Cadastro() {
                     <br />
 
                     <p> Endereço: </p>
-                    <input onChange={e => alteraEndereco(e.target.value)} class="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+                    <input onChange={e => alteraEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
 
                     <br />
 
                     <p> Insira sua senha: </p>
-                    <input onChange={e => alteraSenha(e.target.value)} class="form-control" type="password" placeholder="•••••••" />
+                    <input onChange={e => alteraSenha(e.target.value)} className="form-control" type="password" placeholder="•••••••" />
 
                     <br />
 
@@ -173,14 +173,14 @@ export default function Cadastro() {
 
                     <br />
 
-                    <div class="text-center row">
+                    <div className="text-center row">
 
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <div className="col-6">
+                            <button type="submit" className="btn btn-primary">Cadastrar</button>
                         </div>
 
-                        <div class="col-6">
-                            <Link k href="login_usuarios"> <button class="btn btn-danger">Cancelar</button> </Link>
+                        <div className="col-6">
+                            <Link k href="login_usuarios"> <button className="btn btn-danger">Cancelar</button> </Link>
                         </div>
 
                     </div>

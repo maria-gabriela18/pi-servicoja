@@ -9,13 +9,13 @@ export default function Login() {
 
             <hr/> <br />
 
-            <div class="row">
+            <div className="row">
 
-                <div class="col-2">
-                    <img class="rounded-circle" width="40" src="https:placehold.co/150" />
+                <div className="col-2">
+                    <img className="rounded-circle" width="40" src="https:placehold.co/150" />
                 </div>
 
-                <div class="col-10">
+                <div className="col-10">
                 <h3> Nome completo </h3>
                 </div>
 
@@ -23,14 +23,14 @@ export default function Login() {
 
             <br/>
 
-            <div class="text-center row">
+            <div className="text-center row">
 
-                <div class="col-6">
-                    <button class="btn btn-primary">Salvar alterações</button>
+                <div className="col-6">
+                    <button className="btn btn-primary">Salvar alterações</button>
                 </div>
 
-                <div class="col-6">
-                    <button class="btn btn-danger">Cancelar</button>
+                <div className="col-6">
+                    <button className="btn btn-danger">Cancelar</button>
                 </div>
             </div>
 

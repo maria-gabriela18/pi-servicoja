@@ -50,11 +50,11 @@ export default function ListagemPrestadores() {
       <section className="categoria">
         <h2 className="categoria-titulo">Prestadores</h2>
 
-        <div className="cards">
+        <div className="cards_prestadores">
 
           {prestadores.map((prestador) => (
 
-            <div className="card" key={prestador.id}>
+            <div className="card_prestador" key={prestador.id}>
 
               <div className="card-top">
                 <img src="https://placehold.co/50x50" />
@@ -73,9 +73,9 @@ export default function ListagemPrestadores() {
                 </p>
               </div>
 
-              <div className="card-action">
+              <div className="card-action_prestador">
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(prestador)}>
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(prestador)}>
                   contatos
                 </button>
               </div>
