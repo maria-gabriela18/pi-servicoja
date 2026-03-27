@@ -7,16 +7,57 @@ import supabase from "../conexao/supabase";
 export default function Cadastro() {
 
     const [nome, alteraNome] = useState("")
-    const [email, alteraEmail] = useState("")
     const [cpf, alteraCpfCnpj] = useState("")
     const [nascimento, alteraDataNascimento] = useState("")
     const [telefone, alteraTelefone] = useState("")
     const [endereco, alteraEndereco] = useState("")
-    const [senha, alteraSenha] = useState("")
     const [tipo, alteraTipo] = useState("cliente")
+
+    const[email, alteraEmail] = useState("")
+    const[senha, alteraSenha] = useState("")
 
     const [usuarios, alteraUsuarios] = useState([])
 
+    async function cadastrar(){
+        // CADASTRAR NO AUTENTTICATION
+        const auth ={
+            email: email,
+            passoword: senha
+        }
+
+        if(data == null){
+            alert("Dados inválidos")
+            return
+        }
+
+        const { data, error } = await supabase.auth.signUp(auth)
+
+        // CADASTRAR NA TABELA USUÁRIOS
+        const objeto = {
+            id: data.user.id,
+            nome: nome,
+            cpf: cpf,
+            nascimento:nascimento,
+            telefone: telefone,
+            endereço:endereco,
+            tipo: tipo
+
+        }
+
+        const resposta = await supabase
+            .from('usuarios')
+            .insert({objeto})
+
+        if(resposta.error == null){
+            alert("Cadastrado com sucesso")
+        }else{
+            alert("Verifique os dados inderidos e tente novamente")
+        }
+
+        
+        
+    }
+    
     async function buscar() {
 
         const { data, error } = await supabase.from('usuarios').select()
@@ -24,43 +65,43 @@ export default function Cadastro() {
         alteraUsuarios(data)
     }
 
-    async function salvar(e) {
-        e.preventDefault()
+    // async function salvar(e) {
+    //     e.preventDefault()
 
-        const objeto = {
-            nome: nome,
-            email: email,
-            cpf_cnpj: cpf,
-            nascimento: nascimento,
-            telefone: telefone,
-            endereco: endereco,
-            senha: senha,
-            tipo: tipo
-        }
+    //     const objeto = {
+    //         nome: nome,
+    //         email: email,
+    //         cpf_cnpj: cpf,
+    //         nascimento: nascimento,
+    //         telefone: telefone,
+    //         endereco: endereco,
+    //         senha: senha,
+    //         tipo: tipo
+    //     }
 
-        console.log(objeto)
+    //     console.log(objeto)
 
-        //Validações
+    //     //Validações
 
-        const { error } = await supabase.from('usuarios').insert([objeto])
+    //     const { error } = await supabase.from('usuarios').insert([objeto])
 
-        console.log(error)
+    //     console.log(error)
 
-        if (error == null) {
-            alert("Usuário cadastrado com sucesso!")
-            alteraNome("")
-            alteraEmail("")
-            alteraCpfCnpj("")
-            alteraDataNascimento("")
-            alteraTelefone("")
-            alteraEndereco("")
-            alteraSenha("")
-            //location.reload()
-        } else {
-            alert("Dados inválidos. Verifique os campos e tente novamente.")
-        }
+    //     if (error == null) {
+    //         alert("Usuário cadastrado com sucesso!")
+    //         alteraNome("")
+    //         alteraEmail("")
+    //         alteraCpfCnpj("")
+    //         alteraDataNascimento("")
+    //         alteraTelefone("")
+    //         alteraEndereco("")
+    //         alteraSenha("")
+    //         //location.reload()
+    //     } else {
+    //         alert("Dados inválidos. Verifique os campos e tente novamente.")
+    //     }
 
-    }
+    // }
 
     useEffect(() => {
         buscar()
@@ -108,7 +149,7 @@ export default function Cadastro() {
 
                 <br />
 
-                <form onSubmit={salvar} >
+                <form onSubmit={cadastrar} >
 
                     <div className="row">
 
