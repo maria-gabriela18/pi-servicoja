@@ -1,7 +1,8 @@
-'use client';
+    'use client';
 import Link from "next/link";
 import "./login_usuario.css";
 import { useEffect, useState } from "react";
+import supabase from "../conexao/supabase";
 
 export default function Login() {
 
@@ -10,16 +11,29 @@ export default function Login() {
     const [usuario, alteraUsuario] = useState("")
     const [senha, alteraSenha] = useState("")
 
-    function autenticar() {
+    async function autenticar() {
 
-        if (usuario == "admin" && senha == "123123") {
-            alert("Você se conectou!")
-            localStorage.setItem("logado", "true")
-            alteraAutenticado(true)
-        } else {
-            alert("Erro! Algum dado está errado...")
+        const { data, error } = await supabase.auth.signInWithPassword({
+        email: usuario,
+        password: senha,
+        })
+
+        // DESATIVEI PARA FAZER O CÓDIGO QUE O CONRADO PEDIU
+        // if (usuario == "admin" && senha == "123123") {
+        //     alert("Você se conectou!")
+        //     localStorage.setItem("logado", "true")
+        //     alteraAutenticado(true)
+        // } else {
+        //     alert("Erro! Algum dado está errado...")
+        // }
+
+        if(data == null){
+            alert("Dados inválidos")
+            return
         }
-
+        alert("Autenticado com sucesso")
+        // console.log(data) - para ver se está dando certo
+        localStorage.setItem("id_usuario", data.user.id)
     }
 
     function desconectar() {
