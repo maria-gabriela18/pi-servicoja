@@ -59,11 +59,19 @@ export default function ListagemDemandas() {
   return (
     <div>
 
-      {/* HEADER */}
-
-
       {/* CATEGORIA */}
       <section className="categoria">
+
+        <div>
+            <select>
+                <option>Filtrar</option>
+                <option></option>
+            </select>
+           
+        </div>
+
+
+
         <h2 className="categoria-titulo">Demandas em aberto</h2>
 
         <div className="cards">

@@ -1,10 +1,17 @@
+body{
+    min-height: 100%;
+}
+
+
+
 .container_login {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #dbeafe, #ffffff);
+    /* background: linear-gradient(to bottom, #dbeafe, #ffffff); */
     background-repeat: no-repeat;
+    
 }
 
 .pagina_login.card{
