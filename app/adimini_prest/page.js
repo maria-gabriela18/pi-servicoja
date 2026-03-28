@@ -24,12 +24,27 @@ export default function AdiminiPrest() {
 
     const [demandas, setDemandas] = useState([])
 
+    const id_usuario = localStorage.getItem("id_usuario")
+
+    const [ usuario, alteraUsuario ] = useState(null)
+
+    async function buscaUsuario(){
+
+        const { data, error } = await supabase
+            .from("usuarios")
+            .select()
+            .eq("id", id_usuario)
+
+        alteraUsuario(data[0])
+
+    }
+
     async function buscarDemanda() {
 
         const { data, error } = await supabase
             .from('demandas')
             .select(`*, 
-                    id_usuarios(
+                    id_usuario(
                     *) 
                 `)
         console.log(data)
@@ -41,12 +56,11 @@ export default function AdiminiPrest() {
 
         const objeto = {
             nome: nome,
-            email: email,
             cpf_cnpj: cpf,
             nascimento: nascimento,
             telefone: telefone,
             endereco: endereco,
-            senha: senha
+        
         }
         const { error } = await supabase
         .from('usuarios')
@@ -70,7 +84,7 @@ export default function AdiminiPrest() {
             descricao: descricao,
             funcao: funcao,
             historico: historico,
-            id_usuarios: id_usuarios
+            id_usuario: id_usuario
         }
         const {data, error} = await supabase
         .from('servicos')
@@ -85,17 +99,17 @@ export default function AdiminiPrest() {
         }
     }
 
-    function editar(objeto) {
+    function editar(usuario) {
         
-        setEditando(objeto.id)
+        setEditando(usuario.id)
 
-        setNome(objeto.nome)
-        setEmail(objeto.email)
-        setCpfCnpj(objeto.cpf_cnpj)
-        setDataNascimento(objeto.nascimento)
-        setTelefone(objeto.telefone)
-        setEndereco(objeto.endereco)
-        setSenha(objeto.senha)
+        setNome(usuario.nome)
+        setEmail(usuario.email)
+        setCpfCnpj(usuario.cpf_cnpj)
+        setDataNascimento(usuario.nascimento)
+        setTelefone(usuario.telefone)
+        setEndereco(usuario.endereco)
+        setSenha(usuario.senha)
     }
 
     function cancelarEdicao(){
@@ -150,10 +164,15 @@ export default function AdiminiPrest() {
 
 
     useEffect(() => {
+        buscaUsuario()
         buscarDemanda()
+
     }, [])
 
     return (
+
+        
+
         <div className="container-fluid">
             <div className="row">
 
@@ -240,7 +259,7 @@ export default function AdiminiPrest() {
                                         <tbody>
                                             <tr>
                                                 <th scope="row">{index + 1}</th>
-                                                <th scope="row">{item.id_usuarios.nome}</th>
+                                                <th scope="row">{item.id_usuario.nome}</th>
                                                 <td>{item.descricao}</td> {/* td: coluna*/}
                                                 <td> {formataCategoria(item.categoria)}</td>
                                                 <td><button>Cancelar</button> <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button></td>
@@ -257,7 +276,7 @@ export default function AdiminiPrest() {
             </div>
 
             {/* MODAL TODAS AS DEMANDAS */}
-            <div className="modal fade" id="exampleModal" tabindex="-1">
+            <div className="modal fade" id="exampleModal" tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
 
@@ -284,7 +303,7 @@ export default function AdiminiPrest() {
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">{index + 1}</th>
-                                                    <th scope="row">{item.id_usuarios.nome}</th>
+                                                    <th scope="row">{item.id_usuario.nome}</th>
                                                     <td>{item.descricao}</td> {/* td: coluna*/}
                                                     <td> {formataCategoria(item.categoria)}</td>
                                                 </tr>
@@ -321,7 +340,7 @@ export default function AdiminiPrest() {
                                 
                                 ID:
                                 <br />
-                                <input value={id_usuarios} onChange={e => setIdUsuarios(e.target.value)} className='form-control' />
+                                <input value={id_usuario} onChange={e => setIdUsuarios(e.target.value)} className='form-control' />
                                 <br />
                                 Descrição:
                                 <br />
@@ -352,7 +371,7 @@ export default function AdiminiPrest() {
             
             {/* MODAL EDIÇÃO DADOS */}
 
-             <div className="modal fade" id="exampleModal2" tabindex="-1">
+             <div className="modal fade" id="exampleModal2" tabIndex="-1">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -378,7 +397,7 @@ export default function AdiminiPrest() {
                                 <input value={telefone} onChange={e => setTelefone(e.target.value)} className="form-control" placeholder="11999998888" type="tel" />
                                 
                                 <p> Endereço: </p>
-                                <input value={endereco} onChange={e => setEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+                                <input value={endereco} onChange={e => setEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minLength="10" />
                                 
                                 <p>Senha:</p>
                                 <input value={senha} onChange={e => setSenha(e.target.value)} className="form-control" placeholder="Digite sua nova senha"/>
