@@ -1,0 +1,40 @@
+'use client'
+import Link from "next/link";
+
+export default function MenuSuperior(){
+
+    const id_usuario = localStorage.getItem("id_usuario")
+
+    return(
+        <header className="header">
+          <div className="menuNav">
+            <ul>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+              <li><Link href="/listagem_demandas">Demandas</Link></li>
+              <li><Link href="/adimini_prest">Dashboard</Link></li>
+              <li><Link href="/demanda_cadastro">Cadastrar</Link></li>
+              <li><Link href="/info_demanda">informacão demanda</Link></li>
+            </ul>
+          </div>
+
+          <div className="acoesHeader">
+            {
+                id_usuario == null ?
+                    <>
+                        <Link href="login_usuarios">
+                            <button><i className="bi bi-box-arrow-in-right"></i>Login</button>
+                        </Link>
+                        <Link href="cadastro_usuarios">
+                            <button><i className="bi bi-person-plus"></i>Cadastro</button>
+                        </Link>
+                    </>
+                :
+                    <Link href="admini_prest">
+                        <button><i className="bi bi-person-plus"></i>Meu perfil</button>
+                    </Link>
+            }
+          </div>
+        </header>
+    )
+}

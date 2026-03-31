@@ -18,51 +18,108 @@ export default function Cadastro() {
 
     const [usuarios, alteraUsuarios] = useState([])
 
-    async function cadastrar(){
+    async function cadastrar(e){
+        e.preventDefault()
+
+        // VALIDAÇÃO DE DADOS
+        if(nome.length < 3){
+            alert("Preencha o nome corretamente...")
+            return
+        }
+        if(validarCPF(cpf) == false){
+            alert("Digite um CPF válido para continuar...")
+            return
+        }
+        if(nascimento == null){
+            alert("Preencha a data de nascimento para prosseguir...")
+            return
+        }
+        if(telefone.length < 8){
+            alert("Preencha o telefone corretamente para prosseguir...")
+            return
+        }
+        if(endereco.length < 5){
+            alert("Preencha o endereço completo...")
+            return
+        }
+        if(senha.length < 8){
+            alert("Preencha a senha corretamente...")
+            return
+        }
+
         // CADASTRAR NO AUTENTTICATION
         const auth ={
             email: email,
-            passoword: senha
+            password: senha
         }
+        const { data, error } = await supabase.auth.signUp(auth)
 
-        if(data == null){
+        if(data.user == null){
             alert("Dados inválidos")
             return
         }
 
-        const { data, error } = await supabase.auth.signUp(auth)
 
         // CADASTRAR NA TABELA USUÁRIOS
         const objeto = {
             id: data.user.id,
             nome: nome,
-            cpf: cpf,
+            cpf_cnpj: cpf,
             nascimento:nascimento,
             telefone: telefone,
-            endereço:endereco,
+            endereco:endereco,
             tipo: tipo
 
         }
 
         const resposta = await supabase
             .from('usuarios')
-            .insert({objeto})
+            .insert(objeto)
 
-        if(resposta.error == null){
+        console.log(resposta)
+
+        if(resposta.status == 201){
             alert("Cadastrado com sucesso")
         }else{
             alert("Verifique os dados inderidos e tente novamente")
         }
 
-        
-        
     }
-    
-    async function buscar() {
 
-        const { data, error } = await supabase.from('usuarios').select()
-        console.log(data)
-        alteraUsuarios(data)
+    function validarCPF(cpf) {
+        return true
+        cpf = cpf.replace(/\D/g, '');
+
+        if (cpf.length !== 11) return false;
+
+        // elimina CPFs inválidos conhecidos (111111..., 000000..., etc)
+        if (/^(\d)\1{10}$/.test(cpf)) return false;
+
+        let soma = 0;
+        let resto;
+
+        // 1º dígito verificador
+        for (let i = 0; i < 9; i++) {
+            soma += parseInt(cpf[i]) * (10 - i);
+        }
+
+        resto = (soma * 10) % 11;
+        if (resto === 10) resto = 0;
+
+        if (resto !== parseInt(cpf[9])) return false;
+
+        // 2º dígito verificador
+        soma = 0;
+        for (let i = 0; i < 10; i++) {
+            soma += parseInt(cpf[i]) * (11 - i);
+        }
+
+        resto = (soma * 10) % 11;
+        if (resto === 10) resto = 0;
+
+        if (resto !== parseInt(cpf[10])) return false;
+
+        return true;
     }
 
     // async function salvar(e) {
@@ -102,10 +159,6 @@ export default function Cadastro() {
     //     }
 
     // }
-
-    useEffect(() => {
-        buscar()
-    }, [])
 
     return (
 
@@ -193,7 +246,7 @@ export default function Cadastro() {
                     <br />
 
                     <p> Endereço: </p>
-                    <input onChange={e => alteraEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minlength="10" />
+                    <input onChange={e => alteraEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minlength={10} />
 
                     <br />
 
@@ -221,7 +274,7 @@ export default function Cadastro() {
                         </div>
 
                         <div className="col-6">
-                            <Link k href="login_usuarios"> <button className="btn btn-danger">Cancelar</button> </Link>
+                            <Link href="login_usuarios"> <button className="btn btn-danger">Cancelar</button> </Link>
                         </div>
 
                     </div>

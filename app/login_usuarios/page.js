@@ -3,8 +3,11 @@ import Link from "next/link";
 import "./login_usuario.css";
 import { useEffect, useState } from "react";
 import supabase from "../conexao/supabase";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+
+    const route = useRouter();
 
     const [autenticado, alteraAutenticado] = useState(false) // Controla se está logado ou não
 
@@ -27,19 +30,14 @@ export default function Login() {
         //     alert("Erro! Algum dado está errado...")
         // }
 
-        if(data == null){
+        if(data.user == null){
             alert("Dados inválidos")
             return
         }
         alert("Autenticado com sucesso")
         // console.log(data) - para ver se está dando certo
         localStorage.setItem("id_usuario", data.user.id)
-    }
-
-    function desconectar() {
-        alert("Desconectado com sucesso!")
-        localStorage.removeItem("logado")
-        alteraAutenticado(false)
+        location.href = "/painel"
     }
 
     useEffect(() => {
