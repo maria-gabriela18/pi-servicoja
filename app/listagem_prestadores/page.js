@@ -22,7 +22,7 @@ export default function ListagemPrestadores() {
       const { data, error } = await supabase
         .from("servicos")
         .select(`*,
-          id_usuarios(*)`)
+          id_usuario(*)`)
 
       if (error) {
         console.log("Erro:", error)
@@ -41,13 +41,97 @@ export default function ListagemPrestadores() {
   }, [])
 
   return (
-    <div>
+    <div className='divGeral'>
 
-      {/* HEADER */}
-     
 
-      {/* CATEGORIA */}
+      <div className='divFiltrar'>
+        <h3>Filtrar</h3>
+
+        <div>
+          <label>
+            <input type='checkBox' />
+            Construção e Reforma
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Manutenção e Reparos
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Limpeza e Serviços Domésticos
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Transporte e Mudanças
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Tecnologia e Informática
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Design e Criatividade
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Marketing e Vendas
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Aulas e Educação
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Serviços Profissionais
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Saúde e Bem-estar
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Eventos e Festas
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Pets
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Jardim e Área Externa
+          </label>
+
+          <label>
+            <input type='checkBox' />
+            Automotivo
+          </label>
+
+          <label>
+            <input type='checkbox' />
+            Segurança e Vigilância
+          </label>
+        </div>
+
+      </div>
+
+
+
+
+
       <section className="categoria">
+
         <h2 className="categoria-titulo">Prestadores</h2>
 
         <div className="cards_prestadores">
@@ -58,7 +142,7 @@ export default function ListagemPrestadores() {
 
               <div className="card-top">
                 <img src="https://placehold.co/50x50" />
-                <h3>{prestador.id_usuarios.nome}</h3>
+                <h3>{prestador.id_usuario.nome}</h3>
               </div>
 
               <div className="card-info">
@@ -92,7 +176,7 @@ export default function ListagemPrestadores() {
 
 
 
-      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content modal-css">
             <div className="modal-header">
@@ -104,7 +188,7 @@ export default function ListagemPrestadores() {
                 <div className='modalInfo'>
                   <div>
                     <p><span>NOME:</span></p>
-                    <p>{userSelecionado.id_usuarios.nome}</p>
+                    <p>{userSelecionado.id_usuario.nome}</p>
                   </div>
 
                   <div>
@@ -115,11 +199,11 @@ export default function ListagemPrestadores() {
 
                   <div>
                     <p><span>TELEFONE:</span></p>
-                    <p>{userSelecionado.id_usuarios.telefone}</p>
+                    <p>{userSelecionado.id_usuario.telefone}</p>
                   </div>
                   <div>
                     <p><span>E-MAIL:</span> </p>
-                    <p>{userSelecionado.id_usuarios.email}</p>
+                    <p>{userSelecionado.id_usuario.email}</p>
                   </div>
 
 

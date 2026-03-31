@@ -1,9 +1,15 @@
 'use client'
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function MenuSuperior(){
 
-    const id_usuario = localStorage.getItem("id_usuario")
+    const [id_usuario, setIdUsuario] = useState(null);
+
+    useEffect(() => {
+        const id = localStorage.getItem("id_usuario");
+        setIdUsuario(id);
+    }, []);
 
     return(
         <header className="header">
@@ -20,19 +26,20 @@ export default function MenuSuperior(){
 
           <div className="acoesHeader">
             {
-                id_usuario == null ?
+                id_usuario == null ? (
                     <>
-                        <Link href="login_usuarios">
-                            <button><i className="bi bi-box-arrow-in-right"></i>Login</button>
+                        <Link href="/login_usuarios">
+                            <button><i className="bi bi-box-arrow-in-right"></i> Login</button>
                         </Link>
-                        <Link href="cadastro_usuarios">
-                            <button><i className="bi bi-person-plus"></i>Cadastro</button>
+                        <Link href="/cadastro_usuarios">
+                            <button><i className="bi bi-person-plus"></i> Cadastro</button>
                         </Link>
                     </>
-                :
-                    <Link href="admini_prest">
-                        <button><i className="bi bi-person-plus"></i>Meu perfil</button>
+                ) : (
+                    <Link href="/admini_prest">
+                        <button><i className="bi bi-person-plus"></i> Meu perfil</button>
                     </Link>
+                )
             }
           </div>
         </header>

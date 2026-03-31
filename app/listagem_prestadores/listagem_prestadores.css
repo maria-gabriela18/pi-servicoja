@@ -1,23 +1,64 @@
 body {
     background-repeat: no-repeat;
     min-height: 100vh;
+
 }
 
 
+
+
+
+
+
+.divFiltrar {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.divFiltrar div {
+    text-align: center;
+}
+
+.divFiltrar h3 {
+    text-align: center;
+
+}
+
+.divFiltrar label {
+    background: rgba(167, 139, 250, 0.15);
+    cursor: pointer;
+    border-radius: 50px;
+    margin-right: 5px;
+    margin-top: 8px;
+    width: 250px;
+    padding: 5px;
+    transition: all 400ms ease;
+}
+
+.divFiltrar label:hover {
+    background: #6d28d9;
+    color: white;
+}
 
 
 /* CATEGORIA */
 .categoria {
     padding: 30px 40px;
     border-bottom: 1px solid #e2e8f0;
+
 }
 
 .categoria-titulo {
-    color: #fdfdff;
+    margin-top: 20px;
+    text-align: center;
+    color: black;
     margin-bottom: 20px;
     font-size: 22px;
     font-weight: 700;
 }
+
 
 /* CARDS CONTAINER */
 .cards_prestadores {
@@ -57,7 +98,7 @@ body {
 
 .card-top h3 {
     margin: 0;
-    color: #f5f3ff;
+
     font-size: 18px;
 }
 
@@ -68,7 +109,7 @@ body {
 
 .card-info span {
     font-weight: bold;
-    color: #c4b5fd;
+
 }
 
 /* DESC */
@@ -77,14 +118,14 @@ body {
 }
 
 .label {
-    color: #a78bfa;
+
     font-weight: 600;
     font-size: 14px;
     margin: 4px 0;
 }
 
 .descricao {
-    color: #cbd5f5;
+
     font-size: 14px;
     margin: 0;
 }
