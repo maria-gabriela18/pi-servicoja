@@ -6,6 +6,8 @@ export default function MenuSuperior(){
 
     const [id_usuario, setIdUsuario] = useState(null);
 
+    const [usuario, setUsuario] = useState(null)
+
     useEffect(() => {
         const id = localStorage.getItem("id_usuario");
         setIdUsuario(id);
@@ -16,8 +18,14 @@ export default function MenuSuperior(){
           <div className="menuNav">
             <ul>
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-              <li><Link href="/listagem_demandas">Demandas</Link></li>
+              {
+                usuario != null && usuario.admin == false ?
+                  <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+                : 
+                <li><Link href="/listagem_demandas">Demandas</Link></li>
+
+              }
+              
             </ul>
           </div>
 
@@ -38,6 +46,23 @@ export default function MenuSuperior(){
                     </Link>
                 )
             }
+          </div>
+
+          <div>
+
+            {/* {
+                id_usuario != null  && id_usuario.admin == true ?
+                    <div>
+                        <Link href="/">Home</Link>
+                        <Link href="/listagem_prestadores">Prestadores</Link>
+                    </div>
+                :
+                    <div>
+                        <Link href="/">Home</Link>
+                        <Link href="/listagem_demandas">Demandas</Link>
+                    </div>
+            } */}
+
           </div>
         </header>
     )
