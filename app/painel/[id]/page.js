@@ -13,6 +13,8 @@ export default function ConsultaDemandas() {
     const [proposta, setProposta] = useState([])
 
     async function buscaDemanda() {
+
+        //demanda
         const { data, error } = await supabase
             .from('demandas')
             .select(`
@@ -21,7 +23,7 @@ export default function ConsultaDemandas() {
                 categorias (*)
             `)
             .eq('id', Number(params.id))
-            .single() 
+            .single()
 
         if (error) {
             console.log(error)
@@ -29,31 +31,21 @@ export default function ConsultaDemandas() {
         }
 
         setDemanda(data)
-    }
 
-    async function buscaProposta() {
-        const { data, error } = await supabase
-            .from('propostas')
-            .select(`*`)
-            .eq('id_demanda', Number(params.id))
-
-        if (error) {
-        console.log(error)
-        return
-    }
-
-        setProposta(data)
+        const resposta = await supabase.from('propostas').select('*, id_usuario(*)').eq('id_demanda', data.id)
+        setProposta(resposta.data)
 
     }
+
+
 
     useEffect(() => {
         if (params?.id) {
             buscaDemanda()
         }
-        buscaProposta()
     }, [params])
 
-    
+
     if (!demanda) {
         return <p className="text-center mt-5">Carregando...</p>
     }
@@ -113,36 +105,42 @@ export default function ConsultaDemandas() {
             <h3>Propostas Recebidas</h3>
             <hr />
 
-            <div className="card p-4 shadow">
+            {proposta.map(item => (
 
-                <div className="d-flex align-items-center gap-3">
-                    <img src="https://placehold.co/50x50" className="rounded-circle" />
 
-                    <div>
-                        <h5>Carlos Silva</h5>
-                        <p>⭐ 4.8 | 120 serviços</p>
+
+                <div className="card p-4 shadow">
+
+                    <div className="d-flex align-items-center gap-3">
+                        <img src="https://placehold.co/50x50" className="rounded-circle" />
+
+                        <div>
+                            <h5>{item.id_usuario.nome}</h5>
+                            <p>⭐ 4.8 | 120 serviços</p>
+                        </div>
                     </div>
+
+                    <hr />
+
+                    <p><strong>Valor:</strong> {item.preco} </p>
+                    <p><strong>Prazo:</strong>{item.prazo}</p>
+
+                    <hr />
+
+                    <p>
+                        {item.descricao}
+                    </p>
+
+                    <hr />
+
+                    <div className="d-flex gap-2">
+                        <button className="btn btn-success">Aceitar</button>
+                        <button className="btn btn-danger">Recusar</button>
+                    </div>
+
                 </div>
 
-                <hr />
-
-                <p><strong>Valor:</strong> {proposta.preco} </p>
-                <p><strong>Prazo:</strong> 2 dias</p>
-
-                <hr />
-
-                <p>
-                    "Posso resolver seu problema rapidamente, tenho experiência com isso."
-                </p>
-
-                <hr />
-
-                <div className="d-flex gap-2">
-                    <button className="btn btn-success">Aceitar</button>
-                    <button className="btn btn-danger">Recusar</button>
-                </div>
-
-            </div>
+            ))}
 
         </div>
     )
