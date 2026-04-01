@@ -32,6 +32,7 @@ export default function Painel(){
     const [titulo, setTitulo] = useState("");
     const [descricaoDemanda, setDescricaoDemanda] = useState("");
     const [categoria, setCategoria] = useState("");
+    const [localizacao, setLocalizacao] = useState("")
     const [demandas, setDemandas] = useState([]);
 
     const id_usuario = localStorage.getItem("id_usuario")
@@ -105,6 +106,21 @@ export default function Painel(){
             descricao: descricaoDemanda,
             id_categoria: categoria,
             id_usuario: id_usuario,
+            localizacao: localizacao
+        }
+
+        // VALIDAÇÃO DE DADOS
+        if(demanda.titulo.length < 5){
+            alert("Título muito curto")
+            return
+        }
+        if(demanda.descricao.length < 10){
+            alert("Descrição muito curta")
+            return
+        }
+        if(demanda.localizacao.length < 5){
+            alert("Localização muito curta")
+            return
         }
 
         const { error } = await supabase
@@ -117,6 +133,9 @@ export default function Painel(){
         }else{
             alert("Dados inválidos...")
         }
+
+        
+        
 
     }
 
@@ -538,6 +557,16 @@ export default function Painel(){
                                     value={descricaoDemanda}
                                     onChange={(e) => setDescricaoDemanda(e.target.value)}
                                 ></textarea>
+                                </div>
+
+                                <div className="mb-3">
+                                <label className="form-label fw-bold">Localização</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={localizacao}
+                                    onChange={(e) => setLocalizacao(e.target.value)}
+                                />
                                 </div>
 
 
