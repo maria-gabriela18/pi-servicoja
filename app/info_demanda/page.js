@@ -85,6 +85,8 @@ function Demanda() {
                     </div>
                   
 
+
+
                     <br />
                     <h3> Propostas Recebidas </h3>
                     <hr />
