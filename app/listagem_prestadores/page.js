@@ -14,6 +14,7 @@ export default function ListagemPrestadores() {
 
   const [prestadores, setPrestadores] = useState([])
   const [userSelecionado, setUserSelecionado] = useState()
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState(null)
 
 
   useEffect(() => {
@@ -40,6 +41,26 @@ export default function ListagemPrestadores() {
     buscarPrestadores()
   }, [])
 
+
+  async function filtrar(categoria) {
+
+    let query = supabase
+      .from("servicos")
+      .select(`*, id_usuario(*)`)
+
+    if (categoria) {
+      query = query.eq("categoria", categoria)
+    }
+
+    const { data, error } = await query
+
+    if (error) {
+      console.log("Erro:", error)
+    } else {
+      setPrestadores(data)
+    }
+  }
+
   return (
     <div className='divGeral'>
 
@@ -47,81 +68,20 @@ export default function ListagemPrestadores() {
       <div className='divFiltrar'>
         <h3>Filtrar</h3>
 
+        <label>Categorias de Serviços:</label>
         <div>
-          <label>
-            <input type='checkBox' />
-            Construção e Reforma
-          </label>
+          <button onClick={() => filtrar('Construção e Reforma')}>Construção e Reforma</button>
+          <button onClick={() => filtrar('Serviços Domésticos')}>Serviços Domésticos</button>
+          <button onClick={() => filtrar('Manutenção e Reparos')}>Manutenção e Reparos</button>
+          <button onClick={() => filtrar('Tecnologia e Informática')}>Tecnologia e Informática</button>
+          <button onClick={() => filtrar('Beleza e Bem-estar')}>Beleza e Bem-estar</button>
+          <button onClick={() => filtrar('Transporte e Logística')}>Transporte e Logística</button>
+          <button onClick={() => filtrar('Eventos e Festas')}>Eventos e Festas</button>
+          <button onClick={() => filtrar('Educação e Aulas')}>Educação e Aulas</button>
+          <button onClick={() => filtrar('Saúde e Cuidados')}>Saúde e Cuidados</button>
+          <button onClick={() => filtrar('Serviços Automotivos')}>Serviços Automotivos</button>
 
-          <label>
-            <input type='checkBox' />
-            Manutenção e Reparos
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Limpeza e Serviços Domésticos
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Transporte e Mudanças
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Tecnologia e Informática
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Design e Criatividade
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Marketing e Vendas
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Aulas e Educação
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Serviços Profissionais
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Saúde e Bem-estar
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Eventos e Festas
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Pets
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Jardim e Área Externa
-          </label>
-
-          <label>
-            <input type='checkBox' />
-            Automotivo
-          </label>
-
-          <label>
-            <input type='checkbox' />
-            Segurança e Vigilância
-          </label>
+          <button onClick={() => filtrar(null)}>Todos</button>
         </div>
 
       </div>
