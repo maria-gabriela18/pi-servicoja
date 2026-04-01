@@ -10,6 +10,8 @@ export default function ConsultaDemandas() {
 
     const [demanda, setDemanda] = useState(null)
 
+    const [proposta, setProposta] = useState([])
+
     async function buscaDemanda() {
         const { data, error } = await supabase
             .from('demandas')
@@ -29,13 +31,29 @@ export default function ConsultaDemandas() {
         setDemanda(data)
     }
 
+    async function buscaProposta() {
+        const { data, error } = await supabase
+            .from('propostas')
+            .select(`*`)
+            .eq('id_demanda', Number(params.id))
+
+        if (error) {
+        console.log(error)
+        return
+    }
+
+        setProposta(data)
+
+    }
+
     useEffect(() => {
         if (params?.id) {
             buscaDemanda()
         }
+        buscaProposta()
     }, [params])
 
-    // 🔄 loading
+    
     if (!demanda) {
         return <p className="text-center mt-5">Carregando...</p>
     }
@@ -108,7 +126,7 @@ export default function ConsultaDemandas() {
 
                 <hr />
 
-                <p><strong>Valor:</strong> R$ 120,00</p>
+                <p><strong>Valor:</strong> {proposta.preco} </p>
                 <p><strong>Prazo:</strong> 2 dias</p>
 
                 <hr />
