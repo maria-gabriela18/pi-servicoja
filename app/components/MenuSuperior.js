@@ -19,7 +19,7 @@ export default function MenuSuperior(){
               <li><Link href="/listagem_prestadores">Prestadores</Link></li>
               <li><Link href="/listagem_demandas">Demandas</Link></li>
               <li><Link href="/adimini_prest">Dashboard</Link></li>
-              <li><Link href="/demanda_cadastro">Cadastrar</Link></li>
+              <li><Link href="/painel">Cadastrar</Link></li>
               <li><Link href="/info_demanda">informacão demanda</Link></li>
             </ul>
           </div>
