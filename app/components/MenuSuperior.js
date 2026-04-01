@@ -18,7 +18,6 @@ export default function MenuSuperior(){
               <li><Link href="/">Home</Link></li>
               <li><Link href="/listagem_prestadores">Prestadores</Link></li>
               <li><Link href="/listagem_demandas">Demandas</Link></li>
-              <li><Link href="/painel">Dashboard</Link></li>
             </ul>
           </div>
 
@@ -34,7 +33,7 @@ export default function MenuSuperior(){
                         </Link>
                     </>
                 ) : (
-                    <Link href="/admini_prest">
+                    <Link href="/painel">
                         <button><i className="bi bi-person-plus"></i> Meu perfil</button>
                     </Link>
                 )

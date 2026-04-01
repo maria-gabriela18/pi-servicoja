@@ -68,20 +68,20 @@ export default function ConsultaDemandas() {
 
                     <div className="col-4">
                         <p>
-                            <strong>Categoria:</strong>{" "}
+                            <strong>⚙ Categoria:</strong>{" "}
                             {demanda.categorias?.categoria}
                         </p>
                     </div>
 
                     <div className="col-4">
                         <p>
-                            <strong>Localização:</strong> São Carlos - SP
+                            <strong>📍 Localização:</strong> {demanda.localizacao}
                         </p>
                     </div>
 
                     <div className="col-4">
                         <p>
-                            <strong>Data:</strong>{" "}
+                            <strong>📅 Data:</strong>{" "}
                             {new Date(demanda.created_at).toLocaleDateString()}
                         </p>
                     </div>
