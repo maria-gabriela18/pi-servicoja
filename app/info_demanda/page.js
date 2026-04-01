@@ -12,7 +12,8 @@ function Demanda() {
     const [propostas, setPropostas] = useState([])
 
     const id_usuario = localStorage.getItem("id_usuario")
-
+    console.log(id_usuario)
+    
     async function pegarInfo() {
 
         //   PEGAR DADOS DA DEMANDA DO USUARIO
@@ -91,7 +92,7 @@ function Demanda() {
                     <h3> Propostas Recebidas </h3>
                     <hr />
 
-                    <div class="grupoCards">
+                    <div className="grupoCards">
                     {
                         propostas.map(
                             item =>
