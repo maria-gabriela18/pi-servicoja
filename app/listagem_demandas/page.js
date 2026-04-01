@@ -110,7 +110,11 @@ export default function ListagemDemandas() {
 
     <div>
 
-          <div>
+      {
+        usuario == null ?
+          <div className="text-center"><p>Faça <Link href="/login_usuarios">login</Link> para continuar...</p></div>
+        :
+           <div>
             {/* CATEGORIA */}
             <section className="categoria">
 
@@ -289,7 +293,8 @@ export default function ListagemDemandas() {
               </div>
             </div>
             </div>
-    
+      }
+      
     </div>
   )
 }
