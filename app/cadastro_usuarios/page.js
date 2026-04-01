@@ -255,17 +255,7 @@ export default function Cadastro() {
 
                     <br />
 
-                    <div className="demo">
-                        <strong>Sua senha deve conter:</strong><br /><br />
-                        <p>
-                            • 8 e 12 caracteres;<br />
-                            • Ao menos uma letra maiúscula;<br />
-                            • Ao menos 1 caratere especial (@; *; #);<br />
-                            • Ao menos 4 números.
-                        </p>
-                    </div>
-
-                    <br />
+                    
 
                     <div className="text-center row">
 

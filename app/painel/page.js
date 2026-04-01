@@ -2,9 +2,12 @@
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import supabase from '../conexao/supabase';
+import { useRouter } from "next/navigation"
 
 
 export default function Painel(){
+
+    const router = useRouter()
 
     // DADOS DO USUÁRIO PARA EDIÇÃO
     const [nome, setNome] = useState("")
@@ -16,6 +19,8 @@ export default function Painel(){
     const [senha, setSenha] = useState("")
 
     const [editando, setEditando] = useState(null)
+
+    const [listaCategorias, alteraListaCategorias] = useState([])
 
     // DADOS DO PORTFÓLIO
     const [descricao, setDescricao] = useState("")
@@ -33,6 +38,13 @@ export default function Painel(){
 
     const [ usuario, alteraUsuario ] = useState(null)
     const [ portfolio, alteraPortfolio ] = useState(null)
+
+    async function buscaCategorias() {
+        const { data, error } = await supabase
+            .from('categorias')
+            .select()
+        alteraListaCategorias(data)
+    }
 
     async function buscaUsuario(){
         const { data, error } = await supabase
@@ -91,7 +103,7 @@ export default function Painel(){
         const demanda = {
             titulo: titulo,
             descricao: descricaoDemanda,
-            categoria: categoria,
+            id_categoria: categoria,
             id_usuario: id_usuario,
         }
 
@@ -254,6 +266,7 @@ export default function Painel(){
         buscaUsuario()
         buscarDemanda()
         buscaPortfolio()
+        buscaCategorias()
     }, [])
 
     return(
@@ -332,7 +345,7 @@ export default function Painel(){
                                 }
 
                                 <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
-                                <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(objeto)}>Editar dados</button>
+                                <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(usuario)}>Editar dados</button>
                             </div>
                             {/* LISTA DE DEMANDAS EM ABERTO */}
 
@@ -359,7 +372,10 @@ export default function Painel(){
                                                         <th scope="row">{item.id_usuario.nome}</th>
                                                         <td>{item.descricao}</td> {/* td: coluna*/}
                                                         <td> {formataCategoria(item.categoria)}</td>
-                                                        <td><button>Cancelar</button> <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button></td>
+                                                        <td><button>Cancelar</button> 
+                                                            <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button> 
+                                                            <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             ))
@@ -495,12 +511,23 @@ export default function Painel(){
 
                                 <div className="mb-3">
                                 <label className="form-label fw-bold">Categoria</label>
-                                <input
+                                {/*<input
                                     type="text"
                                     className="form-control"
                                     value={categoria}
                                     onChange={(e) => setCategoria(e.target.value)}
-                                />
+                                />*/}
+
+                                <select onChange={(e) => setCategoria(Number(e.target.value))} >
+                                    <option> Selecione </option>
+
+                                    {
+                                        listaCategorias.map(
+                                            item => <option value={item.id} > {item.categoria} </option>
+                                        )
+                                    }
+                                </select>
+
                                 </div>
 
                                 <div className="mb-3">
