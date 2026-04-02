@@ -19,7 +19,7 @@ export default function MenuSuperior(){
             <ul>
               <li><Link href="/">Home</Link></li>
               {
-                usuario != null && usuario.admin == false ?
+                usuario != null && usuario.admin == true ?
                   <li><Link href="/listagem_prestadores">Prestadores</Link></li>
                 : 
                 <li><Link href="/listagem_demandas">Demandas</Link></li>
