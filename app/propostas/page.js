@@ -41,7 +41,7 @@ export default function Propostas() {
 
                         <div className="topo">
                             <h2>{proposta.nome}</h2>
-                            <span>⭐ {p.avaliacao}</span>
+                            <span>⭐ {proposta.avaliacao}</span>
                         </div>
 
                         <p className="preco">R$ {proposta.preco}</p>
