@@ -101,7 +101,7 @@ export default function ListagemPrestadores() {
             <div className="card_prestador" key={prestador.id}>
 
               <div className="card-top">
-                <img src="https://placehold.co/50x50" />
+                <img src={"https://ui-avatars.com/api/?name="+prestador.id_usuario.nome+"&background=random"} />
                 <h3>{prestador.id_usuario.nome}</h3>
               </div>
 

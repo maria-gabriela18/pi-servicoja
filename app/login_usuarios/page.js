@@ -1,4 +1,4 @@
-    'use client';
+'use client';
 import Link from "next/link";
 import "./login_usuario.css";
 import { useEffect, useState } from "react";
@@ -17,27 +17,28 @@ export default function Login() {
     async function autenticar() {
 
         const { data, error } = await supabase.auth.signInWithPassword({
-        email: usuario,
-        password: senha,
-        })
+            email: usuario,
+            password: senha,
+        });
 
-        // DESATIVEI PARA FAZER O CÓDIGO QUE O CONRADO PEDIU
-        // if (usuario == "admin" && senha == "123123") {
-        //     alert("Você se conectou!")
-        //     localStorage.setItem("logado", "true")
-        //     alteraAutenticado(true)
-        // } else {
-        //     alert("Erro! Algum dado está errado...")
-        // }
-
-        if(data.user == null){
-            alert("Dados inválidos")
-            return
+        if (error) {
+            alert("Erro ao autenticar");
+            return;
         }
+
         alert("Autenticado com sucesso")
         // console.log(data) - para ver se está dando certo
         localStorage.setItem("id_usuario", data.user.id)
+        localStorage.setItem("logado", "true")
+        alteraAutenticado(true)
         location.href = "/painel"
+    }
+
+    async function sair() {
+        await supabase.auth.signOut()
+        localStorage.removeItem("logado")
+        localStorage.removeItem("id_usuario")
+        alteraAutenticado(false)
     }
 
     useEffect(() => {
@@ -45,6 +46,8 @@ export default function Login() {
         const logado = localStorage.getItem("logado")
         if (logado == "true") {
             alteraAutenticado(true)
+        }else{
+            alteraAutenticado(false)
         }
 
     }, [])
@@ -87,7 +90,7 @@ export default function Login() {
                         <div>
 
                             <p> Você já está logado. </p>
-                            <button onClick={desconectar} > Sair da conta </button>
+                            <button onClick={sair} > Sair da conta </button>
 
                         </div>
                 }

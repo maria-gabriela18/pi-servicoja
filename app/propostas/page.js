@@ -36,24 +36,24 @@ export default function Propostas() {
 
             <div className="lista">
 
-                {propostas.map((p) => (
+                {propostas.map((proposta) => (
                     <div className="card" key={p.id}>
 
                         <div className="topo">
-                            <h2>{p.nome}</h2>
+                            <h2>{proposta.nome}</h2>
                             <span>⭐ {p.avaliacao}</span>
                         </div>
 
-                        <p className="preco">R$ {p.preco}</p>
+                        <p className="preco">R$ {proposta.preco}</p>
 
-                        <p className="descricao">{p.descricao}</p>
+                        <p className="descricao">{proposta.descricao}</p>
 
                         <div className="acoes">
-                            <button className="aceitar" onClick={() => aceitar(p.id)}>
+                            <button className="aceitar" onClick={() => aceitar(proposta.id)}>
                                 Aceitar
                             </button>
 
-                            <button className="recusar" onClick={() => recusar(p.id)}>
+                            <button className="recusar" onClick={() => recusar(proposta.id)}>
                                 Recusar
                             </button>
                         </div>

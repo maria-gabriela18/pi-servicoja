@@ -305,15 +305,15 @@ export default function Painel(){
 
                         <div className="col-2 menuLateral vh-100 d-flex flex-column justify-content-between">
                             <div className="text-center mt-5">
-                                <img class="rounded-circle mb-3" src={"https://ui-avatars.com/api/?name="+usuario.nome+"&background=random"} />
+                                <img className="rounded-circle mb-3" src={"https://ui-avatars.com/api/?name="+usuario.nome+"&background=random"} />
                                 <h1 className="fs-5"> {usuario.nome} </h1>
                             </div>
 
                             <div className="list-group list-group-flush fs-5">
                                 <Link href="/" className="list-group-item list-group-item-action">Página inicial</Link>
                                 <Link href="listagem_demandas" className="list-group-item list-group-item-action">Todas as demandas</Link>
-                                <Link href="propostas" className="list-group-item list-group-item-action">Porpostas</Link>
-                                <button onClick={desconectar} className="list-group-item list-group-item-action">Desconectar</button>
+                                <Link href="propostas" className="list-group-item list-group-item-action">Propostas</Link>
+                                <button onClick={desconectar} className="list-group-item list-group-item-action">Sair</button>
                             </div>
 
 

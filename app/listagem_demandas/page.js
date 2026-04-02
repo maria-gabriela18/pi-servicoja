@@ -23,7 +23,7 @@ export default function ListagemDemandas() {
   const [descricaoProposta, setDescricaoProposta] = useState("")
   const [prazoProposta, setPrazoProposta] = useState("")
 
-  const [ usuario, alteraUsuario ] = useState(null)
+  const [usuario, alteraUsuario] = useState(null)
 
   const [proposta, setProposta] = useState("")
 
@@ -101,10 +101,20 @@ export default function ListagemDemandas() {
 
   useEffect(() => {
     buscarDemanda()
-  }
+
+    async function pegarUsuario() {
+      const { data } = await supabase.auth.getUser()
+
+      if (data.user) {
+        alteraUsuario(data.user)
+      }
+    }
+
+    pegarUsuario()
+  }, [])
 
 
-    , [])
+   
 
   return (
 
@@ -113,8 +123,8 @@ export default function ListagemDemandas() {
       {
         usuario == null ?
           <div className="text-center"><p>Faça <Link href="/login_usuarios">login</Link> para continuar...</p></div>
-        :
-           <div>
+          :
+          <div>
             {/* CATEGORIA */}
             <section className="categoria">
 
@@ -292,9 +302,9 @@ export default function ListagemDemandas() {
                 </div>
               </div>
             </div>
-            </div>
+          </div>
       }
-      
+
     </div>
   )
 }

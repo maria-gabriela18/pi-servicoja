@@ -17,15 +17,15 @@ export default function MenuSuperior(){
         <header className="header">
           <div className="menuNav">
             <ul>
-              <li><Link href="/">Home</Link></li>
+              <li><Link href="/">Pagina inicial</Link></li>
               
-              {
-                id_usuario != null && id_usuario.admin == false ?
-                  <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                : 
+              {/* { */}
+                {/* id_usuario != null && id_usuario.tipo == "cliente" ? */}
+                <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+                {/* :  */}
                 <li><Link href="/listagem_demandas">Demandas</Link></li>
 
-              }
+            {/* //   } */}
               
             </ul>
           </div>
