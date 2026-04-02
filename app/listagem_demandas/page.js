@@ -100,16 +100,16 @@ export default function ListagemDemandas() {
 
 
   useEffect(() => {
-    buscarDemanda()
-
+    
     async function pegarUsuario() {
       const { data } = await supabase.auth.getUser()
-
+      
       if (data.user) {
         alteraUsuario(data.user)
       }
     }
-
+    
+    buscarDemanda()
     pegarUsuario()
   }, [])
 
@@ -142,7 +142,7 @@ export default function ListagemDemandas() {
                   <div className="card" key={demanda.id}>
 
                     <div className="card-top">
-                      <img src="https://placehold.co/50x50" />
+                      <img src={"https://ui-avatars.com/api/?name="+demanda.id_usuario.nome+"&background=random"} />
                       <h3>{demanda.id_usuario.nome}</h3>
                     </div>
 
