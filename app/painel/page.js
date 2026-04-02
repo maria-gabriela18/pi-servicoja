@@ -311,8 +311,7 @@ export default function Painel(){
 
                             <div className="list-group list-group-flush fs-5">
                                 <Link href="/" className="list-group-item list-group-item-action">Página inicial</Link>
-                                <Link href="listagem_demandas" className="list-group-item list-group-item-action">Todas as demandas</Link>
-                                <Link href="propostas" className="list-group-item list-group-item-action">Propostas</Link>
+                               
                                 <button onClick={desconectar} className="list-group-item list-group-item-action">Sair</button>
                             </div>
 
