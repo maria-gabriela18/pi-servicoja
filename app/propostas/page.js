@@ -37,7 +37,7 @@ export default function Propostas() {
             <div className="lista">
 
                 {propostas.map((proposta) => (
-                    <div className="card" key={p.id}>
+                    <div className="card" key={proposta.id}>
 
                         <div className="topo">
                             <h2>{proposta.nome}</h2>
