@@ -5,12 +5,15 @@ import { useEffect, useState } from "react";
 export default function MenuSuperior(){
 
     const [id_usuario, setIdUsuario] = useState(null);
+    const [prestador, setPrestador] = useState(null);
 
     const [usuario, setUsuario] = useState(null)
 
     useEffect(() => {
         const id = localStorage.getItem("id_usuario");
+        const prest = localStorage.getItem("prestador")
         setIdUsuario(id);
+        setPrestador(prest)
     }, []);
 
     return(
@@ -20,9 +23,9 @@ export default function MenuSuperior(){
               <li><Link href="/">Pagina inicial</Link></li>
               
               {/* { */}
-                {/* id_usuario != null && id_usuario.tipo == "cliente" ? */}
+                prestador == "false" ?
                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                {/* :  */}
+                : 
                 <li><Link href="/listagem_demandas">Demandas</Link></li>
 
             {/* //   } */}

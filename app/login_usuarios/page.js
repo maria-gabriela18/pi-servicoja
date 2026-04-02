@@ -26,17 +26,19 @@ export default function Login() {
             return;
         }
 
+        const resposta = await supabase.from('usuarios').select().eq('id',data.user.id).single()
+
         alert("Autenticado com sucesso")
         // console.log(data) - para ver se está dando certo
         localStorage.setItem("id_usuario", data.user.id)
-        localStorage.setItem("logado", "true")
+        localStorage.setItem("prestador", resposta.data.tipo == 'prestador')
         alteraAutenticado(true)
         location.href = "/painel"
     }
 
     async function sair() {
         await supabase.auth.signOut()
-        localStorage.removeItem("logado")
+        localStorage.removeItem("prestador")
         localStorage.removeItem("id_usuario")
         alteraAutenticado(false)
     }
