@@ -40,6 +40,7 @@ export default function Painel(){
     const id_usuario = localStorage.getItem("id_usuario")
 
     const [ usuario, alteraUsuario ] = useState(null)
+    
     const [ portfolio, alteraPortfolio ] = useState(null)
 
     async function buscaCategorias() {

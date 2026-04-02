@@ -18,8 +18,9 @@ export default function MenuSuperior(){
           <div className="menuNav">
             <ul>
               <li><Link href="/">Home</Link></li>
+              
               {
-                usuario != null && usuario.admin == false ?
+                id_usuario != null && id_usuario.admin == false ?
                   <li><Link href="/listagem_prestadores">Prestadores</Link></li>
                 : 
                 <li><Link href="/listagem_demandas">Demandas</Link></li>
