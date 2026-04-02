@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation"
 
 export default function Painel(){
 
+    if(typeof window === "undefined") return null
+
     const router = useRouter()
 
     // DADOS DO USUÁRIO PARA EDIÇÃO

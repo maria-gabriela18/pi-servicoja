@@ -7,6 +7,8 @@ import supabase from '../../conexao/supabase';
 
 export default function AdiminiPrest() {
 
+    if(typeof window === "undefined") return null
+
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [cpf, setCpfCnpj] = useState("")

@@ -8,6 +8,8 @@ import "./info_demanda.css"
 
 function Demanda() {
 
+    if(typeof window === "undefined") return null
+
     const [demanda, setDemanda] = useState([])
     const [propostas, setPropostas] = useState([])
 
