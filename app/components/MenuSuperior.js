@@ -22,13 +22,13 @@ export default function MenuSuperior(){
             <ul>
               <li><Link href="/">Pagina inicial</Link></li>
               
-              {/* { */}
+              {
                 prestador == "false" ?
                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
                 : 
                 <li><Link href="/listagem_demandas">Demandas</Link></li>
 
-            {/* //   } */}
+            }
               
             </ul>
           </div>
