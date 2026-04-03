@@ -26,6 +26,7 @@ body {
     display: flex;
     list-style: none;
     gap: 20px;
+  
 }
 
 .menuNav ul li a {
@@ -45,6 +46,7 @@ body {
 .acoesHeader {
     display: flex;
     align-items: center;
+    width: 200px;
 }
 
 .acoesHeader button {
