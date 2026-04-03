@@ -80,7 +80,7 @@ export default function Cadastro() {
 
         if(resposta.status == 201){
             alert("Cadastrado com sucesso")
-            location.href = "/"
+            location.href = "/login_usuarios"
         }else{
             alert("Verifique os dados inderidos e tente novamente")
         }

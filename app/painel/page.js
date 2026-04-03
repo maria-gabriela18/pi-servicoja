@@ -37,6 +37,8 @@ export default function Painel(){
     const [localizacao, setLocalizacao] = useState("")
     const [demandas, setDemandas] = useState([]);
 
+    const [propostas, setPropostas] = useState([])
+
     const id_usuario = localStorage.getItem("id_usuario")
 
     const [ usuario, alteraUsuario ] = useState(null)
@@ -73,6 +75,18 @@ export default function Painel(){
                 `)
             .eq("id_usuario", id_usuario)
         setDemandas(data)
+    };
+
+     async function buscarProposta() {
+
+        const { data, error } = await supabase
+            .from('propostas')
+            .select(`*, 
+                    id_usuario(
+                    *) 
+                `)
+            .eq("id_usuario", id_usuario)
+        setPropostas(data)
     };
 
     async function salvar(e) {
@@ -289,6 +303,7 @@ export default function Painel(){
         buscarDemanda()
         buscaPortfolio()
         buscaCategorias()
+        buscarProposta()
     }, [])
 
     return(
@@ -385,24 +400,47 @@ export default function Painel(){
                                         </tr>
                                     </thead>
 
-
                                     {
-                                        demandas.map(
-                                            (item, index) => (
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">{index + 1}</th>
-                                                        <th scope="row">{item.id_usuario.nome}</th>
-                                                        <td>{item.descricao}</td> {/* td: coluna*/}
-                                                        <td> {formataCategoria(item.categoria)}</td>
-                                                        <td><button>Cancelar</button> 
-                                                            <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button> 
-                                                            <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            ))
+                                        usuario.tipo == 'cliente' ?
+                                            
+                                            demandas.map(
+                                                (item, index) => (
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">{index + 1}</th>
+                                                            <th scope="row">{item.id_usuario.nome}</th>
+                                                            <td>{item.descricao}</td> {/* td: coluna*/}
+                                                            <td> {formataCategoria(item.categoria)}</td>
+                                                            <td><button>Cancelar</button> 
+                                                                <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button> 
+                                                                <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                ))
+
+                                        :
+
+                                        propostas.map(
+                                                (item, index) => (
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">{index + 1}</th>
+                                                            <th scope="row">{item.id_usuario.nome}</th>
+                                                            <td>{item.descricao}</td> {/* td: coluna*/}
+                                                            <td> {formataCategoria(item.categoria)}</td>
+                                                            <td><button>Cancelar</button> 
+                                                                <button onClick={() => location.href="/propostas/"+item.id} >Concluir</button> 
+                                                                <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                ))
+                                    
                                     }
+
+
+                                    
 
                                 </table>
 
