@@ -20,6 +20,7 @@ export default function MenuSuperior(){
         const id = localStorage.getItem("id_usuario");
         const prest = localStorage.getItem("prestador")
         setIdUsuario(id);
+        console.log(setIdUsuario)
         setPrestador(prest)
     }, []);
 
@@ -55,8 +56,11 @@ export default function MenuSuperior(){
                     </>
                 ) : (
                     <Link href="/painel">
-                        <button><i className="bi bi-person-plus"></i> Meu perfil</button>
+                        
+                        <button><i className="bi bi-box-arrow-in-right"></i> Meu perfil</button>
                         <button onClick={desconectar}> <i className="bi bi-person-plus"></i> Sair</button>
+                        
+
                     </Link>
                 )
             }

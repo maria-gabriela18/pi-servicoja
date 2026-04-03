@@ -105,8 +105,10 @@ export default function ConsultaDemandas() {
             <h3>Propostas Recebidas</h3>
             <hr />
 
-            {proposta.map(item => (
+        
+    
 
+            {proposta.map(item => (
 
 
                 <div className="card p-4 shadow">

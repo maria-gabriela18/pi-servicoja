@@ -33,7 +33,7 @@ export default function Propostas() {
         <div className="container">
 
             <h1>Propostas recebidas</h1>
-
+        
             <div className="lista">
 
                 {propostas.map((proposta) => (

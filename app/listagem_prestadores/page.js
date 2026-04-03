@@ -69,19 +69,23 @@ export default function ListagemPrestadores() {
         <h3>Filtrar</h3>
 
         <label>Categorias de Serviços:</label>
-        <div>
-          <button onClick={() => filtrar('Construção e Reforma')}>Construção e Reforma</button>
-          <button onClick={() => filtrar('Serviços Domésticos')}>Serviços Domésticos</button>
-          <button onClick={() => filtrar('Manutenção e Reparos')}>Manutenção e Reparos</button>
-          <button onClick={() => filtrar('Tecnologia e Informática')}>Tecnologia e Informática</button>
-          <button onClick={() => filtrar('Beleza e Bem-estar')}>Beleza e Bem-estar</button>
-          <button onClick={() => filtrar('Transporte e Logística')}>Transporte e Logística</button>
-          <button onClick={() => filtrar('Eventos e Festas')}>Eventos e Festas</button>
-          <button onClick={() => filtrar('Educação e Aulas')}>Educação e Aulas</button>
-          <button onClick={() => filtrar('Saúde e Cuidados')}>Saúde e Cuidados</button>
-          <button onClick={() => filtrar('Serviços Automotivos')}>Serviços Automotivos</button>
-
-          <button onClick={() => filtrar(null)}>Todos</button>
+        <div className='divFiltrarBotoes'>
+          <div>
+            <button onClick={() => filtrar('Construção e Reforma')}>Construção e Reforma</button>
+            <button onClick={() => filtrar('Serviços Domésticos')}>Serviços Domésticos</button>
+            <button onClick={() => filtrar('Manutenção e Reparos')}>Manutenção e Reparos</button>
+            <button onClick={() => filtrar('Tecnologia e Informática')}>Tecnologia e Informática</button>
+            <button onClick={() => filtrar('Beleza e Bem-estar')}>Beleza e Bem-estar</button>
+            <button onClick={() => filtrar('Transporte e Logística')}>Transporte e Logística</button>
+          </div>
+          
+          <div>
+            <button onClick={() => filtrar('Eventos e Festas')}>Eventos e Festas</button>
+            <button onClick={() => filtrar('Educação e Aulas')}>Educação e Aulas</button>
+            <button onClick={() => filtrar('Saúde e Cuidados')}>Saúde e Cuidados</button>
+            <button onClick={() => filtrar('Serviços Automotivos')}>Serviços Automotivos</button>
+            <button onClick={() => filtrar(null)}>Todos</button>
+          </div>
         </div>
 
       </div>
@@ -101,7 +105,7 @@ export default function ListagemPrestadores() {
             <div className="card_prestador" key={prestador.id}>
 
               <div className="card-top">
-                <img src={"https://ui-avatars.com/api/?name="+prestador.id_usuario.nome+"&background=random"} />
+                <img src={"https://ui-avatars.com/api/?name=" + prestador.id_usuario.nome + "&background=random"} />
                 <h3>{prestador.id_usuario.nome}</h3>
               </div>
 

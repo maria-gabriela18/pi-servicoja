@@ -4,7 +4,44 @@ body {
 
 }
 
+.divFiltrar{
+    text-align: center;
+}
 
+
+
+
+
+.divFiltrar .divFiltrarBotoes{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: #e2e8f0; */
+    border-radius: 50px;
+    /* border: 1px solid rgb(122, 121, 121); */
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    padding: 10px;
+
+}
+
+.divFiltrar .divFiltrarBotoes button{
+    border-radius: 50px;
+    border: none;
+    padding: 8px;
+    width: 200px;
+    margin-right: 10px;
+    margin-top: 20px;
+    transition: all 300ms ease;
+    
+    
+}
+
+.divFiltrarBotoes button:hover{
+    background-color: #787cd5;
+    color: white;
+}
 
 
 
