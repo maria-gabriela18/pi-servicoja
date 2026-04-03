@@ -296,7 +296,8 @@ export default function Painel(){
  <div>
         {
             usuario == null ?
-                <div className="text-center"><p>Faça <Link href="/login_usuarios">login</Link> para continuar...</p></div>
+            //location.href="/"
+            <div className="text-center"><p>Faça <Link href="/login_usuarios">login</Link> para continuar...</p></div>
             :
                 <div className="container-fluid">
 
@@ -384,6 +385,7 @@ export default function Painel(){
                                         </tr>
                                     </thead>
 
+
                                     {
                                         demandas.map(
                                             (item, index) => (
@@ -432,6 +434,7 @@ export default function Painel(){
 
                                                 </tr>
                                             </thead>
+                                            
                                             {
                                                 demandas.map((item, index) => (
                                                     <tbody>
@@ -602,16 +605,16 @@ export default function Painel(){
                                     <form onSubmit={salvar}>
                                         
                                         <p> Nome: </p>
-                                        <input value={nome} onChange={e => setNome(e.target.value)} className="form-control" placeholder="Seu nome completo" />
+                                        <input readOnly value={nome} onChange={e => setNome(e.target.value)} className="form-control" placeholder="Seu nome completo" />
 
                                         <p> E-mail: </p>
                                         <input value={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="seu@email.com" />
                                         
                                         <p> CPF ou CNPJ: </p>
-                                        <input value={cpf} onChange={e => setCpfCnpj(e.target.value)} className="form-control" placeholder="00011122233" />
+                                        <input readOnly value={cpf} onChange={e => setCpfCnpj(e.target.value)} className="form-control" placeholder="00011122233" />
                                         
                                         <p> Data de Nascimento: </p>
-                                        <input value={nascimento} onChange={e => setDataNascimento(e.target.value)} className="form-control" type="date" />
+                                        <input readOnly value={nascimento} onChange={e => setDataNascimento(e.target.value)} className="form-control" type="date" />
                                         
                                         <p> Telefone: </p>
                                         <input value={telefone} onChange={e => setTelefone(e.target.value)} className="form-control" placeholder="11999998888" type="tel" />

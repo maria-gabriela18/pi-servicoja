@@ -9,6 +9,13 @@ export default function MenuSuperior(){
 
     const [usuario, setUsuario] = useState(null)
 
+    function desconectar() {
+        alert("Desconectado com sucesso!")
+        localStorage.removeItem("id_usuario")
+        location.reload()
+    }
+
+
     useEffect(() => {
         const id = localStorage.getItem("id_usuario");
         const prest = localStorage.getItem("prestador")
@@ -47,6 +54,7 @@ export default function MenuSuperior(){
                 ) : (
                     <Link href="/painel">
                         <button><i className="bi bi-person-plus"></i> Meu perfil</button>
+                        <button onClick={desconectar}> <i className="bi bi-person-plus"></i> Sair</button>
                     </Link>
                 )
             }
