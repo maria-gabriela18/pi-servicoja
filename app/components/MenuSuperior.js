@@ -7,7 +7,6 @@ export default function MenuSuperior(){
     const [id_usuario, setIdUsuario] = useState(null);
     const [prestador, setPrestador] = useState(null);
 
-    const [usuario, setUsuario] = useState(null)
 
     function desconectar() {
         alert("Desconectado com sucesso!")
@@ -28,13 +27,15 @@ export default function MenuSuperior(){
           <div className="menuNav">
             <ul>
               <li><Link href="/">Pagina inicial</Link></li>
-              
-              {
-                prestador == "false" ?
-                <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                : 
-                <li><Link href="/listagem_demandas">Demandas</Link></li>
 
+            {   
+        
+                prestador == "false" ?
+                    <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+
+                : 
+                    <li><Link href="/listagem_demandas">Demandas</Link></li>
+                
             }
               
             </ul>
