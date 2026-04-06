@@ -37,6 +37,9 @@ export default function Painel(){
     const [localizacao, setLocalizacao] = useState("")
     const [demandas, setDemandas] = useState([]);
 
+    // PESQUISA
+    const [inputPesquisa, setInputPesuisa] = useState()
+
     const [propostas, setPropostas] = useState([])
 
     const id_usuario = localStorage.getItem("id_usuario")
@@ -295,6 +298,24 @@ export default function Painel(){
 
     }
 
+    // FILTRAR DATAS DO PRESTADOR
+    async function filtraData(){
+        const { data } = await supabase
+        .from('propostas')
+        .select('*')
+        .gte('created_at', '2026-01-01')
+        .lt('created_at', '2029-01-01')
+    }
+
+    // FILTROS
+    async function pesquisa(){
+        const { data, error } = await supabase
+        .from('propostas')
+        .select()
+        .ilike('descricao', '%' + inputPesquisa + "%")
+        setPropostas(data)
+    }
+
     useEffect(() => {
         buscaUsuario()
         buscarDemanda()
@@ -350,8 +371,8 @@ export default function Painel(){
                                 <div className="col-4">
 
                                     <div className="input-group mb-3">
-                                        <input className="form-control" placeholder="Pesquisar.." />
-                                        <button className="btn btn-outline-secondary">🔎</button>
+                                        <input onChange={e => setInputPesuisa(e.target. value)} className="form-control" placeholder="Pesquisar.." />
+                                        <button onClick={pesquisa} className="btn btn-outline-secondary" >🔎</button>
                                     </div>
 
                                 </div>
@@ -359,10 +380,10 @@ export default function Painel(){
                                 <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
 
                                 <div className="col-4">
-                                    <select className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+                                    <select onClick={filtraData} className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
                                         <option defaultValue={null}> Filtro </option>
-                                        <option value="1"> Ativo </option>
-                                        <option value="2"> Finalizado </option>
+                                        <option value="1"> Mais recentes </option>
+                                        <option value="2"> Mais antigas </option>
                                     </select>
                                 </div>
 
@@ -669,7 +690,7 @@ export default function Painel(){
                                                     <button onClick={ () => cancelarEdicao()} className="btn btn-primary">Cancelar</button>
                                                 </div>
                                             :
-                                                <button>Salvar</button>
+                                                <button className="btn btn-primary">Salvar</button>
                                         }
 
                     
