@@ -77,19 +77,19 @@ export default function ListagemPrestadores() {
         <label>Categorias de Serviços:</label>
         <div className='divFiltrarBotoes'>
           <div>
-            <button onClick={() => filtrar('Construção e Reforma')}>Construção e Reforma</button>
-            <button onClick={() => filtrar('Serviços Domésticos')}>Serviços Domésticos</button>
-            <button onClick={() => filtrar('Manutenção e Reparos')}>Manutenção e Reparos</button>
-            <button onClick={() => filtrar('Tecnologia e Informática')}>Tecnologia e Informática</button>
-            <button onClick={() => filtrar('Beleza e Bem-estar')}>Beleza e Bem-estar</button>
-            <button onClick={() => filtrar('Transporte e Logística')}>Transporte e Logística</button>
+            <button onClick={() => filtrar('1')}>Construção e Reforma</button>
+            <button onClick={() => filtrar('2')}>Serviços Domésticos</button>
+            <button onClick={() => filtrar('6')}>Manutenção e Reparos</button>
+            <button onClick={() => filtrar('7')}>Tecnologia e Informática</button>
+            <button onClick={() => filtrar('3')}>marketing e vendas</button>
+            <button onClick={() => filtrar('5')}>Transporte e Logística</button>
           </div>
 
           <div>
-            <button onClick={() => filtrar('Eventos e Festas')}>Eventos e Festas</button>
-            <button onClick={() => filtrar('Educação e Aulas')}>Educação e Aulas</button>
-            <button onClick={() => filtrar('Saúde e Cuidados')}>Saúde e Cuidados</button>
-            <button onClick={() => filtrar('Serviços Automotivos')}>Serviços Automotivos</button>
+            <button onClick={() => filtrar('9')}>Eventos e Festas</button>
+            <button onClick={() => filtrar('8')}>Educação e Aulas</button>
+            <button onClick={() => filtrar('4')}>Saúde e Cuidados</button>
+            <button onClick={() => filtrar('13')}>Serviços Automotivos</button>
             <button onClick={() => filtrar(null)}>Todos</button>
           </div>
         </div>
