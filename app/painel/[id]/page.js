@@ -105,44 +105,43 @@ export default function ConsultaDemandas() {
             <h3>Propostas Recebidas</h3>
             <hr />
 
-        
-    
+            <div className="row">
+                {proposta.map(item => (
+                    <div key={item.id} className="col-md-4 mb-3">
 
-            {proposta.map(item => (
+                        <div className="card p-3 shadow h-100">
 
+                            <div className="d-flex align-items-center gap-3">
+                                <img src="https://placehold.co/50x50" className="rounded-circle" />
 
-                <div className="card p-4 shadow">
+                                <div>
+                                    <h5>{item.id_usuario?.nome}</h5>
+                                    <p>⭐ 4.8 | 120 serviços</p>
+                                </div>
+                            </div>
 
-                    <div className="d-flex align-items-center gap-3">
-                        <img src="https://placehold.co/50x50" className="rounded-circle" />
+                            <hr />
 
-                        <div>
-                            <h5>{item.id_usuario.nome}</h5>
-                            <p>⭐ 4.8 | 120 serviços</p>
+                            <p><strong>Valor:</strong> {item.preco}</p>
+                            <p><strong>Prazo:</strong> {item.prazo}</p>
+
+                            <hr />
+
+                            <p>{item.descricao}</p>
+
+                            <hr />
+
+                            <div className="d-flex gap-2 mt-auto">
+                                <button className="btn btn-success w-100">Aceitar</button>
+                                <button className="btn btn-danger w-100">Recusar</button>
+                            </div>
+
                         </div>
+
                     </div>
+                ))}
+            </div>
 
-                    <hr />
-
-                    <p><strong>Valor:</strong> {item.preco} </p>
-                    <p><strong>Prazo:</strong>{item.prazo}</p>
-
-                    <hr />
-
-                    <p>
-                        {item.descricao}
-                    </p>
-
-                    <hr />
-
-                    <div className="d-flex gap-2">
-                        <button className="btn btn-success">Aceitar</button>
-                        <button className="btn btn-danger">Recusar</button>
-                    </div>
-
-                </div>
-
-            ))}
 
         </div>
     )

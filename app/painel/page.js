@@ -391,6 +391,57 @@ export default function Painel() {
                                 {/* <!-- Cadastro --> */}
                                 <div className="text-end my-5">
 
+<<<<<<< HEAD
+=======
+                                <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
+
+                                <div className="col-4">
+                                    <select className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3"
+                                        onChange={(e) => {
+                                    if (e.target.value == "1") {
+                                        filtraData("false")
+                                    } else if (e.target.value == "2") {
+                                        filtraData("true")
+                                    }
+                                    }}
+                                    >
+                                        <option defaultValue={null}> Filtro </option>
+                                        <option value="1"> Mais recentes </option>
+                                        <option value="2"> Mais antigas </option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            {/* <!-- Cadastro --> */}
+                            <div className="text-end my-5">
+
+                                
+                                {
+                                    usuario.tipo == 'cliente' ?
+                                        <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalDemanda">Criar Demanda</button>
+                                    :
+                                        <button type="button" className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalPortfolio">Meu portfólio</button>
+                                }
+
+                                <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
+                                <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(usuario)}>Editar dados</button>
+                            </div>
+                            {/* LISTA DE DEMANDAS EM ABERTO */}
+
+                            {/* Tabela */}
+                            <div>
+                                <table className="table table-success table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Descrição</th>
+                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Visualização</th>
+
+                                        </tr>
+                                    </thead>
+>>>>>>> b0ab3366dbbd3d0e8a552c4804d0bf490377a6fc
 
                                     {
                                         usuario.tipo == 'cliente' ?
