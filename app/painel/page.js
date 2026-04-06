@@ -297,22 +297,23 @@ export default function Painel() {
         alteraPortfolio(portfolio)
 
     }
-
     // FILTRAR DATAS DO PRESTADOR
-    async function filtraData() {
-        const { data } = await supabase
-            .from('propostas')
-            .select('*')
-            .gte('created_at', '2026-01-01')
-            .lt('created_at', '2029-01-01')
+    async function filtraData(){
+        const { data, error } = await supabase
+        .from('propostas')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(10)
+        setPropostas(data)
     }
 
-    // FILTROS
-    async function pesquisa() {
+    // FILTROS INPUT
+    async function pesquisa(){
         const { data, error } = await supabase
-            .from('propostas')
-            .select()
-            .ilike('descricao', '%' + inputPesquisa + "%")
+        .from('propostas')
+        .select(`*, id_usuario(*)`)
+        .ilike('descricao', '%' + inputPesquisa + "%")
+        
         setPropostas(data)
     }
 
