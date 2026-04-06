@@ -5,9 +5,9 @@ import supabase from '../conexao/supabase';
 import { useRouter } from "next/navigation"
 
 
-export default function Painel(){
+export default function Painel() {
 
-    if(typeof window === "undefined") return null
+    if (typeof window === "undefined") return null
 
     const router = useRouter()
 
@@ -44,9 +44,9 @@ export default function Painel(){
 
     const id_usuario = localStorage.getItem("id_usuario")
 
-    const [ usuario, alteraUsuario ] = useState(null)
-    
-    const [ portfolio, alteraPortfolio ] = useState(null)
+    const [usuario, alteraUsuario] = useState(null)
+
+    const [portfolio, alteraPortfolio] = useState(null)
 
     async function buscaCategorias() {
         const { data, error } = await supabase
@@ -55,12 +55,12 @@ export default function Painel(){
         alteraListaCategorias(data)
     }
 
-    async function buscaUsuario(){
+    async function buscaUsuario() {
         const { data, error } = await supabase
             .from("usuarios")
             .select()
             .eq("id", id_usuario)
-            
+
         alteraUsuario(data[0])
 
     }
@@ -77,7 +77,7 @@ export default function Painel(){
         setDemandas(data)
     };
 
-     async function buscarProposta() {
+    async function buscarProposta() {
 
         const { data, error } = await supabase
             .from('propostas')
@@ -98,26 +98,26 @@ export default function Painel(){
             nascimento: nascimento,
             telefone: telefone,
             endereco: endereco,
-        
+
         }
         const { error } = await supabase
-        .from('usuarios')
-        .insert(objeto)
+            .from('usuarios')
+            .insert(objeto)
 
         console.log(error)
 
         if (error == null) {
             alert("Usuario cadastrado com sucesso")
-        }else {
+        } else {
             alert("Dados inválidos. Verifique os campos e tente novamente.")
 
         }
 
     }
 
-    async function salvarDemanda(e){
+    async function salvarDemanda(e) {
         e.preventDefault()
-        
+
         const demanda = {
             titulo: titulo,
             descricao: descricaoDemanda,
@@ -127,36 +127,36 @@ export default function Painel(){
         }
 
         // VALIDAÇÃO DE DADOS
-        if(demanda.titulo.length < 5){
+        if (demanda.titulo.length < 5) {
             alert("Título muito curto")
             return
         }
-        if(demanda.descricao.length < 10){
+        if (demanda.descricao.length < 10) {
             alert("Descrição muito curta")
             return
         }
-        if(demanda.localizacao.length < 5){
+        if (demanda.localizacao.length < 5) {
             alert("Localização muito curta")
             return
         }
 
         const { error } = await supabase
-        .from('demandas')
-        .insert(demanda);
+            .from('demandas')
+            .insert(demanda);
 
-        if(error == null){
+        if (error == null) {
             alert("Demanda cadastrada com sucesso!")
             location.reload()
-        }else{
+        } else {
             alert("Dados inválidos...")
         }
 
-        
-        
+
+
 
     }
 
-   async function salvarPortfolio(e){
+    async function salvarPortfolio(e) {
 
 
         // VALIDAÇÃO DE DADOS
@@ -169,52 +169,52 @@ export default function Painel(){
             id_usuario: id_usuario
         }
 
-        if(objeto.descricao.length < 10){
+        if (objeto.descricao.length < 10) {
             alert("Descrição muito curta...")
             return
         }
-        if(objeto.funcao.length < 3){
+        if (objeto.funcao.length < 3) {
             alert("Tipo muito curto...")
             return
         }
-        if(objeto.historico.length < 10){
+        if (objeto.historico.length < 10) {
             alert("Histórico de experiência muito curta...")
             return
         }
 
 
-        if(portfolio == null){
-            const {data, error} = await supabase
-            .from('servicos')
-            .insert(objeto)
+        if (portfolio == null) {
+            const { data, error } = await supabase
+                .from('servicos')
+                .insert(objeto)
 
             if (error == null) {
                 alert("Portfólio cadastrado com sucesso!")
-            }else{
+            } else {
                 alert("Dados inválidos")
             }
 
-        }else{
+        } else {
             delete objeto.id_usuario
-            const {data, error} = await supabase
-            .from('servicos')
-            .update(objeto)
-            .eq('id_usuario', id_usuario)
+            const { data, error } = await supabase
+                .from('servicos')
+                .update(objeto)
+                .eq('id_usuario', id_usuario)
 
             if (error == null) {
                 alert("Modificaçõs salvas com sucesso!")
-            }else{
+            } else {
                 alert("Dados inválidos")
             }
 
         }
 
         location.reload()
-        
+
     }
 
     function editar(usuario) {
-        
+
         setEditando(usuario.id)
 
         setNome(usuario.nome)
@@ -226,7 +226,7 @@ export default function Painel(){
         setSenha(usuario.senha)
     }
 
-    function cancelarEdicao(){
+    function cancelarEdicao() {
         setEditando(null)
 
         setNome("")
@@ -238,9 +238,9 @@ export default function Painel(){
         setSenha("")
     }
 
-    async function atualizar(){
+    async function atualizar() {
 
-        const objeto ={
+        const objeto = {
             nome: nome,
             email: email,
             cpf_cnpj: cpf,
@@ -251,14 +251,14 @@ export default function Painel(){
         }
 
         const { error } = await supabase
-        .from('usuarios')
-        .update(objeto)
-        .eq('id', editando)
+            .from('usuarios')
+            .update(objeto)
+            .eq('id', editando)
 
-        if(error == null){
+        if (error == null) {
             alert("Atualização realizada com sucesso!!")
             cancelarEdicao()
-        }else{
+        } else {
             alert("Dados inválidos. Verifique os campos e tente novamente")
         }
     }
@@ -279,13 +279,13 @@ export default function Painel(){
         location.reload()
     }
 
-    async function buscaPortfolio(){
+    async function buscaPortfolio() {
         const { data, error } = await supabase
-        .from('servicos')
-        .select()
-        .eq('id_usuario', id_usuario)
+            .from('servicos')
+            .select()
+            .eq('id_usuario', id_usuario)
 
-        if(data == null || data.length <= 0)
+        if (data == null || data.length <= 0)
             return
 
         const portfolio = data[0]
@@ -299,20 +299,20 @@ export default function Painel(){
     }
 
     // FILTRAR DATAS DO PRESTADOR
-    async function filtraData(){
+    async function filtraData() {
         const { data } = await supabase
-        .from('propostas')
-        .select('*')
-        .gte('created_at', '2026-01-01')
-        .lt('created_at', '2029-01-01')
+            .from('propostas')
+            .select('*')
+            .gte('created_at', '2026-01-01')
+            .lt('created_at', '2029-01-01')
     }
 
     // FILTROS
-    async function pesquisa(){
+    async function pesquisa() {
         const { data, error } = await supabase
-        .from('propostas')
-        .select()
-        .ilike('descricao', '%' + inputPesquisa + "%")
+            .from('propostas')
+            .select()
+            .ilike('descricao', '%' + inputPesquisa + "%")
         setPropostas(data)
     }
 
@@ -324,391 +324,407 @@ export default function Painel(){
         buscarProposta()
     }, [])
 
-    return(
+    return (
 
- <div>
-        {
-            usuario == null ?
-            //location.href="/"
-            <div className="text-center"><p>Faça <Link href="/login_usuarios">login</Link> para continuar...</p></div>
-            :
-                <div className="container-fluid">
-
-
-                    <div className="row">
-
-                        <div className="col-2 menuLateral vh-100 d-flex flex-column justify-content-between">
-                            <div className="text-center mt-5">
-                                <img className="rounded-circle mb-3" src={"https://ui-avatars.com/api/?name="+usuario.nome+"&background=random"} />
-                                <h1 className="fs-5"> {usuario.nome} </h1>
-                            </div>
-
-                            <div className="list-group list-group-flush fs-5">
-                                <Link href="/" className="list-group-item list-group-item-action">Página inicial</Link>
-                               
-                                <button onClick={desconectar} className="list-group-item list-group-item-action">Sair</button>
-                            </div>
+        <div>
+            {
+                usuario == null ?
+                    //location.href="/"
+                    <div className="text-center"><p>Faça <Link href="/login_usuarios">login</Link> para continuar...</p></div>
+                    :
+                    <div className="container-fluid">
 
 
-                            {/* <div className="text-center menuLateralPerfil ">
+                        <div className="row">
+
+                            <div className="col-2 menuLateral vh-100 d-flex flex-column justify-content-between">
+                                <div className="text-center mt-5">
+                                    <img className="rounded-circle mb-3" src={"https://ui-avatars.com/api/?name=" + usuario.nome + "&background=random"} />
+                                    <h1 className="fs-5"> {usuario.nome} </h1>
+                                </div>
+
+                                <div className="list-group list-group-flush fs-5">
+                                    <Link href="/" className="list-group-item list-group-item-action">Página inicial</Link>
+
+                                    <button onClick={desconectar} className="list-group-item list-group-item-action">Sair</button>
+                                </div>
+
+
+                                {/* <div className="text-center menuLateralPerfil ">
                                 <img className="me-2" src="https://placehold.co/40" />
                                 <div>
                                     <button type="button" >Editar</button>
                                 </div>
 
                             </div> */}
-                        </div>
-
-                        {/* <!-- Conteúdo principal --> */}
-                        <div className="col-9">
-                            {/* <!-- Introdução --> */}
-                            <div className="mt-5">
-                                <h2 className=" p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 ">Painel administrativo {usuario.tipo} </h2>
-                                <hr />
                             </div>
-                            {/* <!-- Pesquisa e filtro --> */}
-                            <div className="row">
-                                <div className="col-4">
 
-                                    <div className="input-group mb-3">
-                                        <input onChange={e => setInputPesuisa(e.target. value)} className="form-control" placeholder="Pesquisar.." />
-                                        <button onClick={pesquisa} className="btn btn-outline-secondary" >🔎</button>
+                            {/* <!-- Conteúdo principal --> */}
+                            <div className="col-9">
+                                {/* <!-- Introdução --> */}
+                                <div className="mt-5">
+                                    <h2 className=" p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 ">Painel administrativo {usuario.tipo} </h2>
+                                    <hr />
+                                </div>
+                                {/* <!-- Pesquisa e filtro --> */}
+                                <div className="row">
+                                    <div className="col-4">
+
+                                        <div className="input-group mb-3">
+                                            <input onChange={e => setInputPesuisa(e.target.value)} className="form-control" placeholder="Pesquisar.." />
+                                            <button onClick={pesquisa} className="btn btn-outline-secondary" >🔎</button>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
+
+                                    <div className="col-4">
+                                        <select onClick={filtraData} className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+                                            <option defaultValue={null}> Filtro </option>
+                                            <option value="1"> Mais recentes </option>
+                                            <option value="2"> Mais antigas </option>
+                                        </select>
                                     </div>
 
                                 </div>
+                                {/* <!-- Cadastro --> */}
+                                <div className="text-end my-5">
 
-                                <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
-
-                                <div className="col-4">
-                                    <select onClick={filtraData} className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
-                                        <option defaultValue={null}> Filtro </option>
-                                        <option value="1"> Mais recentes </option>
-                                        <option value="2"> Mais antigas </option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            {/* <!-- Cadastro --> */}
-                            <div className="text-end my-5">
-
-                                
-                                {
-                                    usuario.tipo == 'cliente' ?
-                                        <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalDemanda">Criar Demanda</button>
-                                    :
-                                        <button type="button" className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalPortfolio">Meu portfólio</button>
-                                }
-
-                                <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
-                                <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(usuario)}>Editar dados</button>
-                            </div>
-                            {/* LISTA DE DEMANDAS EM ABERTO */}
-
-                            {/* Tabela */}
-                            <div>
-                                <table className="table table-success table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Nome</th>
-                                            <th scope="col">Descrição</th>
-                                            <th scope="col">Categoria</th>
-                                            <th scope="col">Visualização</th>
-
-                                        </tr>
-                                    </thead>
 
                                     {
                                         usuario.tipo == 'cliente' ?
-                                            
-                                            demandas.map(
-                                                (item, index) => (
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">{index + 1}</th>
-                                                            <th scope="row">{item.id_usuario.nome}</th>
-                                                            <td>{item.descricao}</td> {/* td: coluna*/}
-                                                            <td> {formataCategoria(item.categoria)}</td>
-                                                            <td><button>Cancelar</button> 
-                                                                <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button> 
-                                                                <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                ))
-
-                                        :
-
-                                        propostas.map(
-                                                (item, index) => (
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">{index + 1}</th>
-                                                            <th scope="row">{item.id_usuario.nome}</th>
-                                                            <td>{item.descricao}</td> {/* td: coluna*/}
-                                                            <td> {formataCategoria(item.categoria)}</td>
-                                                            <td><button>Cancelar</button> 
-                                                                <button onClick={() => location.href="/propostas/"+item.id} >Concluir</button> 
-                                                                <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                ))
-                                    
+                                            <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalDemanda">Criar Demanda</button>
+                                            :
+                                            <button type="button" className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalPortfolio">Meu portfólio</button>
                                     }
 
-
-                                    
-
-                                </table>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* MODAL TODAS AS DEMANDAS */}
-                    <div className="modal fade" id="exampleModal" tabIndex="-1">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-
-                                <div className="modal-header">
-                                    <h2 className="modal-title">Histórico</h2>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+                                    <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
+                                    <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editar(usuario)}>Editar dados</button>
                                 </div>
+                                {/* LISTA DE DEMANDAS EM ABERTO */}
 
-                                <div className="modal-body">
-                                    <div>
-                                        <table className="table table-success table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Nome</th>
-                                                    <th scope="col">Descrição</th>
-                                                    <th scope="col">Categoria</th>
-                                                    
+                                {/* Tabela */}
+                                <div>
+                                    <table className="table table-success table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Descrição</th>
+                                                <th scope="col">Categoria</th>
+                                                <th scope="col">Visualização</th>
 
-                                                </tr>
-                                            </thead>
-                                            
-                                            {
-                                                demandas.map((item, index) => (
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">{index + 1}</th>
-                                                            <th scope="row">{item.id_usuario.nome}</th>
-                                                            <td>{item.descricao}</td> {/* td: coluna*/}
-                                                            <td> {formataCategoria(item.categoria)}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                ))
-                                            }
-                                        </table>
+                                            </tr>
+                                        </thead>
 
-
-                                    </div>
-                                </div>
-
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="exampleModal">
-                                        Fechar
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* MODAL CRIAR  PORTIFÓLIO funciona*/}
-
-                    <div className="modal fade" id="modalPortfolio" tabIndex="-1">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel1">Meu Portfólio</h1>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div className="modal-body">
-                                    <form onSubmit={salvarPortfolio} >
-                                        
                                         {
-                                            portfolio == null ?
-                                                <div class="alert alert-info">Você ainda não tem um portfólio cadastrado.<br/>Cadastre-se abaixo:</div>
-                                            : 
-                                                <></>
+                                            usuario.tipo == 'cliente' ?
+
+                                                demandas.map(
+                                                    (item, index) => (
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">{index + 1}</th>
+                                                                <th scope="row">{item.id_usuario.nome}</th>
+                                                                <td>{item.descricao}</td> {/* td: coluna*/}
+                                                                <td> {formataCategoria(item.categoria)}</td>
+                                                                <td><button>Cancelar</button>
+                                                                    <button onClick={() => location.href = "/demanda/" + item.id} >Concluir</button>
+                                                                    <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    ))
+
+                                                :
+
+                                                propostas.map(
+                                                    (item, index) => (
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">{index + 1}</th>
+                                                                <th scope="row">{item.id_usuario.nome}</th>
+                                                                <td>{item.descricao}</td> {/* td: coluna*/}
+                                                                <td> {formataCategoria(item.categoria)}</td>
+                                                                <td><button>Cancelar</button>
+                                                                    <button onClick={() => location.href = "/propostas/" + item.id} >Concluir</button>
+                                                                    <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    ))
+
                                         }
 
-                                        Descrição:
-                                        <br />
-                                        <input value={descricao} onChange={e => setDescricao(e.target.value)}  className='form-control' />
-                                        <br />
-                                        Experiência:
-                                        <br />
-                                        <input value={historico} onChange={e => setHistorico(e.target.value)}  className='form-control' />
-                                        <br />
-                                        Função:
-                                        <br />
-                                        <input value={funcao}  onChange={e => setFuncao(e.target.value)} className='form-control' />
 
-                                    
 
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" className="btn btn-primary">Salvar</button>
-                                        </div>
 
-                                    </form>
+                                    </table>
+
 
                                 </div>
-
                             </div>
                         </div>
-                    </div>
 
-                    {/* MODAL PARA CRIAR UMA DEMANDA*/}
+                        {/* MODAL TODAS AS DEMANDAS */}
+                        <div className="modal fade" id="exampleModal" tabIndex="-1">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
 
-                    <div className="modal fade" id="modalDemanda" tabIndex="-1">
-                        <div className="modal-dialog">
-                        <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h2 className="modal-title">Histórico</h2>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
 
-                            <div className="modal-header">
-                            <h5 className="modal-title">Nova Demanda</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
+                                    <div className="modal-body">
+                                        <div>
+                                            <table className="table table-success table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Nome</th>
+                                                        <th scope="col">Descrição</th>
+                                                        <th scope="col">Categoria</th>
 
-                            <div className="modal-body">
-                            <form id="formCadastro" onSubmit={salvarDemanda}>
 
-                                <div className="mb-3">
-                                <label className="form-label fw-bold">Título</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={titulo}
-                                    onChange={(e) => setTitulo(e.target.value)}
-                                />
+                                                    </tr>
+                                                </thead>
+
+                                                {
+                                                    demandas.map((item, index) => (
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">{index + 1}</th>
+                                                                <th scope="row">{item.id_usuario.nome}</th>
+                                                                <td>{item.descricao}</td> {/* td: coluna*/}
+                                                                <td> {formataCategoria(item.categoria)}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    ))
+                                                }
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="exampleModal">
+                                            Fechar
+                                        </button>
+                                    </div>
+
                                 </div>
+                            </div>
+                        </div>
 
-                                <div className="mb-3">
-                                <label className="form-label fw-bold">Categoria</label>
-                                {/*<input
+                        {/* MODAL CRIAR  PORTIFÓLIO funciona*/}
+
+                        <div className="modal fade" id="modalPortfolio" tabIndex="-1">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5" id="exampleModalLabel1">Meu Portfólio</h1>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form onSubmit={salvarPortfolio} >
+
+                                            {
+                                                portfolio == null ?
+                                                    <div class="alert alert-info">Você ainda não tem um portfólio cadastrado.<br />Cadastre-se abaixo:</div>
+                                                    :
+                                                    <></>
+                                            }
+
+                                            <p> Descrição:</p>
+                                            <br />
+                                            <input value={descricao} onChange={e => setDescricao(e.target.value)} className='form-control' />
+                                            <br />
+                                            Experiência:
+                                            <br />
+                                            <input value={historico} onChange={e => setHistorico(e.target.value)} className='form-control' />
+                                            <br />
+                                            Função:
+                                            <br />
+                                            <input value={funcao} onChange={e => setFuncao(e.target.value)} className='form-control' />
+
+                                            <p>Categoria:</p>
+                                            <select>
+                                                <option disabled>--selecione--</option>
+                                                <option value="1">Construção e Reforma</option>
+                                                <option value="2">Serviços Domésticos</option>
+                                                <option value="6">Manutenção e Reparos</option>
+                                                <option value="7">Tecnologia e Informática</option>
+                                                <option value="3">Marketing e Vendas</option>
+                                                <option value="5">Transporte e Logística</option>
+                                                <option value="9">Eventos e Festas</option>
+                                                <option value="8">Educação e Aulas</option>
+                                                <option value="4">Saúde e Cuidados</option>
+                                                <option value="13">Serviços Automotivos</option>
+                                                <option value="">Todos</option>
+                                            </select>
+
+
+
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" className="btn btn-primary">Salvar</button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* MODAL PARA CRIAR UMA DEMANDA*/}
+
+                        <div className="modal fade" id="modalDemanda" tabIndex="-1">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">Nova Demanda</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div className="modal-body">
+                                        <form id="formCadastro" onSubmit={salvarDemanda}>
+
+                                            <div className="mb-3">
+                                                <label className="form-label fw-bold">Título</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={titulo}
+                                                    onChange={(e) => setTitulo(e.target.value)}
+                                                />
+                                            </div>
+
+                                            <div className="mb-3">
+                                                <label className="form-label fw-bold">Categoria</label>
+                                                {/*<input
                                     type="text"
                                     className="form-control"
                                     value={categoria}
                                     onChange={(e) => setCategoria(e.target.value)}
                                 />*/}
 
-                                <select onChange={(e) => setCategoria(Number(e.target.value))} >
-                                    <option> Selecione </option>
+                                                <select onChange={(e) => setCategoria(Number(e.target.value))} >
+                                                    <option> Selecione </option>
 
-                                    {
-                                        listaCategorias.map(
-                                            item => <option value={item.id} > {item.categoria} </option>
-                                        )
-                                    }
-                                </select>
+                                                    {
+                                                        listaCategorias.map(
+                                                            item => <option value={item.id} > {item.categoria} </option>
+                                                        )
+                                                    }
+                                                </select>
 
-                                </div>
+                                            </div>
 
-                                <div className="mb-3">
-                                <label className="form-label fw-bold">Descrição</label>
-                                <textarea
-                                    className="form-control"
-                                    rows="3"
-                                    value={descricaoDemanda}
-                                    onChange={(e) => setDescricaoDemanda(e.target.value)}
-                                ></textarea>
-                                </div>
+                                            <div className="mb-3">
+                                                <label className="form-label fw-bold">Descrição</label>
+                                                <textarea
+                                                    className="form-control"
+                                                    rows="3"
+                                                    value={descricaoDemanda}
+                                                    onChange={(e) => setDescricaoDemanda(e.target.value)}
+                                                ></textarea>
+                                            </div>
 
-                                <div className="mb-3">
-                                <label className="form-label fw-bold">Localização</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={localizacao}
-                                    onChange={(e) => setLocalizacao(e.target.value)}
-                                />
-                                </div>
-
-
-                            </form>
-                            </div>
-
-                            <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                Fechar
-                            </button>
-
-                            <button type="submit" form="formCadastro" className="btn btn-primary">
-                                Salvar
-                            </button>
-                            </div>
-
-                        </div>
-                        </div>
-                    </div>
-                    
-                    {/* MODAL EDIÇÃO DADOS */}
-
-                    <div className="modal fade" id="exampleModal2" tabIndex="-1">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h1 className="modal-title fs-5" id="exampleModalLabel2">Editar Dados</h1>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div className="modal-body">
-                                    <form onSubmit={salvar}>
-                                        
-                                        <p> Nome: </p>
-                                        <input readOnly value={nome} onChange={e => setNome(e.target.value)} className="form-control" placeholder="Seu nome completo" />
-
-                                        <p> E-mail: </p>
-                                        <input value={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="seu@email.com" />
-                                        
-                                        <p> CPF ou CNPJ: </p>
-                                        <input readOnly value={cpf} onChange={e => setCpfCnpj(e.target.value)} className="form-control" placeholder="00011122233" />
-                                        
-                                        <p> Data de Nascimento: </p>
-                                        <input readOnly value={nascimento} onChange={e => setDataNascimento(e.target.value)} className="form-control" type="date" />
-                                        
-                                        <p> Telefone: </p>
-                                        <input value={telefone} onChange={e => setTelefone(e.target.value)} className="form-control" placeholder="11999998888" type="tel" />
-                                        
-                                        <p> Endereço: </p>
-                                        <input value={endereco} onChange={e => setEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minLength="10" />
-                                        
-                                        <p>Senha:</p>
-                                        <input value={senha} onChange={e => setSenha(e.target.value)} className="form-control" placeholder="Digite sua nova senha"/>
+                                            <div className="mb-3">
+                                                <label className="form-label fw-bold">Localização</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={localizacao}
+                                                    onChange={(e) => setLocalizacao(e.target.value)}
+                                                />
+                                            </div>
 
 
-                                        {
-                                            editando == null ?
-                                                <div>
-                                                    <br/>
-                                                    <button onClick={() => atualizar()} className="btn btn-secondary me-2" data-bs-dismiss="modal">Atualizar</button>
-                                                    <button onClick={ () => cancelarEdicao()} className="btn btn-primary">Cancelar</button>
-                                                </div>
-                                            :
-                                                <button className="btn btn-primary">Salvar</button>
-                                        }
+                                        </form>
+                                    </div>
 
-                    
-                                    
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                            Fechar
+                                        </button>
 
-                                    </form>
-
+                                        <button type="submit" form="formCadastro" className="btn btn-primary">
+                                            Salvar
+                                        </button>
+                                    </div>
 
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                    
-                </div >
-        }
-          
-        </div>       
+
+                        {/* MODAL EDIÇÃO DADOS */}
+
+                        <div className="modal fade" id="exampleModal2" tabIndex="-1">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5" id="exampleModalLabel2">Editar Dados</h1>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form onSubmit={salvar}>
+
+                                            <p> Nome: </p>
+                                            <input readOnly value={nome} onChange={e => setNome(e.target.value)} className="form-control" placeholder="Seu nome completo" />
+
+                                            <p> E-mail: </p>
+                                            <input value={email} onChange={e => setEmail(e.target.value)} className="form-control" placeholder="seu@email.com" />
+
+                                            <p> CPF ou CNPJ: </p>
+                                            <input readOnly value={cpf} onChange={e => setCpfCnpj(e.target.value)} className="form-control" placeholder="00011122233" />
+
+                                            <p> Data de Nascimento: </p>
+                                            <input readOnly value={nascimento} onChange={e => setDataNascimento(e.target.value)} className="form-control" type="date" />
+
+                                            <p> Telefone: </p>
+                                            <input value={telefone} onChange={e => setTelefone(e.target.value)} className="form-control" placeholder="11999998888" type="tel" />
+
+                                            <p> Endereço: </p>
+                                            <input value={endereco} onChange={e => setEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minLength="10" />
+
+                                            <p>Senha:</p>
+                                            <input value={senha} onChange={e => setSenha(e.target.value)} className="form-control" placeholder="Digite sua nova senha" />
+
+
+                                            {
+                                                editando == null ?
+                                                    <div>
+                                                        <br />
+                                                        <button onClick={() => atualizar()} className="btn btn-secondary me-2" data-bs-dismiss="modal">Atualizar</button>
+                                                        <button onClick={() => cancelarEdicao()} className="btn btn-primary">Cancelar</button>
+                                                    </div>
+                                                    :
+                                                    <button className="btn btn-primary">Salvar</button>
+                                            }
+
+
+
+
+                                        </form>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div >
+            }
+
+        </div>
 
     )
 }
