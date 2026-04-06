@@ -305,14 +305,16 @@ export default function Painel(){
         .select('*')
         .gte('created_at', '2026-01-01')
         .lt('created_at', '2029-01-01')
+        setPropostas(data)
     }
 
-    // FILTROS
+    // FILTROS INPUT
     async function pesquisa(){
         const { data, error } = await supabase
         .from('propostas')
-        .select()
+        .select(`*, id_usuario(*)`)
         .ilike('descricao', '%' + inputPesquisa + "%")
+        
         setPropostas(data)
     }
 
@@ -380,7 +382,7 @@ export default function Painel(){
                                 <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
 
                                 <div className="col-4">
-                                    <select onClick={filtraData} className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+                                    <select className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
                                         <option defaultValue={null}> Filtro </option>
                                         <option value="1"> Mais recentes </option>
                                         <option value="2"> Mais antigas </option>
