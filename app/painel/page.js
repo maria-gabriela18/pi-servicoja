@@ -57,10 +57,7 @@ export default function Painel(){
             .from("usuarios")
             .select()
             .eq("id", id_usuario)
-
-            console.log("essa é a data")
             
-            console.log(data[0])
         alteraUsuario(data[0])
 
     }

@@ -1,12 +1,34 @@
 'use client'
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import supabase from "../conexao/supabase";
 
 
-export default function MenuSuperior(){
+export default function MenuSuperior() {
 
     const [id_usuario, setIdUsuario] = useState(null);
     const [prestador, setPrestador] = useState(null);
+    const [nomeUsuario, setNomeUsuario] = useState("")
+
+
+    async function usuario() {
+        const { data, error } = await supabase.auth.getUser()
+        console.log("essa aqui é a data do menu", data)
+
+        const { data: userData, error: userError } = await supabase
+            .from("usuarios")
+            .select("nome")
+            .eq("id", data.user.id)
+            .single();
+
+        if (userError) {
+            console.log(userError)
+            return
+        }
+
+        setNomeUsuario(userData.nome)
+
+    }
 
 
     function desconectar() {
@@ -22,66 +44,68 @@ export default function MenuSuperior(){
         setIdUsuario(id);
         console.log(setIdUsuario)
         setPrestador(prest)
+
+        usuario()
+
     }, []);
 
-    return(
+    return (
         <header className="header">
-          <div className="menuNav">
-            <ul>
-              <li><Link href="/">Pagina inicial</Link></li>
+            <div className="menuNav">
+                <ul>
+                    <li><Link href="/">Pagina inicial</Link></li>
 
-            {   
-        
-                prestador == "false" ?
-                    <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+                    {
 
-                : 
-                    <li><Link href="/listagem_demandas">Demandas</Link></li>
-                
-            }
-              
-            </ul>
-          </div>
+                        prestador == "false" ?
+                            <>
+                                <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+                                <li><Link href="/painel"> minhas demandas</Link></li>
+                            </>
 
-          <div className="acoesHeader">
-            {
-                id_usuario == null ? (
-                    <>
-                        <Link href="/login_usuarios">
-                            <button><i className="bi bi-box-arrow-in-right"></i> Login</button>
-                        </Link>
-                        <Link href="/cadastro_usuarios">
-                            <button><i className="bi bi-person-plus"></i> Cadastro</button>
-                        </Link>
-                    </>
-                ) : (
-                    <Link href="/painel">
-                        
-                        <button><i className="bi bi-box-arrow-in-right"></i> Meu perfil</button>
-                        <button onClick={desconectar}> <i className="bi bi-person-plus"></i> Sair</button>
-                        
+                            :
+                            <>
+                                <li><Link href="/painel"> meus trabalhos</Link></li>
+                                <li><Link href="/listagem_demandas">Demandas</Link></li>
 
-                    </Link>
-                )
-            }
-          </div>
 
-          <div>
+                            </>
 
-            {/* {
-                id_usuario != null  && id_usuario.admin == true ?
-                    <div>
-                        <Link href="/">Home</Link>
-                        <Link href="/listagem_prestadores">Prestadores</Link>
-                    </div>
-                :
-                    <div>
-                        <Link href="/">Home</Link>
-                        <Link href="/listagem_demandas">Demandas</Link>
-                    </div>
-            } */}
+                    }
 
-          </div>
-        </header>
+                </ul>
+            </div>
+
+            <div className="acoesHeader">
+                {
+                    id_usuario == null ? (
+                        <>
+                            <Link href="/login_usuarios">
+                                <button><i className="bi bi-box-arrow-in-right"></i> Login</button>
+                            </Link>
+                            <Link href="/cadastro_usuarios">
+                                <button><i className="bi bi-person-plus"></i> Cadastro</button>
+                            </Link>
+                        </>
+                    ) : (
+
+                        < div className="dropdown">
+                            <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" >
+                                <img src={`https://ui-avatars.com/api/?name=${nomeUsuario}&background=random`} className="avatarUser" />
+                                {nomeUsuario}
+                            </a>
+
+                            <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#" onClick={desconectar}>Sair</a></li>
+
+                            </ul>
+                        </div>
+
+
+                    )
+                }
+            </div>
+
+        </header >
     )
 }

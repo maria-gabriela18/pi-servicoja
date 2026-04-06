@@ -34,12 +34,10 @@ export default function ListagemPrestadores() {
       console.log(data)
     }
 
-
-
-
-
     buscarPrestadores()
   }, [])
+
+
 
 
   async function filtrar(categoria) {
@@ -59,7 +57,15 @@ export default function ListagemPrestadores() {
     } else {
       setPrestadores(data)
     }
+
   }
+
+    function formataData(data) {
+    let data_formatada = new Date(data)
+    data_formatada = data_formatada.toLocaleDateString()
+    return data_formatada
+  }
+
 
   return (
     <div className='divGeral'>
@@ -78,7 +84,7 @@ export default function ListagemPrestadores() {
             <button onClick={() => filtrar('Beleza e Bem-estar')}>Beleza e Bem-estar</button>
             <button onClick={() => filtrar('Transporte e Logística')}>Transporte e Logística</button>
           </div>
-          
+
           <div>
             <button onClick={() => filtrar('Eventos e Festas')}>Eventos e Festas</button>
             <button onClick={() => filtrar('Educação e Aulas')}>Educação e Aulas</button>
@@ -150,32 +156,57 @@ export default function ListagemPrestadores() {
             <div className="modal-body ">
               {userSelecionado ? (
                 <div className='modalInfo'>
+
+                  <div className='caixa-info'>
+
+                    <div>
+                      <p><span>NOME:</span></p>
+                      <p>{userSelecionado.id_usuario.nome}</p>
+                    </div>
+
+                    <div>
+                      <p><span>FUNÇÃO:</span></p>
+                      <p>{userSelecionado.funcao}</p>
+                    </div>
+
+
+                    <div>
+                      <p><span>TELEFONE:</span></p>
+                      <p>{userSelecionado.id_usuario.telefone}</p>
+                    </div>
+
+                  </div>
+
+                  <div className='caixa-info'>
+                    <div>
+                      <p><span>E-MAIL:</span> </p>
+                      <p>{userSelecionado.id_usuario.email}</p>
+                    </div>
+
+                    <div>
+                      <span>CRIADO EM:</span>
+                      <p>{formataData(userSelecionado.id_usuario.created_at)}</p>
+                    </div>
+
+                    <div>
+                      <span>aqui vai alguma coisa</span>
+                    </div>
+
+                    
+
+                  </div>
+                  
                   <div>
-                    <p><span>NOME:</span></p>
-                    <p>{userSelecionado.id_usuario.nome}</p>
-                  </div>
-
-                  <div>
-                    <p><span>FUNÇÃO:</span></p>
-                    <p>{userSelecionado.funcao}</p>
+                    <div className='modalDescricao'>
+                      <p><span>DESCRIÇÃO:</span> </p>
+                      <p>{userSelecionado.descricao}</p>
+                    </div>
                   </div>
 
 
-                  <div>
-                    <p><span>TELEFONE:</span></p>
-                    <p>{userSelecionado.id_usuario.telefone}</p>
-                  </div>
-                  <div>
-                    <p><span>E-MAIL:</span> </p>
-                    <p>{userSelecionado.id_usuario.email}</p>
-                  </div>
 
-
-                  <div className='modalDescricao'>
-                    <p><span>DESCRIÇÃO:</span> </p>
-                    <p>{userSelecionado.descricao}</p>
-                  </div>
                 </div>
+                
               ) : (
                 <p>Nenhum prestador selecionado</p>
               )}

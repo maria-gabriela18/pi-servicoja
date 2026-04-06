@@ -4,7 +4,7 @@ body {
 
 }
 
-.divFiltrar{
+.divFiltrar {
     text-align: center;
 }
 
@@ -12,8 +12,8 @@ body {
 
 
 
-.divFiltrar .divFiltrarBotoes{
-    
+.divFiltrar .divFiltrarBotoes {
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,12 +21,12 @@ body {
     /* background-color: #e2e8f0; */
     border-radius: 50px;
     /* border: 1px solid rgb(122, 121, 121); */
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     padding: 10px;
 
 }
 
-.divFiltrar .divFiltrarBotoes button{
+.divFiltrar .divFiltrarBotoes button {
     border-radius: 50px;
     border: none;
     padding: 8px;
@@ -34,11 +34,11 @@ body {
     margin-right: 10px;
     margin-top: 20px;
     transition: all 300ms ease;
-    
-    
+
+
 }
 
-.divFiltrarBotoes button:hover{
+.divFiltrarBotoes button:hover {
     background-color: #787cd5;
     color: white;
 }
@@ -154,25 +154,76 @@ body {
     background: #16a34a;
 }
 
+.modal-header {
+    background: linear-gradient(135deg, #1e1b3a, #0f0a1f);
+    color: #e2e8f0;
+    border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.modal-body {
+    background: linear-gradient(135deg, #1e1b3a, #0f0a1f);
+}
+
+.modal-footer {
+    background: linear-gradient(135deg, #1e1b3a, #0f0a1f);
+    border-top: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+
+
+.modalInfo {
+    justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.modalInfo .caixa-info {
+    width: 200px;
+}
+
+
+.modalInfo .caixa-info div {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(167, 139, 250, 0.1);
+    border-radius: 10px;
+    background-color: #1e1b3a;
+    color: white;
+    height: 100px;
+}
 
 .modalDescricao {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(167, 139, 250, 0.1);
+    border-radius: 10px;
+    background-color: #1e1b3a;
+    color: white;
+    width: 432px;
+
+}
+.modalDescricao span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #a78bfa;
 }
 
-.modal-css .modalInfo div span {
-    font-weight: bold;
 
-
+.modalInfo .caixa-info div span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #a78bfa;
 }
 
 
-.modal-css .button-css {
-    border: none;
-    background-color: #6366f1;
+.modal-footer button {
+    background-color: #22c55e;
+    color: #e2e8f0;
 }
 
-.modal-css .button-css:hover {
-    background-color: #2327ff;
+.modal-footer button:hover {
+    background-color: #16a34a;
+    color: #e2e8f0;
 }

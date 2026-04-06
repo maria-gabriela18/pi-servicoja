@@ -66,7 +66,8 @@ export default function ListagemDemandas() {
       id_demanda: userSelecionado.id,
       preco: precoProposta,
       prazo: prazoProposta,
-      descricao: descricaoProposta
+      descricao: descricaoProposta,
+      
 
     }
     const { data, error } = await supabase

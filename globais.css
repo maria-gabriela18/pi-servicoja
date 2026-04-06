@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+   
     
 }
 
@@ -21,10 +22,18 @@ body {
     background-color: black;
     border-bottom: 1px solid rgba(167, 139, 250, 0.2);
     
+    
+}
+.menuNav{
+    display: flex;
+    width: 1000px;
+  
 }
 
 .menuNav ul {
+    width: 100%;
     display: flex;
+    justify-content: space-around;
     list-style: none;
     gap: 20px;
   
@@ -45,9 +54,11 @@ body {
 }
 
 .acoesHeader {
+   
     display: flex;
+   justify-content:center;
     align-items: center;
-    width: 200px;
+    width: 400px;
 }
 
 .acoesHeader button {
@@ -72,5 +83,10 @@ body {
 
 .header i {
     font-size: 16px;
+}
+
+.avatarUser{
+    border-radius: 50px;
+    width: 50px;
 }
 

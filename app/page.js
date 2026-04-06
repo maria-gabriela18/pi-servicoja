@@ -1,11 +1,17 @@
 
 import Link from "next/link";
 import "../home.css";
+import supabase from "./conexao/supabase";
 export default function Page() {
+
+  
+
 
     return (
 
         <section>
+
+            
 
             <div className="titulo">
                 <h1><span>Service</span>Hub</h1>
@@ -14,6 +20,16 @@ export default function Page() {
             <div className="caixa-input">
                 <input placeholder="Que serviço você precisa? Ex: eletricista, encanador.." />
                 <button><i className="bi bi-search"></i></button>
+            </div>
+
+            <div className="cta">
+                <Link href="/cadastro_usuarios">
+                    <button className="btn-primario">Solicitar serviço</button>
+                </Link>
+
+                <Link href="/cadastro_usuarios">
+                    <button className="btn-secundario">Quero ser prestador</button>
+                </Link>
             </div>
 
 
@@ -27,6 +43,8 @@ export default function Page() {
                     <li><i className="bi bi-wrench-adjustable"></i>Assistencia técnica </li>
                 </ul>
             </div>
+
+            
 
 
             <div>
@@ -44,7 +62,7 @@ export default function Page() {
                     <div>
                         <i className="bi bi-truck"></i>
                         <h2>Faça seu pedido</h2>
-                        <p>fale o que precisa</p>
+                        <p>Descreva seu problema em poucos segundos</p>
                     </div>
 
                     <div>
