@@ -300,11 +300,11 @@ export default function Painel(){
 
     // FILTRAR DATAS DO PRESTADOR
     async function filtraData(){
-        const { data } = await supabase
+        const { data, error } = await supabase
         .from('propostas')
         .select('*')
-        .gte('created_at', '2026-01-01')
-        .lt('created_at', '2029-01-01')
+        .order('created_at', { ascending: false })
+        .limit(10)
         setPropostas(data)
     }
 
@@ -382,7 +382,15 @@ export default function Painel(){
                                 <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
 
                                 <div className="col-4">
-                                    <select className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+                                    <select className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3"
+                                        onChange={(e) => {
+                                    if (e.target.value == "1") {
+                                        filtraData("false")
+                                    } else if (e.target.value == "2") {
+                                        filtraData("true")
+                                    }
+                                    }}
+                                    >
                                         <option defaultValue={null}> Filtro </option>
                                         <option value="1"> Mais recentes </option>
                                         <option value="2"> Mais antigas </option>
