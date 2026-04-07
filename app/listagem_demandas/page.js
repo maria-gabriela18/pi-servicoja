@@ -67,7 +67,7 @@ export default function ListagemDemandas() {
       preco: precoProposta,
       prazo: prazoProposta,
       descricao: descricaoProposta,
-      
+
 
     }
     const { data, error } = await supabase
@@ -101,21 +101,21 @@ export default function ListagemDemandas() {
 
 
   useEffect(() => {
-    
+
     async function pegarUsuario() {
       const { data } = await supabase.auth.getUser()
-      
+
       if (data.user) {
         alteraUsuario(data.user)
       }
     }
-    
+
     buscarDemanda()
     pegarUsuario()
   }, [])
 
 
-   
+
 
   return (
 
@@ -128,6 +128,61 @@ export default function ListagemDemandas() {
           <div>
             {/* CATEGORIA */}
             <section className="categoria">
+
+              <div className='divFiltrar'>
+                <h3><i className="bi bi-funnel"></i> Filtrar</h3>
+
+                <label>Categorias de Serviços:</label>
+                <div className='divFiltrarBotoes'>
+                  <div>
+                    <button onClick={() => filtrar('1')}>
+                      <i className="bi bi-hammer"></i> Construção e Reforma
+                    </button>
+
+                    <button onClick={() => filtrar('2')}>
+                      <i className="bi bi-house"></i> Serviços Domésticos
+                    </button>
+
+                    <button onClick={() => filtrar('6')}>
+                      <i className="bi bi-tools"></i> Manutenção e Reparos
+                    </button>
+
+                    <button onClick={() => filtrar('7')}>
+                      <i className="bi bi-laptop"></i> Tecnologia e Informática
+                    </button>
+
+                    <button onClick={() => filtrar('3')}>
+                      <i className="bi bi-megaphone"></i> Marketing e Vendas
+                    </button>
+
+                    <button onClick={() => filtrar('5')}>
+                      <i className="bi bi-truck"></i> Transporte e Logística
+                    </button>
+                  </div>
+
+                  <div>
+                    <button onClick={() => filtrar('9')}>
+                      <i className="bi bi-balloon"></i> Eventos e Festas
+                    </button>
+
+                    <button onClick={() => filtrar('8')}>
+                      <i className="bi bi-book"></i> Educação e Aulas
+                    </button>
+
+                    <button onClick={() => filtrar('4')}>
+                      <i className="bi bi-heart-pulse"></i> Saúde e Cuidados
+                    </button>
+
+                    <button onClick={() => filtrar('13')}>
+                      <i className="bi bi-car-front"></i> Serviços Automotivos
+                    </button>
+
+                    <button onClick={() => filtrar(null)}>
+                      <i className="bi bi-grid"></i> Todos
+                    </button>
+                  </div>
+                </div>
+              </div>
 
 
 
@@ -142,35 +197,53 @@ export default function ListagemDemandas() {
 
                   <div className="card" key={demanda.id}>
 
-                    <div className="card-top">
-                      <img src={"https://ui-avatars.com/api/?name="+demanda.id_usuario.nome+"&background=random"} />
-                      <h3>{demanda.id_usuario.nome}</h3>
-                    </div>
-
-                    <div className="card-info">
-                      <p className="label">titulo</p>
-                      <span>{demanda.titulo}</span>
-                    </div>
-
-                    {<div className="card-desc">
-                      <p className="label">Descrição</p>
-                      <p className="descricao">
-                        {demanda.descricao}
-                      </p>
-                    </div>}
-
                     <div>
-                      <p>{demanda.status} </p>
-                    </div>
 
-                    <div>
-                      <p>criado em: {formataData(demanda.created_at)}</p>
+                      <div className="card-top">
+                        <img
+                          src={
+                            "https://ui-avatars.com/api/?name=" +
+                            demanda.id_usuario.nome +
+                            "&background=random"
+                          }
+                        />
+                        <h3>{demanda.id_usuario.nome}</h3>
+                      </div>
+
+                      <div className="card-info">
+                        <p className="label">Categoria</p>
+                        <span>{demanda.titulo}</span>
+                      </div>
+
+                      <div className="card-info">
+                        <p className="label">Título</p>
+                        <span>{demanda.titulo}</span>
+                      </div>
+
+                      <div className="card-desc">
+                        <p className="label">Descrição</p>
+                        <p className="descricao">
+                          {demanda.descricao}
+                        </p>
+                      </div>
+
+                      <div className='caixaStatus'>
+                        <p>{demanda.status}</p>
+                      </div>
+
+                      <div className="data">
+                        criado em: {formataData(demanda.created_at)}
+                      </div>
 
                     </div>
 
                     <div className="card-action">
-
-                      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setUserSelecionado(demanda)}>
+                      <button
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        onClick={() => setUserSelecionado(demanda)}
+                      >
                         ver demanda
                       </button>
                     </div>

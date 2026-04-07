@@ -2,6 +2,67 @@ body {
     min-height: 100vh;
 }
 
+.divFiltrar {
+    text-align: center;
+}
+
+.divFiltrar .divFiltrarBotoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    gap: 10px;
+}
+
+/* cada linha de botões */
+.divFiltrarBotoes > div {
+    display: flex;
+    flex-wrap: wrap; /* evita quebrar feio */
+    justify-content: center;
+    gap: 10px;
+}
+
+.divFiltrar .divFiltrarBotoes button {
+    display: flex; /* 🔥 resolve alinhamento */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* espaço entre ícone e texto */
+
+    border-radius: 30px;
+    border: none;
+    padding: 10px 16px;
+    min-width: 220px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    background-color: #f1f5f9;
+    color: #333;
+
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* ícones */
+.divFiltrar .divFiltrarBotoes button i {
+    font-size: 16px;
+}
+
+/* hover bonito */
+.divFiltrarBotoes button:hover {
+    background-color: #000;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* clique */
+.divFiltrarBotoes button:active {
+    transform: scale(0.96);
+}
 
 /* CATEGORIA */
 .categoria {
@@ -55,6 +116,11 @@ body {
     transition: 0.3s;
     color: #111;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+    /* 🔥 ESSENCIAL */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card:hover {
@@ -82,7 +148,6 @@ body {
 .card-top h3 {
     margin: 0;
     color: #111;
-    /* texto escuro */
     font-size: 18px;
 }
 
@@ -103,21 +168,39 @@ body {
 
 .label {
     color: #6d28d9;
-    /* roxo mais forte */
     font-weight: 600;
     font-size: 13px;
     margin: 4px 0;
 }
 
+/* 🔥 AQUI ESTÁ A SOLUÇÃO */
 .descricao {
     color: #555;
     font-size: 14px;
     margin: 0;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* limita em 3 linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* STATUS */
+.caixaStatus p {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+/* DATA */
+.data {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
 }
 
 /* BOTÃO */
 .card-action {
-    margin-top: 10px;
+    margin-top: auto; /* 🔥 empurra pra baixo */
 }
 
 .card-action button {
@@ -136,6 +219,10 @@ body {
     background: #16a34a;
 }
 
+
+.caixaStatus p {
+    color: #22c55e;
+}
 
 
 
@@ -405,4 +492,3 @@ body {
     background: #16a34a;
     transform: translateY(-2px);
 }
-
