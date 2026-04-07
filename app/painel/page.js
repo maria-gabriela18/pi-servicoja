@@ -299,12 +299,12 @@ export default function Painel(){
     }
 
     // FILTRAR DATAS DO PRESTADOR
-    async function filtraData(){
+    async function filtraData(ascending){
         const { data, error } = await supabase
         .from('propostas')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(10)
+        .select(`*, id_usuario(*)`)
+        .order('created_at', { ascending: ascending })
+    
         setPropostas(data)
     }
 
@@ -383,13 +383,7 @@ export default function Painel(){
 
                                 <div className="col-4">
                                     <select className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3"
-                                        onChange={(e) => {
-                                    if (e.target.value == "1") {
-                                        filtraData("false")
-                                    } else if (e.target.value == "2") {
-                                        filtraData("true")
-                                    }
-                                    }}
+                                         onChange={(e) => filtraData(e.target.value == "2")}
                                     >
                                         <option defaultValue={null}> Filtro </option>
                                         <option value="1"> Mais recentes </option>
