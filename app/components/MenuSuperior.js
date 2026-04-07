@@ -90,10 +90,10 @@ export default function MenuSuperior() {
                     ) : (
 
                         < div className="dropdown">
-                            <a className="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" >
+                            <div className="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"   style={{ color: 'white' }}>
                                 <img src={`https://ui-avatars.com/api/?name=${nomeUsuario}&background=random`} className="avatarUser" />
-                                {nomeUsuario}
-                            </a>
+                                {nomeUsuario} 
+                            </div>
 
                             <ul className="dropdown-menu">
                                 <li><a className="dropdown-item" href="#" onClick={desconectar}>Sair</a></li>
