@@ -60,12 +60,12 @@ export default function MenuSuperior() {
                         prestador == "false" ?
                             <>
                                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                                <li><Link href="/painel"> minhas demandas</Link></li>
+                                <li><Link href="/painel"> Minhas demandas</Link></li>
                             </>
 
                             :
                             <>
-                                <li><Link href="/painel"> meus trabalhos</Link></li>
+                                <li><Link href="/painel"> Meus trabalhos</Link></li>
                                 <li><Link href="/listagem_demandas">Demandas</Link></li>
 
 
