@@ -431,7 +431,7 @@ export default function Painel(){
                                 
                                 {
                                     usuario.tipo == 'cliente' ?
-                                        <button className="btn btn-outline-darks me-3" data-bs-toggle="modal" data-bs-target="#modalDemanda">Criar Demanda</button>
+                                        <button className="btn btn-outline-dark me-3" data-bs-toggle="modal" data-bs-target="#modalDemanda">Criar Demanda</button>
                                     :
                                         <button type="button" className="btn btn-outline-dark me-3" data-bs-toggle="modal" data-bs-target="#modalPortfolio">Meu portfólio</button>
                                 }
@@ -468,9 +468,9 @@ export default function Painel(){
                                                             <th scope="row">{item.id_usuario.nome}</th>
                                                             <td>{item.descricao}</td> {/* td: coluna*/}
                                                             <td> {formataCategoria(item.categoria)}</td>
-                                                            <td><button className="btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Cancelar</button> 
-                                                                <button className="btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Concluir</button> 
-                                                                <button className="btn-outline-darks border border-dark" onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                            <td><button className="btn btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Cancelar</button> 
+                                                                <button className="btn btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Concluir</button> 
+                                                                <button className="btn btn-outline-darks border border-dark" onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
