@@ -35,7 +35,7 @@ export default function MenuSuperior() {
         alert("Desconectado com sucesso!")
         localStorage.removeItem("id_usuario")
         location.reload()
-     
+
     }
 
     useEffect(() => {
@@ -56,21 +56,22 @@ export default function MenuSuperior() {
                     <li><Link href="/">Pagina inicial</Link></li>
 
                     {
-
-                        prestador == "false" ?
+                        id_usuario == null ? (
                             <>
                                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                                <li><Link href="/painel"> minhas demandas</Link></li>
-                            </>
-
-                            :
-                            <>
-                                <li><Link href="/painel"> meus trabalhos</Link></li>
                                 <li><Link href="/listagem_demandas">Demandas</Link></li>
-
-
                             </>
-
+                        ) : prestador == "true" ? (
+                            <>
+                                <li><Link href="/painel">meus trabalhos</Link></li>
+                                <li><Link href="/listagem_demandas">Demandas</Link></li>
+                            </>
+                        ) : (
+                            <>
+                                <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+                                <li><Link href="/painel">minhas demandas</Link></li>
+                            </>
+                        )
                     }
 
                 </ul>

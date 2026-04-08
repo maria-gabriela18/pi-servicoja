@@ -601,7 +601,7 @@ export default function Painel(){
                                         
                                         {
                                             portfolio == null ?
-                                                <div class="alert alert-info">Você ainda não tem um portfólio cadastrado.<br/>Cadastre-se abaixo:</div>
+                                                <div className="alert alert-info">Você ainda não tem um portfólio cadastrado.<br/>Cadastre-se abaixo:</div>
                                             : 
                                                 <></>
                                         }

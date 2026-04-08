@@ -134,6 +134,11 @@ export default function ListagemPrestadores() {
 
         <h2 className="categoria-titulo">Prestadores</h2>
 
+
+        {prestadores.length == 0?
+         <p>ainda nao tem prestadores nessa categoria</p>
+          
+          :
         <div className="cards_prestadores">
 
           {prestadores.map((prestador) => (
@@ -175,8 +180,9 @@ export default function ListagemPrestadores() {
 
 
 
-
         </div>
+}
+        
       </section>
 
 

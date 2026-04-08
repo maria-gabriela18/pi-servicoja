@@ -150,6 +150,8 @@ export default function ListagemDemandas() {
           :
           <div>
 
+
+
             <section className="categoria">
 
               <div className='divFiltrar'>
@@ -214,69 +216,68 @@ export default function ListagemDemandas() {
 
               <div className="cards">
 
+                {demandas.length === 0 ? (
+                  <p>Ainda não há prestadores nessa categoria</p>
+                ) : (
+                  demandas.map((demanda) => (
 
+                    <div className="card" key={demanda.id}>
 
-                {demandas.map((demanda) => (
+                      <div>
 
-                  <div className="card" key={demanda.id}>
+                        <div className="card-top">
+                          <img
+                            src={
+                              "https://ui-avatars.com/api/?name=" +
+                              demanda.id_usuario.nome +
+                              "&background=random"
+                            }
+                          />
+                          <h3>{demanda.id_usuario.nome}</h3>
+                        </div>
 
-                    <div>
+                        <div className="card-info">
+                          <p className="label">Categoria</p>
+                          <span>{demanda.id_categoria.categoria}</span>
+                        </div>
 
-                      <div className="card-top">
-                        <img
-                          src={
-                            "https://ui-avatars.com/api/?name=" +
-                            demanda.id_usuario.nome +
-                            "&background=random"
-                          }
-                        />
-                        <h3>{demanda.id_usuario.nome}</h3>
+                        <div className="card-info">
+                          <p className="label">Título</p>
+                          <span>{demanda.titulo}</span>
+                        </div>
+
+                        <div className="card-desc">
+                          <p className="label">Descrição</p>
+                          <p className="descricao">
+                            {demanda.descricao}
+                          </p>
+                        </div>
+
+                        <div className='caixaStatus'>
+                          <p>{demanda.status}</p>
+                        </div>
+
+                        <div className="data">
+                          criado em: {formataData(demanda.created_at)}
+                        </div>
+
                       </div>
 
-                      <div className="card-info">
-                        <p className="label">Categoria</p>
-                        <span>{demanda.id_categoria.categoria}</span>
-                      </div>
-
-                      <div className="card-info">
-                        <p className="label">Título</p>
-                        <span>{demanda.titulo}</span>
-                      </div>
-
-                      <div className="card-desc">
-                        <p className="label">Descrição</p>
-                        <p className="descricao">
-                          {demanda.descricao}
-                        </p>
-                      </div>
-
-                      <div className='caixaStatus'>
-                        <p>{demanda.status}</p>
-                      </div>
-
-                      <div className="data">
-                        criado em: {formataData(demanda.created_at)}
+                      <div className="card-action">
+                        <button
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                          onClick={() => setUserSelecionado(demanda)}
+                        >
+                          Ver detalhes
+                        </button>
                       </div>
 
                     </div>
 
-                    <div className="card-action">
-                      <button
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        onClick={() => setUserSelecionado(demanda)}
-                      >
-                        ver demanda
-                      </button>
-                    </div>
-
-                  </div>
-
-                ))}
-
-
-
+                  ))
+                )}
 
               </div>
             </section>
