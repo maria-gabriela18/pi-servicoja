@@ -35,8 +35,8 @@ export default function MenuSuperior() {
         alert("Desconectado com sucesso!")
         localStorage.removeItem("id_usuario")
         location.reload()
+     
     }
-
 
     useEffect(() => {
         const id = localStorage.getItem("id_usuario");
