@@ -13,7 +13,7 @@ export default function MenuSuperior() {
 
     async function usuario() {
         const { data, error } = await supabase.auth.getUser()
-        console.log("essa aqui é a data do menu", data)
+        //console.log("essa aqui é a data do menu", data)
 
         const { data: userData, error: userError } = await supabase
             .from("usuarios")
@@ -22,7 +22,7 @@ export default function MenuSuperior() {
             .single();
 
         if (userError) {
-            console.log(userError)
+            //console.log(userError)
             return
         }
 
@@ -42,7 +42,7 @@ export default function MenuSuperior() {
         const id = localStorage.getItem("id_usuario");
         const prest = localStorage.getItem("prestador")
         setIdUsuario(id);
-        console.log(setIdUsuario)
+        //console.log(setIdUsuario)
         setPrestador(prest)
 
         usuario()
@@ -54,9 +54,8 @@ export default function MenuSuperior() {
             <div className="menuNav">
                 <ul>
                     <li><Link href="/">Pagina inicial</Link></li>
-
+                    
                     {
-
                         prestador == "false" ?
                             <>
                                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
