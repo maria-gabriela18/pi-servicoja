@@ -18,7 +18,7 @@ export default function Painel(){
     const [nascimento, setDataNascimento] = useState("")
     const [telefone, setTelefone] = useState("")
     const [endereco, setEndereco] = useState("")
-    const [senha, setSenha] = useState("")
+    const [tipo, setTipo] = useState("")
 
     const [editando, setEditando] = useState(null)
 
@@ -28,7 +28,7 @@ export default function Painel(){
     const [descricao, setDescricao] = useState("")
     const [historico, setHistorico] = useState("")
     const [funcao, setFuncao] = useState("")
-    const [id_usuarios, setIdUsuarios] = useState("")
+   
 
     // DADOS DA DEMANDA
     const [titulo, setTitulo] = useState("");
@@ -42,11 +42,34 @@ export default function Painel(){
 
     const [propostas, setPropostas] = useState([])
 
+    const [todasPropostas, setTodasPropostas] = useState([])
+    const [todasDemandas, setTodasDemandas] = useState([])
+
+
     const id_usuario = localStorage.getItem("id_usuario")
 
     const [ usuario, alteraUsuario ] = useState(null)
     
     const [ portfolio, alteraPortfolio ] = useState(null)
+
+    // RETIRAR DA TABELA
+    const [ocultarIds, setOcultarIds] = useState(() => {
+        try {
+            const salvo = localStorage.getItem('itensOcultos');
+            return salvo ? JSON.parse(salvo) : [];
+        } catch {
+            return [];
+        }
+    });
+
+    const ocultarItem = (id) => {
+        setOcultarIds(prev => {
+            const atualizado = [...prev, id];
+            localStorage.setItem('itensOcultos', JSON.stringify(atualizado));
+            return atualizado;
+        });
+    };
+
 
     async function buscaCategorias() {
         const { data, error } = await supabase
@@ -65,6 +88,7 @@ export default function Painel(){
 
     }
 
+    // CLIENTES
     async function buscarDemanda() {
 
         const { data, error } = await supabase
@@ -77,7 +101,20 @@ export default function Painel(){
         setDemandas(data)
     };
 
-     async function buscarProposta() {
+    async function buscarTodasDemandas() {
+
+        const { data, error } = await supabase
+            .from('demandas')
+            .select(`*, 
+                    id_usuario(
+                    *) 
+                `)
+            .eq("id_usuario", id_usuario)
+        setTodasDemandas(data)
+    };
+
+    // PRESTADORES
+    async function buscarProposta() {
 
         const { data, error } = await supabase
             .from('propostas')
@@ -85,9 +122,18 @@ export default function Painel(){
                     id_usuario(
                     *) 
                 `)
-            .eq("id_usuario", id_usuario)
+            .eq("id_usuario", id_usuario)       
         setPropostas(data)
     };
+
+    async function buscarTodasPropostas() {
+    const { data, error } = await supabase
+        .from('propostas')
+        .select(`*, id_usuario(*)`)
+        .eq("id_usuario", id_usuario)
+
+    setTodasPropostas(data)
+    }
 
     async function salvar(e) {
         e.preventDefault()
@@ -247,7 +293,7 @@ export default function Painel(){
             nascimento: nascimento,
             telefone: telefone,
             endereco: endereco,
-            senha: senha
+            tipo: tipo
         }
 
         const { error } = await supabase
@@ -258,6 +304,7 @@ export default function Painel(){
         if(error == null){
             alert("Atualização realizada com sucesso!!")
             cancelarEdicao()
+            console.log(objeto)
         }else{
             alert("Dados inválidos. Verifique os campos e tente novamente")
         }
@@ -299,29 +346,33 @@ export default function Painel(){
     }
 
     // FILTRAR DATAS DO PRESTADOR
-    async function filtraData(){
-        const { data } = await supabase
+    async function filtraData(ascending){
+        const { data, error } = await supabase
         .from('propostas')
-        .select('*')
-        .gte('created_at', '2026-01-01')
-        .lt('created_at', '2029-01-01')
+        .select(`*, id_usuario(*)`)
+        .order('created_at', { ascending: ascending })
+    
+        setPropostas(data)
     }
 
-    // FILTROS
+    // FILTROS INPUT
     async function pesquisa(){
         const { data, error } = await supabase
         .from('propostas')
-        .select()
+        .select(`*, id_usuario(*)`)
         .ilike('descricao', '%' + inputPesquisa + "%")
+        
         setPropostas(data)
     }
 
     useEffect(() => {
         buscaUsuario()
         buscarDemanda()
+        buscarTodasDemandas()
         buscaPortfolio()
         buscaCategorias()
         buscarProposta()
+        buscarTodasPropostas()
     }, [])
 
     return(
@@ -363,7 +414,7 @@ export default function Painel(){
                         <div className="col-9">
                             {/* <!-- Introdução --> */}
                             <div className="mt-5">
-                                <h2 className=" p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 ">Painel administrativo {usuario.tipo} </h2>
+                                <h2 className=" p-3 text-success-emphasis  border border-subtle rounded-3 ">Painel administrativo {usuario.tipo} </h2>
                                 <hr />
                             </div>
                             {/* <!-- Pesquisa e filtro --> */}
@@ -380,7 +431,9 @@ export default function Painel(){
                                 <div className="col-4"></div> {/* Para criar espaço vazio entre as colunas*/}
 
                                 <div className="col-4">
-                                    <select onClick={filtraData} className="form-select p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+                                    <select className="form-select p-3 text-success-emphasis  border border-subtle rounded-3"
+                                         onChange={(e) => filtraData(e.target.value == "2")}
+                                    >
                                         <option defaultValue={null}> Filtro </option>
                                         <option value="1"> Mais recentes </option>
                                         <option value="2"> Mais antigas </option>
@@ -394,19 +447,19 @@ export default function Painel(){
                                 
                                 {
                                     usuario.tipo == 'cliente' ?
-                                        <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalDemanda">Criar Demanda</button>
+                                        <button className="btn btn-outline-dark me-3" data-bs-toggle="modal" data-bs-target="#modalDemanda">Criar Demanda</button>
                                     :
-                                        <button type="button" className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#modalPortfolio">Meu portfólio</button>
+                                        <button type="button" className="btn btn-outline-dark me-3" data-bs-toggle="modal" data-bs-target="#modalPortfolio">Meu portfólio</button>
                                 }
 
-                                <button className="btn btn-outline-success me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
-                                <button className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(usuario)}>Editar dados</button>
+                                <button className="btn btn-outline-dark me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Histórico</button>
+                                <button className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal2"onClick={() => editar(usuario)}>Editar dados</button>
                             </div>
                             {/* LISTA DE DEMANDAS EM ABERTO */}
 
                             {/* Tabela */}
                             <div>
-                                <table className="table table-success table-striped">
+                                <table className="table table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -421,7 +474,9 @@ export default function Painel(){
                                     {
                                         usuario.tipo == 'cliente' ?
                                             
-                                            demandas.map(
+                                            demandas
+                                            .filter(item => !ocultarIds.includes(item.id))
+                                            .map(
                                                 (item, index) => (
                                                     <tbody>
                                                         <tr>
@@ -429,9 +484,9 @@ export default function Painel(){
                                                             <th scope="row">{item.id_usuario.nome}</th>
                                                             <td>{item.descricao}</td> {/* td: coluna*/}
                                                             <td> {formataCategoria(item.categoria)}</td>
-                                                            <td><button>Cancelar</button> 
-                                                                <button onClick={() => location.href="/demanda/"+item.id} >Concluir</button> 
-                                                                <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                            <td><button className="btn btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Cancelar</button> 
+                                                                <button className="btn btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Concluir</button> 
+                                                                <button className="btn btn-outline-darks border border-dark" onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -439,7 +494,9 @@ export default function Painel(){
 
                                         :
 
-                                        propostas.map(
+                                            propostas
+                                            .filter(item => !ocultarIds.includes(item.id))
+                                            .map(
                                                 (item, index) => (
                                                     <tbody>
                                                         <tr>
@@ -447,21 +504,16 @@ export default function Painel(){
                                                             <th scope="row">{item.id_usuario.nome}</th>
                                                             <td>{item.descricao}</td> {/* td: coluna*/}
                                                             <td> {formataCategoria(item.categoria)}</td>
-                                                            <td><button>Cancelar</button> 
-                                                                <button onClick={() => location.href="/propostas/"+item.id} >Concluir</button> 
-                                                                <button onClick={() => router.push("/painel/" + item.id)}>Detalhes</button>
+                                                            <td><button className="btn btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Cancelar</button> 
+                                                                <button className="btn btn-outline-darks border border-dark" onClick={() => ocultarItem(item.id)} >Concluir</button> 
+                                                                <button className="btn btn-outline-darks border border-dark" onClick={() => router.push("/painel/" + item.id_demanda)}>Detalhes</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
-                                                ))
-                                    
+                                                ))  
                                     }
 
-
-                                    
-
                                 </table>
-
 
                             </div>
                         </div>
@@ -479,7 +531,7 @@ export default function Painel(){
 
                                 <div className="modal-body">
                                     <div>
-                                        <table className="table table-success table-striped">
+                                        <table className="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -492,7 +544,10 @@ export default function Painel(){
                                             </thead>
                                             
                                             {
-                                                demandas.map((item, index) => (
+                                                usuario.tipo == 'cliente' ?
+
+                                                todasDemandas.map
+                                                ((item, index) => (
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row">{index + 1}</th>
@@ -502,6 +557,19 @@ export default function Painel(){
                                                         </tr>
                                                     </tbody>
                                                 ))
+                                            :
+                                                todasPropostas.map(
+                                                (item, index) => (
+                                                    <tbody>
+                                                            <tr>
+                                                                <th scope="row">{index + 1}</th>
+                                                                <th scope="row">{item.id_usuario.nome}</th>
+                                                                <td>{item.descricao}</td> {/* td: coluna*/}
+                                                                <td> {formataCategoria(item.categoria)}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    ))
+
                                             }
                                         </table>
 
@@ -553,8 +621,8 @@ export default function Painel(){
                                     
 
                                         <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" className="btn btn-primary">Salvar</button>
+                                            <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" className="btn btn-outline-primary">Salvar</button>
                                         </div>
 
                                     </form>
@@ -678,16 +746,16 @@ export default function Painel(){
                                         <p> Endereço: </p>
                                         <input value={endereco} onChange={e => setEndereco(e.target.value)} className="form-control" placeholder="Rua, Bairro, Cidade" minLength="10" />
                                         
-                                        <p>Senha:</p>
-                                        <input value={senha} onChange={e => setSenha(e.target.value)} className="form-control" placeholder="Digite sua nova senha"/>
+                                        <p>Tipo:</p>
+                                        <input value={tipo} onChange={e => setTipo(e.target.value)} className="form-control"/>
 
 
                                         {
-                                            editando == null ?
+                                            editando != null ?
                                                 <div>
                                                     <br/>
-                                                    <button onClick={() => atualizar()} className="btn btn-secondary me-2" data-bs-dismiss="modal">Atualizar</button>
-                                                    <button onClick={ () => cancelarEdicao()} className="btn btn-primary">Cancelar</button>
+                                                    <button onClick={() => atualizar()} className="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Atualizar</button>
+                                                    <button onClick={ () => cancelarEdicao()} className="btn btn-primary" data-bs-dismiss="modal" >Cancelar</button>
                                                 </div>
                                             :
                                                 <button className="btn btn-primary">Salvar</button>

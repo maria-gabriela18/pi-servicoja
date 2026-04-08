@@ -60,12 +60,12 @@ export default function MenuSuperior() {
                         prestador == "false" ?
                             <>
                                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                                <li><Link href="/painel"> minhas demandas</Link></li>
+                                <li><Link href="/painel"> Minhas demandas</Link></li>
                             </>
 
                             :
                             <>
-                                <li><Link href="/painel"> meus trabalhos</Link></li>
+                                <li><Link href="/painel"> Meus trabalhos</Link></li>
                                 <li><Link href="/listagem_demandas">Demandas</Link></li>
 
 
@@ -90,10 +90,14 @@ export default function MenuSuperior() {
                     ) : (
 
                         < div className="dropdown">
-                            <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" >
+                            <div className="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"   style={{ color: 'white' }}>
                                 <img src={`https://ui-avatars.com/api/?name=${nomeUsuario}&background=random`} className="avatarUser" />
-                                {nomeUsuario}
-                            </a>
+                                {nomeUsuario} 
+                            </div>
+
+                            <div className="notificacao">
+                                <i class="bi bi-bell"></i>
+                            </div>
 
                             <ul className="dropdown-menu">
                                 <li><a className="dropdown-item" href="#" onClick={desconectar}>Sair</a></li>
