@@ -28,7 +28,7 @@ export default function Painel(){
     const [descricao, setDescricao] = useState("")
     const [historico, setHistorico] = useState("")
     const [funcao, setFuncao] = useState("")
-    const [id_usuarios, setIdUsuarios] = useState("")
+   
 
     // DADOS DA DEMANDA
     const [titulo, setTitulo] = useState("");
@@ -42,7 +42,9 @@ export default function Painel(){
 
     const [propostas, setPropostas] = useState([])
 
-    const [todasPropostas, setTodasPropostas] = useState([]);
+    const [todasPropostas, setTodasPropostas] = useState([])
+    const [todasDemandas, setTodasDemandas] = useState([])
+
 
     const id_usuario = localStorage.getItem("id_usuario")
 
@@ -86,6 +88,7 @@ export default function Painel(){
 
     }
 
+    // CLIENTES
     async function buscarDemanda() {
 
         const { data, error } = await supabase
@@ -94,10 +97,23 @@ export default function Painel(){
                     id_usuario(
                     *) 
                 `)
-            .eq("id_usuario", id_usuario)
+            .eq("id_usuario", id_usuario, ativo == true)
         setDemandas(data)
     };
 
+    async function buscarTodasDemandas() {
+
+        const { data, error } = await supabase
+            .from('demandas')
+            .select(`*, 
+                    id_usuario(
+                    *) 
+                `)
+            .eq("id_usuario", id_usuario)
+        setTodasDemandas(data)
+    };
+
+    // PRESTADORES
     async function buscarProposta() {
 
         const { data, error } = await supabase
@@ -353,6 +369,7 @@ export default function Painel(){
     useEffect(() => {
         buscaUsuario()
         buscarDemanda()
+        buscarTodasDemandas()
         buscaPortfolio()
         buscaCategorias()
         buscarProposta()
@@ -530,7 +547,8 @@ export default function Painel(){
                                             {
                                                 usuario.tipo == 'cliente' ?
 
-                                                demandas.map((item, index) => (
+                                                todasDemandas.map
+                                                ((item, index) => (
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row">{index + 1}</th>
