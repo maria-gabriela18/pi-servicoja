@@ -95,6 +95,10 @@ export default function MenuSuperior() {
                                 {nomeUsuario} 
                             </div>
 
+                            <div className="notificacao">
+                                <i class="bi bi-bell"></i>
+                            </div>
+
                             <ul className="dropdown-menu">
                                 <li><a className="dropdown-item" href="#" onClick={desconectar}>Sair</a></li>
 

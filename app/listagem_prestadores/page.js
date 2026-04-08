@@ -23,7 +23,7 @@ export default function ListagemPrestadores() {
       const { data, error } = await supabase
         .from("servicos")
         .select(`*,
-          id_usuario(*)`)
+          id_usuario(*), categoria(*)`)
 
       if (error) {
         console.log("Erro:", error)
@@ -44,10 +44,11 @@ export default function ListagemPrestadores() {
 
     let query = supabase
       .from("servicos")
-      .select(`*, id_usuario(*)`)
+      .select(`*, id_usuario(*), categoria(*)`)
 
     if (categoria) {
       query = query.eq("categoria", categoria)
+      console.log(categoria)
     }
 
     const { data, error } = await query
@@ -60,7 +61,7 @@ export default function ListagemPrestadores() {
 
   }
 
-    function formataData(data) {
+  function formataData(data) {
     let data_formatada = new Date(data)
     data_formatada = data_formatada.toLocaleDateString()
     return data_formatada
@@ -70,30 +71,59 @@ export default function ListagemPrestadores() {
   return (
     <div className='divGeral'>
 
-
       <div className='divFiltrar'>
-        <h3>Filtrar</h3>
+        <h3><i className="bi bi-funnel"></i> Filtrar</h3>
 
         <label>Categorias de Serviços:</label>
         <div className='divFiltrarBotoes'>
           <div>
-            <button onClick={() => filtrar('1')}>Construção e Reforma</button>
-            <button onClick={() => filtrar('2')}>Serviços Domésticos</button>
-            <button onClick={() => filtrar('6')}>Manutenção e Reparos</button>
-            <button onClick={() => filtrar('7')}>Tecnologia e Informática</button>
-            <button onClick={() => filtrar('3')}>marketing e vendas</button>
-            <button onClick={() => filtrar('5')}>Transporte e Logística</button>
+            <button onClick={() => filtrar('1')}>
+              <i className="bi bi-hammer"></i> Construção e Reforma
+            </button>
+
+            <button onClick={() => filtrar('2')}>
+              <i className="bi bi-house"></i> Serviços Domésticos
+            </button>
+
+            <button onClick={() => filtrar('6')}>
+              <i className="bi bi-tools"></i> Manutenção e Reparos
+            </button>
+
+            <button onClick={() => filtrar('7')}>
+              <i className="bi bi-laptop"></i> Tecnologia e Informática
+            </button>
+
+            <button onClick={() => filtrar('3')}>
+              <i className="bi bi-megaphone"></i> Marketing e Vendas
+            </button>
+
+            <button onClick={() => filtrar('5')}>
+              <i className="bi bi-truck"></i> Transporte e Logística
+            </button>
           </div>
 
           <div>
-            <button onClick={() => filtrar('9')}>Eventos e Festas</button>
-            <button onClick={() => filtrar('8')}>Educação e Aulas</button>
-            <button onClick={() => filtrar('4')}>Saúde e Cuidados</button>
-            <button onClick={() => filtrar('13')}>Serviços Automotivos</button>
-            <button onClick={() => filtrar(null)}>Todos</button>
+            <button onClick={() => filtrar('9')}>
+              <i className="bi bi-balloon"></i> Eventos e Festas
+            </button>
+
+            <button onClick={() => filtrar('8')}>
+              <i className="bi bi-book"></i> Educação e Aulas
+            </button>
+
+            <button onClick={() => filtrar('4')}>
+              <i className="bi bi-heart-pulse"></i> Saúde e Cuidados
+            </button>
+
+            <button onClick={() => filtrar('13')}>
+              <i className="bi bi-car-front"></i> Serviços Automotivos
+            </button>
+
+            <button onClick={() => filtrar(null)}>
+              <i className="bi bi-grid"></i> Todos
+            </button>
           </div>
         </div>
-
       </div>
 
 
@@ -113,6 +143,11 @@ export default function ListagemPrestadores() {
               <div className="card-top">
                 <img src={"https://ui-avatars.com/api/?name=" + prestador.id_usuario.nome + "&background=random"} />
                 <h3>{prestador.id_usuario.nome}</h3>
+              </div>
+
+              <div className="card-info">
+                <p className="label">categoria</p>
+                <span>{prestador.categoria.categoria}</span>
               </div>
 
               <div className="card-info">
@@ -192,10 +227,10 @@ export default function ListagemPrestadores() {
                       <span>aqui vai alguma coisa</span>
                     </div>
 
-                    
+
 
                   </div>
-                  
+
                   <div>
                     <div className='modalDescricao'>
                       <p><span>DESCRIÇÃO:</span> </p>
@@ -206,7 +241,7 @@ export default function ListagemPrestadores() {
 
 
                 </div>
-                
+
               ) : (
                 <p>Nenhum prestador selecionado</p>
               )}
