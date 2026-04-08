@@ -46,7 +46,7 @@ export default function ListagemDemandas() {
     const { data: demandasData, error: demandasError } = await supabase
       .from('demandas')
       .select(`*, 
-      id_usuario(*) 
+      id_usuario(*), id_categoria(*) 
       `)
     console.log("DEMANDAS:", demandasData)
     console.log("ERRO DEMANDAS:", demandasError)
@@ -79,19 +79,42 @@ export default function ListagemDemandas() {
       alert("Erro ao enviar proposta")
     } else {
       alert("Proposta enviada com sucesso!")
-      console.log(data)
+
+    }
+
+  }
+
+  // FILTRA USUARIOS POR CATEGORIA
+  async function filtrar(categoria) {
+
+    let query = supabase
+      .from("demandas")
+      .select(`*, id_usuario(*), id_categoria(*)`)
+
+    if (categoria) {
+      query = query.eq("id_categoria", categoria)
+      console.log("esse é o id da categoria" + categoria)
+    }
+
+    const { data, error } = await query
+
+    if (error) {
+      console.log("Erro:", error)
+    } else {
+      setDemandas(data)
     }
 
   }
 
 
-
+  // ARRUMA A DATA
   function formataData(data) {
     let data_formatada = new Date(data)
     data_formatada = data_formatada.toLocaleDateString()
     return data_formatada
   }
 
+  // ARRUMA O HORARIO
   function formataHoras(horas) {
     let horas_formatadas = new Date(horas)
     horas_formatadas = horas_formatadas.toLocaleTimeString()
@@ -126,13 +149,13 @@ export default function ListagemDemandas() {
           <div className="text-center"><p>Faça <Link href="/login_usuarios">login</Link> para continuar...</p></div>
           :
           <div>
-            {/* CATEGORIA */}
+
             <section className="categoria">
 
               <div className='divFiltrar'>
                 <h3><i className="bi bi-funnel"></i> Filtrar</h3>
 
-                <label>Categorias de Serviços:</label>
+                <label>Demandas:</label>
                 <div className='divFiltrarBotoes'>
                   <div>
                     <button onClick={() => filtrar('1')}>
@@ -212,7 +235,7 @@ export default function ListagemDemandas() {
 
                       <div className="card-info">
                         <p className="label">Categoria</p>
-                        <span>{demanda.titulo}</span>
+                        <span>{demanda.id_categoria.categoria}</span>
                       </div>
 
                       <div className="card-info">
