@@ -1,6 +1,7 @@
 'use client'
 
 import supabase from "@/app/conexao/supabase";
+import Propostas from "@/app/propostas/page";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,8 @@ export default function ConsultaDemandas() {
     const params = useParams()
 
     const [demanda, setDemanda] = useState(null)
+    const [propostas, setPropostas] = useState(null)
+    
 
     const [proposta, setProposta] = useState([])
 
