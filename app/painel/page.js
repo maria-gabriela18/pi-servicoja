@@ -55,7 +55,7 @@ export default function Painel(){
     // RETIRAR DA TABELA
     const [ocultarIds, setOcultarIds] = useState(() => {
         try {
-            const salvo = localStorage.getItem('itenOcultos');
+            const salvo = localStorage.getItem('itensOcultos');
             return salvo ? JSON.parse(salvo) : [];
         } catch {
             return [];
@@ -97,7 +97,7 @@ export default function Painel(){
                     id_usuario(
                     *) 
                 `)
-            .eq("id_usuario", id_usuario, ativo == true)
+            .eq("id_usuario", id_usuario)
         setDemandas(data)
     };
 
@@ -122,8 +122,7 @@ export default function Painel(){
                     id_usuario(
                     *) 
                 `)
-                .eq("id_usuario", id_usuario, ativo == true)
-                
+            .eq("id_usuario", id_usuario)       
         setPropostas(data)
     };
 
