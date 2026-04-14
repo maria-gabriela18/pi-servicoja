@@ -11,18 +11,18 @@
 }
 
 /* NAV */
-.home-nav {
+/* .home-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 18px 6%;
   border-bottom: 1px solid #dee2e6;
   position: sticky;
-  top: 0;
+  top: 50px;
   background: #ffffffee;
   backdrop-filter: blur(8px);
   z-index: 100;
-}
+} */
 
 .home-nav ul{
   display: flex;

@@ -12,7 +12,7 @@ export default function MenuSuperior() {
 
     async function usuario() {
         const { data, error } = await supabase.auth.getUser()
-        console.log("essa aqui é a data do menu", data)
+        //console.log("essa aqui é a data do menu", data)
 
         const { data: userData, error: userError } = await supabase
             .from("usuarios")
@@ -21,7 +21,7 @@ export default function MenuSuperior() {
             .single();
 
         if (userError) {
-            console.log(userError)
+            //console.log(userError)
             return
         }
 
@@ -48,7 +48,7 @@ export default function MenuSuperior() {
         const id = localStorage.getItem("id_usuario");
         const prest = localStorage.getItem("prestador")
         setIdUsuario(id);
-        console.log(setIdUsuario)
+        //console.log(setIdUsuario)
         setPrestador(prest)
 
         usuario()
@@ -62,23 +62,23 @@ export default function MenuSuperior() {
                     <li><Link href="/">Pagina inicial</Link></li>
 
                     {
-                        id_usuario == null ?
+                        id_usuario == null ? (
                             <>
                                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
                                 <li><Link href="/listagem_demandas">Demandas</Link></li>
                             </>
-                        : prestador == "false" ?
+                        ) : prestador == "true" ? (
                             <>
-                                <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                                <li><Link href="/painel">Minhas Demandas</Link></li>
-                            </>
-                        :
-                            <>
-                                <li><Link href="/painel">Meus Trabalhos</Link></li>
+                                <li><Link href="/painel">meus trabalhos</Link></li>
                                 <li><Link href="/listagem_demandas">Demandas</Link></li>
                             </>
+                        ) : (
+                            <>
+                                <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+                                <li><Link href="/painel">minhas demandas</Link></li>
+                            </>
+                        )
                     }
-
                 </ul>
             </div>
 

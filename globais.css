@@ -1,72 +1,72 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   
-    
-}
-
-body {
-    background-color: white;
-    background-repeat: no-repeat;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 100%;
-}
-
 .header {
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    background-color: black;
+    padding: 15px 40px;
+
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+
     border-bottom: 1px solid rgba(167, 139, 250, 0.2);
-    
-    
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
-.menuNav{
+
+/* MENU */
+.menuNav {
     display: flex;
-    width: 1000px;
-  
+    align-items: center;
 }
 
 .menuNav ul {
-    width: 100%;
     display: flex;
-    justify-content: space-around;
     list-style: none;
-    gap: 20px;
-  
+    gap: 25px;
 }
 
 .menuNav ul li a {
+    position: relative;
     color: #e9d5ff;
     text-decoration: none;
-    padding: 8px 14px;
+    padding: 8px 12px;
     border-radius: 8px;
-    transition: 0.3s;
     font-weight: 500;
+    transition: 0.3s;
 }
 
+/* Hover bonito */
 .menuNav ul li a:hover {
-    background: rgba(167, 139, 250, 0.15);
     color: white;
 }
 
-.acoesHeader {
-   
-    display: flex;
-   justify-content:center;
-    align-items: center;
-    width: 400px;
+/* LINHA ANIMADA */
+.menuNav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: #a78bfa;
+    transition: 0.3s;
 }
 
+.menuNav ul li a:hover::after {
+    width: 100%;
+}
+
+/* AÇÕES (LOGIN / USUÁRIO) */
+.acoesHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* BOTÕES */
 .acoesHeader button {
     background: linear-gradient(135deg, #6d28d9, #4c1d95);
     color: white;
-    padding: 10px 18px;
+    padding: 10px 16px;
     border-radius: 10px;
-    margin-left: 10px;
     border: none;
     font-weight: 600;
     cursor: pointer;
@@ -77,20 +77,51 @@ body {
 }
 
 .acoesHeader button:hover {
-    transform: translateY(-2px) scale(1.03);
+    transform: translateY(-2px);
     background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    box-shadow: 0 6px 15px rgba(124, 58, 237, 0.4);
 }
 
+/* AVATAR + DROPDOWN */
+.dropdown-toggle {
+    background: transparent !important;
+    border: 1px solid rgba(167, 139, 250, 0.3) !important;
+    border-radius: 10px !important;
+    padding: 6px 10px !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-toggle:hover {
+    background: rgba(167, 139, 250, 0.15) !important;
+}
+
+/* AVATAR */
+.avatarUser {
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+}
+
+/* DROPDOWN */
+.dropdown-menu {
+    background: #111;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 10px;
+}
+
+.dropdown-item {
+    color: #e9d5ff;
+    transition: 0.2s;
+}
+
+.dropdown-item:hover {
+    background: rgba(167, 139, 250, 0.2);
+    color: white;
+}
+
+/* ÍCONES */
 .header i {
     font-size: 16px;
-}
-
-.avatarUser{
-    border-radius: 50px;
-    width: 50px;
-    margin-right: 5px;
-}
-
-.notificacao i{
-    color: white;
 }
