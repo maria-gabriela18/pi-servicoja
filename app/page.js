@@ -8,11 +8,18 @@ export default function Page() {
       {/* NAV */}
       <nav className="home-nav">
         <span className="home-logo"><span>Service</span>Hub</span>
+
+        <ul>
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#funcionamento">como funciona?</a></li>
+          <li><a href="#sobreNos">Sobre Nós</a></li>
+          <li><a href="#categoria">categorias populares</a></li>
+        </ul>
     
       </nav>
 
       {/* HERO */}
-      <section className="hero">
+      <section className="hero" id="home">
         <div className="hero-badge">
           <i className="bi bi-patch-check-fill"></i> Plataforma confiável de serviços
         </div>
@@ -50,7 +57,7 @@ export default function Page() {
       </section>
 
       {/* CATEGORIAS */}
-      <section className="categorias-section">
+      <section className="categorias-section" id="categoria">
         <p className="section-label">Categorias populares</p>
         <div className="categorias-grid">
           <Link href="/listagem_demandas" className="cat-card">
@@ -89,7 +96,7 @@ export default function Page() {
       </section>
 
       {/* COMO FUNCIONA */}
-      <section className="como-funciona">
+      <section className="como-funciona" id="funcionamento">
         <p className="section-label">Como funciona</p>
         <h2 className="section-title">Simples assim</h2>
         <div className="steps-grid">
@@ -117,7 +124,7 @@ export default function Page() {
       </section>
 
       {/* SOBRE */}
-      <section className="sobre-section">
+      <section className="sobre-section" id="sobreNos">
         <div className="sobre-texto">
           <p className="section-label">Sobre nós</p>
           <h2 className="section-title">Nascemos para simplificar</h2>

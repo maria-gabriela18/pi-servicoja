@@ -16,12 +16,35 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px 6%;
-  border-bottom: 1px solid #ece9f8;
+  border-bottom: 1px solid #dee2e6;
   position: sticky;
   top: 0;
   background: #ffffffee;
   backdrop-filter: blur(8px);
   z-index: 100;
+}
+
+.home-nav ul{
+  display: flex;
+  list-style: none;
+}
+
+.home-nav ul li{
+  text-align: center;
+  width: 150px;
+  margin-left: 20px;
+  cursor: pointer;
+  
+}
+.home-nav ul li a:hover{
+  color: #0a58ca;
+}
+
+
+.home-nav ul li a{
+  color: black;
+  text-decoration: none;
+  width: 100%;
 }
 
 .home-logo {
@@ -32,7 +55,7 @@
 }
 
 .home-logo span {
-  color: #6d28d9;
+  color: #0d6efd;
 }
 
 
@@ -41,15 +64,15 @@
 .hero {
   text-align: center;
   padding: 80px 6% 60px;
-  background: linear-gradient(160deg, #f5f3ff 0%, #ffffff 60%);
+  background: linear-gradient(160deg, #f0f8ff 0%, #ffffff 60%);
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #ede9fe;
-  color: #5b21b6;
+  background: #cfe2ff;
+  color: #0a58ca;
   font-size: 0.82rem;
   font-weight: 600;
   padding: 6px 14px;
@@ -67,7 +90,7 @@
 }
 
 .hero h1 span {
-  color: #6d28d9;
+  color: #0d6efd;
 }
 
 .hero-sub {
@@ -85,7 +108,7 @@
   max-width: 580px;
   margin: 0 auto 28px;
   background: #fff;
-  border: 1.5px solid #d1c4f5;
+  border: 1.5px solid #86b7fe;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(109, 40, 217, 0.08);
@@ -112,7 +135,7 @@
 }
 
 .search-bar button {
-  background: #6d28d9;
+  background: #0d6efd;
   color: white;
   border: none;
   padding: 14px 24px;
@@ -123,7 +146,7 @@
 }
 
 .search-bar button:hover {
-  background: #5b21b6;
+  background: #0a58ca;
 }
 
 /* HERO CTA */
@@ -136,7 +159,7 @@
 }
 
 .btn-primario {
-  background: #6d28d9;
+  background: #0d6efd;
   color: white;
   border: none;
   padding: 13px 24px;
@@ -151,14 +174,14 @@
 }
 
 .btn-primario:hover {
-  background: #5b21b6;
+  background: #0a58ca;
   transform: translateY(-1px);
 }
 
 .btn-secundario {
   background: transparent;
-  border: 1.5px solid #6d28d9;
-  color: #6d28d9;
+  border: 1.5px solid #0d6efd;
+  color: #0d6efd;
   padding: 13px 24px;
   border-radius: 10px;
   cursor: pointer;
@@ -171,7 +194,7 @@
 }
 
 .btn-secundario:hover {
-  background: #6d28d9;
+  background: #0d6efd;
   color: white;
 }
 
@@ -181,7 +204,7 @@
   align-items: center;
   gap: 24px;
   background: #fff;
-  border: 1px solid #ece9f8;
+  border: 1px solid #dee2e6;
   border-radius: 14px;
   padding: 14px 28px;
   flex-wrap: wrap;
@@ -196,7 +219,7 @@
 
 .hero-stats strong {
   font-size: 1.1rem;
-  color: #6d28d9;
+  color: #0d6efd;
 }
 
 .hero-stats span {
@@ -220,7 +243,7 @@
   letter-spacing: 0.12em;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #6d28d9;
+  color: #0d6efd;
   margin-bottom: 10px;
 }
 
@@ -252,7 +275,7 @@
   gap: 10px;
   padding: 22px 12px;
   background: #fff;
-  border: 1.5px solid #ece9f8;
+  border: 1.5px solid #dee2e6;
   border-radius: 14px;
   text-decoration: none;
   color: #374151;
@@ -263,12 +286,12 @@
 
 .cat-card i {
   font-size: 1.5rem;
-  color: #6d28d9;
+  color: #0d6efd;
 }
 
 .cat-card:hover {
-  background: #6d28d9;
-  border-color: #6d28d9;
+  background: #0d6efd;
+  border-color: #0d6efd;
   color: #fff;
   transform: translateY(-3px);
 }
@@ -280,7 +303,7 @@
 /* COMO FUNCIONA */
 .como-funciona {
   padding: 70px 6%;
-  background: #f9f8ff;
+  background: #f8f9fa;
   text-align: center;
 }
 
@@ -296,7 +319,7 @@
 
 .step-card {
   background: #fff;
-  border: 1.5px solid #ece9f8;
+  border: 1.5px solid #dee2e6;
   border-radius: 16px;
   padding: 32px 28px;
   flex: 1;
@@ -309,14 +332,14 @@
 .step-num {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #a78bfa;
+  color: #3d8bfd;
   letter-spacing: 0.1em;
   margin-bottom: 12px;
 }
 
 .step-icon {
   font-size: 1.8rem;
-  color: #6d28d9;
+  color: #0d6efd;
   margin-bottom: 14px;
 }
 
@@ -335,7 +358,7 @@
 
 .step-connector {
   font-size: 1.3rem;
-  color: #c4b5fd;
+  color: #9ec5fe;
   padding: 0 8px;
   flex-shrink: 0;
 }
@@ -375,15 +398,15 @@
 }
 
 .sobre-stat {
-  background: #f9f8ff;
-  border: 1.5px solid #ece9f8;
+  background: #f8f9fa;
+  border: 1.5px solid #dee2e6;
   border-radius: 14px;
   padding: 20px;
 }
 
 .sobre-stat i {
   font-size: 1.3rem;
-  color: #6d28d9;
+  color: #0d6efd;
   margin-bottom: 10px;
   display: block;
 }
@@ -416,7 +439,7 @@
 }
 
 .footer-logo span {
-  color: #a78bfa;
+  color: #3d8bfd;
 }
 
 .home-footer p {
@@ -437,7 +460,7 @@
 }
 
 .footer-links a:hover {
-  color: #a78bfa;
+  color: #3d8bfd;
 }
 
 /* RESPONSIVO */

@@ -173,20 +173,6 @@ body {
     background: #16a34a;
 }
 
-.modal-header {
-    background: linear-gradient(135deg, #1e1b3a, #0f0a1f);
-    color: #e2e8f0;
-    border-bottom: 1px solid rgba(167, 139, 250, 0.2);
-}
-
-.modal-body {
-    background: linear-gradient(135deg, #1e1b3a, #0f0a1f);
-}
-
-.modal-footer {
-    background: linear-gradient(135deg, #1e1b3a, #0f0a1f);
-    border-top: 1px solid rgba(167, 139, 250, 0.2);
-}
 
 
 
@@ -207,7 +193,6 @@ body {
     margin-bottom: 10px;
     border: 1px solid rgba(167, 139, 250, 0.1);
     border-radius: 10px;
-    background-color: #1e1b3a;
     color: white;
     height: 100px;
 }
@@ -218,7 +203,6 @@ body {
     margin-bottom: 10px;
     border: 1px solid rgba(167, 139, 250, 0.1);
     border-radius: 10px;
-    background-color: #1e1b3a;
     color: white;
     width: 432px;
 
@@ -245,4 +229,8 @@ body {
 .modal-footer button:hover {
     background-color: #16a34a;
     color: #e2e8f0;
+}
+
+.rescricao {
+color: white;
 }

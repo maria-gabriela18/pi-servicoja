@@ -2,8 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import supabase from "../conexao/supabase";
-
-
+import Swal from 'sweetalert2'
 export default function MenuSuperior() {
 
     const [id_usuario, setIdUsuario] = useState(null);
@@ -32,10 +31,17 @@ export default function MenuSuperior() {
 
 
     function desconectar() {
-        alert("Desconectado com sucesso!")
-        localStorage.removeItem("id_usuario")
-        location.reload()
-     
+        Swal.fire({
+            icon: 'success',
+            title: 'Desconectado',
+            text: 'Você saiu da sua conta com sucesso.',
+            confirmButtonColor: '#0d6efd',
+            timer: 1500
+        }).then(() => {
+            localStorage.removeItem("id_usuario")
+            localStorage.removeItem("prestador")
+            location.reload()
+        });
     }
 
     useEffect(() => {
@@ -56,21 +62,21 @@ export default function MenuSuperior() {
                     <li><Link href="/">Pagina inicial</Link></li>
 
                     {
-
-                        prestador == "false" ?
+                        id_usuario == null ?
                             <>
                                 <li><Link href="/listagem_prestadores">Prestadores</Link></li>
-                                <li><Link href="/painel"> minhas demandas</Link></li>
-                            </>
-
-                            :
-                            <>
-                                <li><Link href="/painel"> meus trabalhos</Link></li>
                                 <li><Link href="/listagem_demandas">Demandas</Link></li>
-
-
                             </>
-
+                        : prestador == "false" ?
+                            <>
+                                <li><Link href="/listagem_prestadores">Prestadores</Link></li>
+                                <li><Link href="/painel">Minhas Demandas</Link></li>
+                            </>
+                        :
+                            <>
+                                <li><Link href="/painel">Meus Trabalhos</Link></li>
+                                <li><Link href="/listagem_demandas">Demandas</Link></li>
+                            </>
                     }
 
                 </ul>

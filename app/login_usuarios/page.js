@@ -4,6 +4,7 @@ import "./login_usuario.css";
 import { useEffect, useState } from "react";
 import supabase from "../conexao/supabase";
 import { useRouter } from "next/navigation";
+import Swal from 'sweetalert2'
 
 export default function Login() {
 
